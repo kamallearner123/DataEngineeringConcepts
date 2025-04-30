@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas Series and DataFrame Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6 max-w-4xl">
+        <h1 class="text-4xl font-bold text-center text-blue-800 mb-6">Pandas Series and DataFrame Tutorial</h1>
+
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Introduction</h2>
+            <p class="text-gray-700 mb-4">
+                Pandas is a powerful Python library for data manipulation and analysis. It provides two key data structures:
+            </p>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Series</strong>: A one-dimensional labeled array for single-column data.</li>
+                <li><strong>DataFrame</strong>: A two-dimensional labeled structure for tabular data, like a spreadsheet or SQL table.</li>
+            </ul>
+            <p class="text-gray-700 mt-4">
+                This tutorial guides you through creating, manipulating, and analyzing data using Series and DataFrames with practical examples.
+            </p>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Prerequisites</h2>
+            <ul class="list-disc list-inside text-gray-700">
+                <li>Install Python (version 3.6 or higher).</li>
+                <li>Install Pandas: Run <code class="bg-gray-200 px-1 rounded">pip install pandas</code>.</li>
+                <li>Install NumPy (optional, for numerical operations): Run <code class="bg-gray-200 px-1 rounded">pip install numpy</code>.</li>
+                <li>Use a Python environment (e.g., Jupyter Notebook, VS Code, or any IDE).</li>
+            </ul>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Part 1: Pandas Series</h2>
+            <p class="text-gray-700 mb-4">
+                A <strong>Series</strong> is a 1D labeled array that can hold any data type (integers, strings, floats, etc.). Think of it as a labeled list or a single column.
+            </p>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 1: Creating a Series</h3>
+            <p class="text-gray-700 mb-2">Create a Series from a list, dictionary, or NumPy array.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+import pandas as pd
+
+# Create a Series from a list
+data = [10, 20, 30, 40]
+series = pd.Series(data, index=['a', 'b', 'c', 'd'])
+print(series)
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+a    10
+b    20
+c    30
+d    40
+dtype: int64
+            </pre>
+            <p class="text-gray-700 mt-2">
+                <code>data</code>: The values in the Series.<br>
+                <code>index</code>: Custom labels (defaults to 0, 1, 2, ... if not specified).
+            </p>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 2: Accessing Elements</h3>
+            <p class="text-gray-700 mb-2">Access elements using labels or positions.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Access by label
+print(series['b'])  # Output: 20
+
+# Access by position
+print(series[1])    # Output: 20
+
+# Slicing
+print(series['a':'c'])
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+a    10
+b    20
+c    30
+dtype: int64
+            </pre>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 3: Basic Operations</h3>
+            <p class="text-gray-700 mb-2">Series support vectorized operations (element-wise calculations).</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Add 5 to all elements
+print(series + 5)
+
+# Filter values greater than 20
+print(series[series > 20])
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+a    15
+b    25
+c    35
+d    45
+dtype: int64
+
+c    30
+d    40
+dtype: int64
+            </pre>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 4: Handling Missing Data</h3>
+            <p class="text-gray-700 mb-2">Series can handle missing data using <code>NaN</code>.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Create a Series with missing data
+series_with_nan = pd.Series([1, None, 3], index=['x', 'y', 'z'])
+print(series_with_nan)
+
+# Check for missing values
+print(series_with_nan.isna())
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+x    1.0
+y    NaN
+z    3.0
+dtype: float64
+
+x    False
+y     True
+z    False
+dtype: bool
+            </pre>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Part 2: Pandas DataFrame</h2>
+            <p class="text-gray-700 mb-4">
+                A <strong>DataFrame</strong> is a 2D labeled data structure with rows and columns, like a table. Each column is a Series.
+            </p>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 1: Creating a DataFrame</h3>
+            <p class="text-gray-700 mb-2">Create a DataFrame from a dictionary or other data structures.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Create a DataFrame from a dictionary
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['New York', 'Los Angeles', 'Chicago']
+}
+df = pd.DataFrame(data)
+print(df)
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+       Name  Age         City
+0    Alice   25     New York
+1      Bob   30  Los Angeles
+2  Charlie   35      Chicago
+            </pre>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 2: Accessing Data</h3>
+            <p class="text-gray-700 mb-2">Access columns, rows, or specific values using labels or positions.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Access a column (returns a Series)
+print(df['Name'])
+
+# Access multiple columns
+print(df[['Name', 'Age']])
+
+# Access a row by index (using loc)
+print(df.loc[1])
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+0      Alice
+1        Bob
+2    Charlie
+Name: Name, dtype: object
+
+       Name  Age
+0    Alice   25
+1      Bob   30
+2  Charlie   35
+
+Name          Bob
+Age            30
+City    Los Angeles
+Name: 1, dtype: object
+            </pre>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 3: Basic Operations</h3>
+            <p class="text-gray-700 mb-2">Perform operations like filtering, adding columns, or aggregating.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Filter rows where Age > 28
+print(df[df['Age'] > 28])
+
+# Add a new column
+df['Salary'] = [50000, 60000, 75000]
+print(df)
+
+# Calculate mean of Age
+print(df['Age'].mean())
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+       Name  Age         City
+1      Bob   30  Los Angeles
+2  Charlie   35      Chicago
+
+       Name  Age         City  Salary
+0    Alice   25     New York   50000
+1      Bob   30  Los Angeles   60000
+2  Charlie   35      Chicago   75000
+
+30.0
+            </pre>
+
+            <h3 class="text-xl font-semibold text-blue-600 mb-2">Step 4: Handling Missing Data</h3>
+            <p class="text-gray-700 mb-2">Handle missing data with methods like <code>dropna</code> or <code>fillna</code>.</p>
+            <pre class="bg-gray-800 text-white p-4 rounded-lg overflow-x-auto">
+<code>
+# Introduce missing data
+df.loc[1, 'Age'] = None
+print(df)
+
+# Fill missing values with the mean
+df['Age'] = df['Age'].fillna(df['Age'].mean())
+print(df)
+</code>
+            </pre>
+            <p class="text-gray-700 mt-2"><strong>Output:</strong></p>
+            <pre class="bg-gray-100 p-4 rounded-lg">
+       Name   Age         City  Salary
+0    Alice  25.0     New York   50000
+1      Bob   NaN  Los Angeles   60000
+2  Charlie  35.0      Chicago   75000
+
+       Name   Age         City  Salary
+0    Alice  25.0     New York   50000
+1      Bob  30.0  Los Angeles   60000
+2  Charlie  35.0      Chicago   75000
+            </pre>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Conclusion</h2>
+            <p class="text-gray-700">
+                This tutorial covered the basics of Pandas Series and DataFrames, including creation, data access, operations, and handling missing data. Series are ideal for single-column data, while DataFrames excel at managing tabular data. Practice these examples in a Python environment to build your data manipulation skills.
+            </p>
+            <p class="text-gray-700 mt-4">
+                For more advanced features, explore the <a href="https://pandas.pydata.org/docs/" class="text-blue-600 underline" target="_blank">Pandas documentation</a>.
+            </p>
+        </section>
+    </div>
+</body>
+</html>
