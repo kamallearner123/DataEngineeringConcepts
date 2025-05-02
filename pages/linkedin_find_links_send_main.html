@@ -1,0 +1,113 @@
+from linkedin_scraper import Company, actions
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+import pandas as pd
+import time
+import re
+
+# Configuration
+LINKEDIN_EMAIL = "your_email@example.com"  # Replace with your LinkedIn email
+LINKEDIN_PASSWORD = "your_password"  # Replace with your LinkedIn password
+COMPANY_URL = "https://www.linkedin.com/company/google"  # Replace with target company LinkedIn URL
+COMPANY_DOMAIN = "google.com"  # Replace with company email domain
+OUTPUT_CSV = "linkedin_employees.csv"
+NUM_PAGES = 2  # Number of employee pages to scrape (keep small to avoid detection)
+
+# Common email formats
+EMAIL_FORMATS = [
+    "{first}.{last}@{domain}",
+    "{first}{last}@{domain}",
+    "{first}@{domain}",
+    "{first[0]}{last}@{domain}",
+    "{first[0]}.{last}@{domain}"
+]
+
+def generate_emails(first_name, last_name, domain):
+    """Generate possible email addresses based on name and domain."""
+    emails = []
+    first = first_name.lower().replace(" ", "")
+    last = last_name.lower().replace(" ", "")
+    for fmt in EMAIL_FORMATS:
+        try:
+            email = fmt.format(first=first, last=last, domain=domain)
+            emails.append(email)
+        except:
+            continue
+    return emails
+
+def clean_name(name):
+    """Clean name by removing emojis and special characters."""
+    if not name:
+        return None, None
+    # Remove emojis and special characters
+    name = re.sub(r'[^\w\s]', '', name).strip()
+    parts = name.split()
+    if len(parts) >= 2:
+        return parts[0], parts[-1]
+    return parts[0] if parts else None, None
+
+def scrape_company_employees():
+    """Scrape employee data from LinkedIn company page and generate emails."""
+    # Set up Chrome driver
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    
+    try:
+        # Log in to LinkedIn
+        actions.login(driver, LINKEDIN_EMAIL, LINKEDIN_PASSWORD)
+        time.sleep(2)  # Wait for login to complete
+
+        # Initialize company scraper
+        company = Company(COMPANY_URL, driver=driver, get_employees=True, close_on_complete=False)
+        
+        employees = []
+        for page in range(1, NUM_PAGES + 1):
+            # Navigate to employee search page (manually constructed URL for people search)
+            employee_url = f"{COMPANY_URL}/people/?page={page}"
+            driver.get(employee_url)
+            time.sleep(3)  # Wait for page to load
+
+            # Parse page with BeautifulSoup
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            profile_cards = soup.find_all("a", class_="app-aware-link")  # Employee profile links
+
+            for card in profile_cards:
+                try:
+                    # Extract name and job title
+                    name_elem = card.find("span", class_="entity-result__title-text")
+                    title_elem = card.find("div", class_="entity-result__primary-subtitle")
+                    
+                    name = name_elem.get_text().strip() if name_elem else None
+                    job_title = title_elem.get_text().strip() if title_elem else None
+
+                    if name and job_title:
+                        first_name, last_name = clean_name(name)
+                        if first_name and last_name:
+                            # Generate possible emails
+                            possible_emails = generate_emails(first_name, last_name, COMPANY_DOMAIN)
+                            employees.append({
+                                "First Name": first_name,
+                                "Last Name": last_name,
+                                "Job Title": job_title,
+                                "Possible Emails": "; ".join(possible_emails)
+                            })
+                except Exception as e:
+                    print(f"Error processing profile: {e}")
+            
+            print(f"Scraped page {page} of employees")
+
+        # Save to CSV
+        if employees:
+            df = pd.DataFrame(employees)
+            df.to_csv(OUTPUT_CSV, index=False, encoding='utf-8')
+            print(f"Saved {len(employees)} employee records to {OUTPUT_CSV}")
+        else:
+            print("No employees scraped.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        driver.quit()
+
+if __name__ == "__main__":
+    scrape_company_employees()
