@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -97,7 +98,8 @@
 <body>
 
   <header>
-    <img src="logo.png" alt="Company Logo" />
+    <img src="{% static 'images/logo.png' %}" alt="Logo">
+
     <nav>
       <a href="#about">About Us</a>
       <a href="#tutorials">Tutorials</a>
