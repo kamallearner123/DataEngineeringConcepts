@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Assignments: Strings, Dictionaries, and Sets (Level 2)</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .assignment {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Assignments: Strings, Dictionaries, and Sets (Level 2)</h1>
+    </header>
+
+    <section>
+        <h2>Level 2 Assignments</h2>
+        <p>Below are five intermediate-level assignments on Strings, Dictionaries, and Sets. These challenges combine multiple concepts, handle edge cases, and include creative twists to test your Python skills. Perfect for learners comfortable with basic Python!</p>
+
+        <div class="assignment">
+            <h3>Assignment 1: Palindrome Sentence Analyzer (Strings)</h3>
+            <p><strong>Description:</strong> Write a program that takes a sentence as input and determines if it forms a palindrome when considering only alphabetic characters (ignoring spaces, punctuation, and case). Return the cleaned string (lowercase, alphabetic characters only) and whether it’s a palindrome.</p>
+            <p><strong>Twist:</strong> If the cleaned string is a palindrome and has more than 5 characters, append " - Epic Palindrome!" to the output.</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li>Input: "A man, a plan, a canal: Panama" → Output: "amanaplanacanalpanama is a palindrome - Epic Palindrome!"</li>
+                <li>Input: "race a car" → Output: "raceacar is not a palindrome"</li>
+                <li>Input: "deked" → Output: "deked is a palindrome"</li>
+            </ul>
+            <p><strong>Hint:</strong> Use string methods like <code>lower()</code>, <code>isalpha()</code>, and slicing.</p>
+        </div>
+
+        <div class="assignment">
+            <h3>Assignment 2: Inventory Manager (Dictionaries)</h3>
+            <p><strong>Description:</strong> Create a program that manages an inventory dictionary with item names as keys and quantities as values. The program takes a space-separated input of item names and updates the inventory: add 1 to the quantity if the item exists, or add the item with quantity 1 if it doesn’t. Handle invalid inputs (e.g., empty strings).</p>
+            <p><strong>Twist:</strong> If an item’s quantity reaches exactly 5, mark it as "Fully Stocked" in the output instead of showing the number.</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li>Input: "apple banana apple" (initial inventory: {"apple": 3, "orange": 4}) → Output: {"apple": 5, "orange": 4, "banana": 1} → "apple: Fully Stocked, orange: 4, banana: 1"</li>
+                <li>Input: "  banana" → Output: "Invalid input: empty item name"</li>
+            </ul>
+            <p><strong>Hint:</strong> Use <code>get()</code> and dictionary iteration.</p>
+            <div class="code-box">
+                <pre><code class="language-python">inventory = {"apple": 3, "orange": 4}
+</code></pre>
+            </div>
+        </div>
+
+        <div class="assignment">
+            <h3>Assignment 3: Set-Based Anagram Grouper (Sets)</h3>
+            <p><strong>Description:</strong> Write a program that takes a space-separated list of words and groups them by their anagrams using sets. Output a dictionary where keys are sorted character strings (representing the anagram) and values are sets of words that are anagrams of each other.</p>
+            <p><strong>Twist:</strong> If a group has exactly two anagrams, prefix the group’s output with "Twin Anagrams: ".</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li>Input: "cat act dog god" → Output: {"act": Twin Anagrams: {"cat", "act"}, "dgo": Twin Anagrams: {"dog", "god"}}</li>
+                <li>Input: "cat hat mat" → Output: {"aht": {"hat"}, "amt": {"mat"}, "act": {"cat"}}</li>
+            </ul>
+            <p><strong>Hint:</strong> Use <code>sorted()</code> on word characters to create a key and sets to store anagrams.</p>
+        </div>
+
+        <div class="assignment">
+            <h3>Assignment 4: Custom String Encoder (Strings)</h3>
+            <p><strong>Description:</strong> Write a program that takes a string and encodes it by replacing each vowel (a, e, i, o, u, case-insensitive) with its position in the string (1-based indexing). Non-vowel characters remain unchanged.</p>
+            <p><strong>Twist:</strong> If the encoded string contains three or more digits in a row, append " - Number Overload!" to the output.</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li>Input: "hello" → Output: "h2ll4 - Number Overload!" (e→2, o→5)</li>
+                <li>Input: "python" → Output: "p2th3n" (o→2, y→3)</li>
+            </ul>
+            <p><strong>Hint:</strong> Use string iteration, <code>lower()</code>, and check for consecutive digits.</p>
+        </div>
+
+        <div class="assignment">
+            <h3>Assignment 5: Social Network Analyzer (Sets)</h3>
+            <p><strong>Description:</strong> Create a program that takes a dictionary of users and their friend sets, and a pair of user names as input. Output the union, intersection, and symmetric difference of their friend sets. Handle cases where a user doesn’t exist.</p>
+            <p><strong>Twist:</strong> If the intersection is empty, suggest a mutual friend from the symmetric difference (if any) to connect them.</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li>Input: "Alice Bob" (network: {"Alice": {"Charlie", "Dave"}, "Bob": {"Dave", "Eve"}}) → Output: Union: {"Charlie", "Dave", "Eve"}, Intersection: {"Dave"}, Symmetric Difference: {"Charlie", "Eve"}</li>
+                <li>Input: "Alice Charlie" (network: {"Alice": {"Dave"}, "Charlie": {"Eve"}}) → Output: Union: {"Dave", "Eve"}, Intersection: {}, Symmetric Difference: {"Dave", "Eve"} - Suggest mutual friend: Dave</li>
+            </ul>
+            <p><strong>Hint:</strong> Use set operations (<code>|</code>, <code>&</code>, <code>^</code>) and <code>get()</code>.</p>
+            <div class="code-box">
+                <pre><code class="language-python">network = {"Alice": {"Charlie", "Dave"}, "Bob": {"Dave", "Eve"}, "Charlie": {"Eve"}}
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

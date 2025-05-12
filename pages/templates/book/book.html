@@ -7,21 +7,21 @@
     <aside style="width: 25%; border-right: 1px solid #ccc; padding-right: 1rem;">
         <h3>Topics</h3>
         <ul>
-            {% for topic_name, subtopics in structure.items %}
-                <li>
-                    <strong>{{ topic_name }}</strong>
-                    <ul>
-                        {% for sub in subtopics %}
-                            <li>
-                                <a href="{% url 'book_detail' topic_name sub %}"
-                                    {% if topic_name == selected_topic and sub == selected_subtopic %}style="font-weight: bold;"{% endif %}>
-                                    {{ sub }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
+                {% for topic_name, subtopics in structure.items %}
+                    <li>
+                        <strong>{{ topic_name }}</strong>
+                        <ul>
+                            {% for sub in subtopics %}
+                                <li>
+                                    <a href="{% url 'book_detail' topic_name sub %}"
+                                       {% if topic_name == selected_topic and sub == selected_subtopic %}style="font-weight: bold;"{% endif %}>
+                                        {{ sub }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
         </ul>
     </aside>
 

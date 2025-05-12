@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Installation & Setup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Command' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-python::before {
+            content: 'Python' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Installation & Setup</h1>
+    </header>
+
+    <section>
+        <h2>Installing Python on Windows</h2>
+        <p>To install Python on Windows, visit the official Python website at <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a>. Download the latest version (e.g., Python 3.11). Run the installer and ensure you check the box for <code>Add Python to PATH</code> before clicking "Install Now".</p>
+        <p>Verify the installation by opening Command Prompt and running:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python --version
+</code></pre>
+        </div>
+        <p>This should display the installed Python version (e.g., Python 3.11.4).</p>
+
+        <h2>Installing Python on macOS</h2>
+        <p>Download the macOS installer from <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a>. Run the installer and follow the prompts. Alternatively, use Homebrew for a more streamlined installation:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">brew install python
+</code></pre>
+        </div>
+        <p>Verify the installation by opening Terminal and running:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python3 --version
+</code></pre>
+        </div>
+        <p>Note: Use <code>python3</code> to avoid conflicts with the system Python (Python 2).</p>
+
+        <h2>Installing Python on Linux</h2>
+        <p>Most Linux distributions come with Python pre-installed. To install or upgrade Python, use your package manager. For Ubuntu/Debian, run:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">sudo apt update
+sudo apt install python3
+</code></pre>
+        </div>
+        <p>For Fedora, use:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">sudo dnf install python3
+</code></pre>
+        </div>
+        <p>Verify the installation:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python3 --version
+</code></pre>
+        </div>
+
+        <h2>Setting Up a Python Development Environment</h2>
+        <p>A good Integrated Development Environment (IDE) enhances Python development. Popular choices include:</p>
+        <ul>
+            <li><strong>Visual Studio Code (VS Code):</strong> Lightweight, with Python extensions for linting, debugging, and IntelliSense. Download from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a>.</li>
+            <li><strong>PyCharm:</strong> Feature-rich IDE for professional developers, available at <a href="https://www.jetbrains.com/pycharm/" target="_blank">jetbrains.com/pycharm</a>.</li>
+        </ul>
+        <p>For VS Code, install the Python extension and configure it to use your Python interpreter:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python3 -m pip install --user pylint
+</code></pre>
+        </div>
+
+        <h2>Using Python Virtual Environments</h2>
+        <p>Virtual environments isolate project dependencies. Create a virtual environment using:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python3 -m venv myenv
+</code></pre>
+        </div>
+        <p>Activate it:</p>
+        <ul>
+            <li><strong>Windows:</strong></li>
+            <div class="code-box">
+                <pre><code class="language-bash">myenv\Scripts\activate
+</code></pre>
+            </div>
+            <li><strong>macOS/Linux:</strong></li>
+            <div class="code-box">
+                <pre><code class="language-bash">source myenv/bin/activate
+</code></pre>
+            </div>
+        </ul>
+        <p>Deactivate by running:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">deactivate
+</code></pre>
+        </div>
+
+        <h2>Installing and Managing Packages with pip</h2>
+        <p><code>pip</code> is Python’s package manager. Install a package (e.g., <code>requests</code>) with:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">pip install requests
+</code></pre>
+        </div>
+        <p>List installed packages:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">pip list
+</code></pre>
+        </div>
+        <p>Upgrade a package:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">pip install --upgrade requests
+</code></pre>
+        </div>
+        <p>Use <code>requirements.txt</code> to manage dependencies:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python"># requirements.txt
+requests==2.28.1
+numpy==1.24.3
+</code></pre>
+        </div>
+        <p>Install from <code>requirements.txt</code>:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">pip install -r requirements.txt
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What happens if you forget to check "Add Python to PATH" during Windows installation, and how can you fix it?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> If "Add Python to PATH" is not checked, running <code>python</code> in Command Prompt will result in a "command not found" error.</p>
+                <p><strong>Fix:</strong> Manually add Python to the PATH environment variable or reinstall Python with the option enabled. To add manually, edit the PATH variable in System Properties to include the Python installation directory (e.g., <code>C:\Python311</code>) and Scripts directory.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why might <code>pip</code> install a package globally instead of in a virtual environment, and how can you ensure it installs in the virtual environment?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> If the virtual environment is not activated, <code>pip</code> installs packages globally.</p>
+                <p><strong>Fix:</strong> Activate the virtual environment before running <code>pip install</code> (e.g., <code>source myenv/bin/activate</code> on macOS/Linux). Verify the active environment by checking that the terminal prompt shows the environment name.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What is the output of the following command in a virtual environment, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-bash">pip list
+</code></pre>
+            </div>
+            <p>Assume the virtual environment was just created and no additional packages were installed.</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> The output will show only <code>pip</code> and <code>setuptools</code> with their versions (e.g., <code>pip 23.2.1</code>, <code>setuptools 68.0.0</code>).</p>
+                <p><strong>Explanation:</strong> A newly created virtual environment includes only <code>pip</code> and <code>setuptools</code> by default, as these are essential for package management. No other packages are installed until explicitly added.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

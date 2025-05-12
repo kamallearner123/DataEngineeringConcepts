@@ -9,17 +9,16 @@ from django.contrib.auth.decorators import login_required
 HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'html_pages')
 
 def get_directory_structure():
-    """Scan the html_pages directory and return a dictionary of topics and subtopics."""
+    """Scan the html_pages directory and return a dictionary of topics and subtopics in alphanumeric order."""
     structure = {}
     if os.path.exists(HTML_PAGES_DIR):
-        for folder in os.listdir(HTML_PAGES_DIR):
+        for folder in sorted(os.listdir(HTML_PAGES_DIR), key=str.lower):
             folder_path = os.path.join(HTML_PAGES_DIR, folder)
             if os.path.isdir(folder_path):
                 structure[folder] = []
-                for file in os.listdir(folder_path):
+                for file in sorted(os.listdir(folder_path), key=str.lower):
                     if file.endswith('.html'):
                         structure[folder].append(file)
-                structure[folder].sort()  # Sort subtopics alphabetically
     return structure
 
 def book_view(request, topic=None, subtopic=None):

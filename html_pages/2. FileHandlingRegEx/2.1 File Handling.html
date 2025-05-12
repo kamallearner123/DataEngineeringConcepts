@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python File Handling</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python File Handling</h1>
+    </header>
+
+    <section>
+        <h2>Opening and Closing Files</h2>
+        <h3>Using the open() Function</h3>
+        <p>The <code>open()</code> function opens a file in a specified mode, such as read, write, or append, and supports text or binary modes.</p>
+        <div class="code-box">
+            <pre><code class="language-python">file = open("example.txt", "r")  # Open for reading
+file.close()  # Always close the file
+</code></pre>
+        </div>
+
+        <h3>File Modes</h3>
+        <p>Common file modes include: <code>r</code> (read), <code>w</code> (write, overwrites), <code>a</code> (append), <code>r+</code> (read and write), <code>wb</code> (write binary).</p>
+        <div class="code-box">
+            <pre><code class="language-python">file = open("data.bin", "wb")  # Write binary mode
+file.close()
+file = open("log.txt", "a")    # Append mode
+file.close()
+</code></pre>
+        </div>
+
+        <h3>Properly Closing Files with close()</h3>
+        <p>Always close files using <code>close()</code> to free system resources, but errors can leave files open.</p>
+        <div class="code-box">
+            <pre><code class="language-python">file = open("example.txt", "r")
+content = file.read()
+file.close()  # Ensure file is closed
+</code></pre>
+        </div>
+
+        <h3>Using the with Statement</h3>
+        <p>The <code>with</code> statement automatically closes files, even if an error occurs, making it the preferred method.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("example.txt", "r") as file:
+    content = file.read()
+# File is automatically closed after the block
+print("File closed:", file.closed)  # Output: File closed: True
+</code></pre>
+        </div>
+
+        <h2>Reading Files</h2>
+        <h3>Reading Entire Files with read()</h3>
+        <p>The <code>read()</code> method reads the entire file content into a string.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("example.txt", "r") as file:
+    content = file.read()
+print(content)  # Output: Entire file content
+</code></pre>
+        </div>
+
+        <h3>Reading Line by Line with readline() or readlines()</h3>
+        <p><code>readline()</code> reads one line, while <code>readlines()</code> returns a list of all lines.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("example.txt", "r") as file:
+    line1 = file.readline()  # First line
+    lines = file.readlines() # Remaining lines as list
+print(line1.strip())  # Output: First line
+print(lines)          # Output: ['Second line\n', 'Third line\n']
+</code></pre>
+        </div>
+
+        <h3>Iterating Over Files Line by Line</h3>
+        <p>Iterate directly over a file object to read lines efficiently.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("example.txt", "r") as file:
+    for line in file:
+        print(line.strip())  # Output: Each line without trailing newline
+</code></pre>
+        </div>
+
+        <h3>Handling Large Files Efficiently</h3>
+        <p>For large files, use line-by-line iteration or <code>read(size)</code> to avoid loading the entire file into memory.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("large_file.txt", "r") as file:
+    while True:
+        chunk = file.read(1024)  # Read 1024 bytes at a time
+        if not chunk:
+            break
+        print(chunk, end="")
+</code></pre>
+        </div>
+
+        <h2>Writing to Files</h2>
+        <h3>Writing Strings with write()</h3>
+        <p>The <code>write()</code> method writes a string to a file; it doesn’t add newlines automatically.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("output.txt", "w") as file:
+    file.write("Hello, World!\n")
+# File now contains: Hello, World!
+</code></pre>
+        </div>
+
+        <h3>Writing Multiple Lines with writelines()</h3>
+        <p><code>writelines()</code> writes a list of strings to a file without adding newlines.</p>
+        <div class="code-box">
+            <pre><code class="language-python">lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
+with open("output.txt", "w") as file:
+    file.writelines(lines)
+# File contains: Line 1
+#               Line 2
+#               Line 3
+</code></pre>
+        </div>
+
+        <h3>Appending to Existing Files</h3>
+        <p>Use <code>a</code> mode to append data to the end of a file without overwriting.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("log.txt", "a") as file:
+    file.write("New entry\n")
+# Appends "New entry" to the file
+</code></pre>
+        </div>
+
+        <h3>Overwriting vs. Appending</h3>
+        <p><code>w</code> mode overwrites the file, creating a new one if it doesn’t exist, while <code>a</code> mode adds to the end.</p>
+        <div class="code-box">
+            <pre><code class="language-python">with open("data.txt", "w") as file:
+    file.write("Overwritten\n")  # Replaces file content
+with open("data.txt", "a") as file:
+    file.write("Appended\n")     # Adds to existing content
+# File contains: Overwritten
+#                Appended
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">with open("test.txt", "w") as file:
+    file.write("First line\nSecond line")
+with open("test.txt", "r") as file:
+    print(file.read(10))
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> First line</p>
+                <p><strong>Explanation:</strong> The file is first written with "First line\nSecond line". The <code>read(10)</code> method reads the first 10 bytes, which is "First line" (9 characters + 1 newline).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why does this code raise an error, and how can it be fixed to append safely?</p>
+            <div class="code-box">
+                <pre><code class="language-python">file = open("log.txt", "r")
+file.write("New log entry\n")
+file.close()
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The code raises an <code>io.UnsupportedOperation</code> error because the file is opened in read-only mode (<code>"r"</code>), which doesn’t allow writing.</p>
+                <p><strong>Fix:</strong> Use <code>"a"</code> mode to append and the <code>with</code> statement for safety.</p>
+                <div class="code-box">
+                    <pre><code class="language-python">with open("log.txt", "a") as file:
+    file.write("New log entry\n")
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">with open("data.txt", "w") as file:
+    file.writelines(["A\n", "B\n"])
+with open("data.txt", "a") as file:
+    file.write("C\n")
+with open("data.txt", "r") as file:
+    lines = file.readlines()
+print(len(lines))
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> 3</p>
+                <p><strong>Explanation:</strong> The file is first overwritten with "A\nB\n" (two lines). Then, "C\n" is appended, resulting in three lines: "A\n", "B\n", "C\n". <code>readlines()</code> returns a list of these three lines, so <code>len(lines)</code> is 3.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

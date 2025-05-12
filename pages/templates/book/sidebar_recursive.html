@@ -1,0 +1,17 @@
+{% for key, value in node.items %}
+    {% if value.items %}
+        <li>
+            <strong>{{ key }}</strong>
+            <ul>
+                {% include "book/sidebar_recursive.html" with node=value %}
+            </ul>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'pages/topic' selected_topic value %}"
+               {% if value == selected_subtopic %}style="font-weight: bold;"{% endif %}>
+                {{ key }}
+            </a>
+        </li>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Control Flow</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6; /* Increased line spacing */
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6; /* Increased line spacing for code */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Control Flow</h1>
+    </header>
+
+    <section>
+        <h2>Conditional Statements (if, elif, else)</h2>
+        <p>Conditional statements allow you to execute code based on conditions using <code>if</code>, <code>elif</code>, and <code>else</code>.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># Conditional example
+score = 85
+if score >= 90:
+    print("Grade: A")
+elif score >= 80:
+    print("Grade: B")
+else:
+    print("Grade: C")
+# Output: Grade: B
+</code></pre>
+        </div>
+
+        <h2>Loops: for and while Loops</h2>
+        <p>Loops iterate over sequences (<code>for</code>) or until a condition is met (<code>while</code>).</p>
+        <div class="code-box">
+            <pre><code class="language-python"># For loop
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+# Output: apple
+#         banana
+#         cherry
+
+# While loop
+count = 1
+while count <= 3:
+    print(count)
+    count += 1
+# Output: 1
+#         2
+#         3
+</code></pre>
+        </div>
+
+        <h2>Break, Continue, and Pass Statements</h2>
+        <p><code>break</code> exits a loop, <code>continue</code> skips to the next iteration, and <code>pass</code> is a placeholder that does nothing.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># Break and continue
+for i in range(5):
+    if i == 3:
+        break
+    if i == 1:
+        continue
+    print(i)
+# Output: 0
+#         2
+
+# Pass
+for i in range(2):
+    pass  # Placeholder, no action
+</code></pre>
+        </div>
+
+        <h2>Nested Control Structures</h2>
+        <p>Nested structures combine conditionals and loops within each other for complex logic.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># Nested loop and conditional
+for i in range(3):
+    if i % 2 == 0:
+        for j in range(2):
+            print(f"i={i}, j={j}")
+# Output: i=0, j=0
+#         i=0, j=1
+#         i=2, j=0
+#         i=2, j=1
+</code></pre>
+        </div>
+
+        <h2>Exception Handling (try, except, finally)</h2>
+        <p>Exception handling manages errors using <code>try</code>, <code>except</code>, and <code>finally</code> blocks.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># Exception handling
+try:
+    num = int(input("Enter a number: "))
+    print(10 / num)
+except ValueError:
+    print("Invalid input, please enter a number")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+finally:
+    print("Execution complete")
+# Example input: 0
+# Output: Cannot divide by zero
+#         Execution complete
+</code></pre>
+        </div>
+
+        <h2>Logical and Comparison Operators</h2>
+        <p>Logical operators (<code>and</code>, <code>or</code>, <code>not</code>) and comparison operators (<code>==</code>, <code>!=</code>, <code>></code>, etc.) evaluate conditions.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># Logical and comparison operators
+x = 10
+if x > 5 and x < 15:
+    print("x is between 5 and 15")
+# Output: x is between 5 and 15
+print(not x == 10)  # Output: False
+</code></pre>
+        </div>
+
+        <h2>Comprehensions (List, Dictionary)</h2>
+        <p>Comprehensions provide a concise way to create lists or dictionaries using loops and conditionals.</p>
+        <div class="code-box">
+            <pre><code class="language-python"># List comprehension
+squares = [x**2 for x in range(5)]
+print(squares)  # Output: [0, 1, 4, 9, 16]
+
+# Dictionary comprehension
+numbers = {x: x*2 for x in range(3)}
+print(numbers)  # Output: {0: 0, 1: 2, 2: 4}
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">for i in range(5):
+    if i % 2 == 0:
+        print(i)
+    else:
+        continue
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> 0, 2, 4</p>
+                <p><strong>Explanation:</strong> The loop iterates over <code>range(5)</code> (0 to 4). If <code>i</code> is even (<code>i % 2 == 0</code>), it prints <code>i</code>. If odd, <code>continue</code> skips to the next iteration, so only even numbers (0, 2, 4) are printed.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> What is wrong with this code, and how can it be fixed to handle the error?</p>
+            <div class="code-box">
+                <pre><code class="language-python">numbers = [1, 2, "3", 4]
+total = 0
+for num in numbers:
+    total += num
+print(total)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The code raises a <code>TypeError</code> because it tries to add a string (<code>"3"</code>) to an integer.</p>
+                <p><strong>Fix:</strong> Use exception handling to convert strings to integers or skip invalid types.</p>
+                <div class="code-box">
+                    <pre><code class="language-python">numbers = [1, 2, "3", 4]
+total = 0
+for num in numbers:
+    try:
+        total += int(num)
+    except ValueError:
+        continue
+print(total)  # Output: 10
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">evens = [x for x in range(10) if x % 2 == 0]
+print(evens)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> [0, 2, 4, 6, 8]</p>
+                <p><strong>Explanation:</strong> The list comprehension iterates over <code>range(10)</code> (0 to 9) and includes only numbers where <code>x % 2 == 0</code> (even numbers). Thus, it generates a list of even numbers: [0, 2, 4, 6, 8].</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

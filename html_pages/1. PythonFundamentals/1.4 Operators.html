@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Operators</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Operators</h1>
+    </header>
+
+    <section>
+        <h2>Arithmetic Operators (+, -, *, /, //, %, **)</h2>
+        <p>Arithmetic operators perform mathematical operations on numbers (integers or floats).</p>
+        <div class="code-box">
+            <pre><code class="language-python">a = 10
+b = 3
+print(a + b)   # Output: 13 (addition)
+print(a - b)   # Output: 7 (subtraction)
+print(a * b)   # Output: 30 (multiplication)
+print(a / b)   # Output: 3.3333333333333335 (division)
+print(a // b)  # Output: 3 (floor division)
+print(a % b)   # Output: 1 (modulus)
+print(a ** b)  # Output: 1000 (exponentiation)
+</code></pre>
+        </div>
+
+        <h2>Comparison Operators (==, !=, >, <, >=, <=)</h2>
+        <p>Comparison operators compare values and return a boolean (<code>True</code> or <code>False</code>).</p>
+        <div class="code-box">
+            <pre><code class="language-python">x = 5
+y = 10
+print(x == y)   # Output: False (equal to)
+print(x != y)   # Output: True (not equal to)
+print(x > y)    # Output: False (greater than)
+print(x < y)    # Output: True (less than)
+print(x >= 5)   # Output: True (greater than or equal to)
+print(y <= 10)  # Output: True (less than or equal to)
+</code></pre>
+        </div>
+
+        <h2>Logical Operators (and, or, not)</h2>
+        <p>Logical operators combine boolean expressions to evaluate conditions.</p>
+        <div class="code-box">
+            <pre><code class="language-python">a = True
+b = False
+print(a and b)  # Output: False (both must be True)
+print(a or b)   # Output: True (at least one must be True)
+print(not a)    # Output: False (negates the boolean)
+</code></pre>
+        </div>
+
+        <h2>Bitwise Operators (&, |, ^, ~, <<, >>)</h2>
+        <p>Bitwise operators manipulate individual bits of integers.</p>
+        <div class="code-box">
+            <pre><code class="language-python">x = 10  # Binary: 1010
+y = 4   # Binary: 0100
+print(x & y)   # Output: 0 (AND, 0000)
+print(x | y)   # Output: 14 (OR, 1110)
+print(x ^ y)   # Output: 14 (XOR, 1110)
+print(~x)      # Output: -11 (NOT, inverts bits)
+print(x << 2)  # Output: 40 (left shift, 101000)
+print(x >> 2)  # Output: 2 (right shift, 0010)
+</code></pre>
+        </div>
+
+        <h2>Assignment Operators (=, +=, -=, etc.)</h2>
+        <p>Assignment operators assign values to variables, often combining with arithmetic or bitwise operations.</p>
+        <div class="code-box">
+            <pre><code class="language-python">x = 5
+x += 3  # Equivalent to x = x + 3
+print(x)  # Output: 8
+x *= 2  # Equivalent to x = x * 2
+print(x)  # Output: 16
+x //= 4 # Equivalent to x = x // 4
+print(x)  # Output: 4
+</code></pre>
+        </div>
+
+        <h2>Membership and Identity Operators (in, not in, is, is not)</h2>
+        <p>Membership operators check for presence in sequences, while identity operators compare object identity.</p>
+        <div class="code-box">
+            <pre><code class="language-python">fruits = ["apple", "banana"]
+print("apple" in fruits)      # Output: True
+print("orange" not in fruits) # Output: True
+
+a = [1, 2]
+b = [1, 2]
+c = a
+print(a is b)      # Output: False (different objects)
+print(a is c)      # Output: True (same object)
+print(a is not b)  # Output: True
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">x = 5
+y = 2
+print(x ** y % 3)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> 1</p>
+                <p><strong>Explanation:</strong> First, <code>x ** y</code> computes 5² = 25. Then, <code>25 % 3</code> calculates the remainder when 25 is divided by 3, which is 1 (25 = 3 * 8 + 1).</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why does this code produce an unexpected result, and how can it be fixed to evaluate the condition correctly?</p>
+            <div class="code-box">
+                <pre><code class="language-python">x = 10
+if x > 5 or 15:
+    print("Condition met")
+else:
+    print("Condition not met")
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The code always prints "Condition met" because <code>15</code> is evaluated as <code>True</code> (non-zero integers are truthy), regardless of <code>x > 5</code>.</p>
+                <p><strong>Fix:</strong> Use a complete comparison for the second condition.</p>
+                <div class="code-box">
+                    <pre><code class="language-python">x = 10
+if x > 5 or x < 15:
+    print("Condition met")
+else:
+    print("Condition not met")
+# Output: Condition met
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">a = 12  # Binary: 1100
+b = 10  # Binary: 1010
+print(a & b)
+print(a | b)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> 8, 14</p>
+                <p><strong>Explanation:</strong> For <code>a & b</code>, bitwise AND of 1100 and 1010 is 1000 (8 in decimal). For <code>a | b</code>, bitwise OR of 1100 and 1010 is 1110 (14 in decimal).</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

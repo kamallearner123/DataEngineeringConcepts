@@ -7,4 +7,8 @@ urlpatterns = [
     path('topic <str:topic>/<str:subtopic>/', book_view, name='book_detail'),
 ]
 
-# Create html page about the above topics with interesting points and challenge questions.
+
+'''
+Topic: 
+Create html page about the above topics with interesting points and challenge questions.
+'''

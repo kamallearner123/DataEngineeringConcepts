@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Regular Expressions in Python</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fc;
+            color: #000;
+            margin: 20px;
+        }
+        h1 {
+            color: #003366;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #003366;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #e8f0fe;
+        }
+        tr:hover {
+            background-color: #d0e4ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Regular Expressions in Python – Topic Breakdown</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Subtopics</th>
+                <th>Key Concepts / Examples</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="3">Introduction to Regular Expressions</td>
+                <td>What are regular expressions and their purpose</td>
+                <td>Used for pattern matching in text (e.g., validate email, search words)</td>
+            </tr>
+            <tr>
+                <td>Basic syntax and patterns</td>
+                <td>Literals (e.g., <code>abc</code>), metacharacters (<code>. ^ $ * + ? { } [ ] \ | ( )</code>)</td>
+            </tr>
+            <tr>
+                <td>Using the <code>re</code> module in Python</td>
+                <td><code>import re</code>, using functions like <code>re.match()</code>, <code>re.search()</code>, etc.</td>
+            </tr>
+            <tr>
+                <td rowspan="4">Common RegEx Patterns and Metacharacters</td>
+                <td>Character classes</td>
+                <td><code>[a-z]</code>, <code>[A-Z]</code>, <code>\d</code>, <code>\w</code>, <code>\s</code>, <code>.</code></td>
+            </tr>
+            <tr>
+                <td>Quantifiers</td>
+                <td><code>*</code> (0+), <code>+</code> (1+), <code>?</code> (0/1), <code>{n}</code>, <code>{n,m}</code></td>
+            </tr>
+            <tr>
+                <td>Anchors</td>
+                <td><code>^</code> (start), <code>$</code> (end), <code>\b</code> (word boundary)</td>
+            </tr>
+            <tr>
+                <td>Special characters and escaping</td>
+                <td>Escape metacharacters with <code>\</code>, e.g., <code>\.</code> for dot, <code>\\</code> for backslash</td>
+            </tr>
+            <tr>
+                <td rowspan="4">Matching and Searching with RegEx</td>
+                <td><code>re.match()</code></td>
+                <td>Matches from the <strong>start</strong> of the string</td>
+            </tr>
+            <tr>
+                <td><code>re.search()</code></td>
+                <td>Returns the <strong>first match</strong> anywhere in the string</td>
+            </tr>
+            <tr>
+                <td><code>re.findall()</code> and <code>re.finditer()</code></td>
+                <td><code>findall()</code> returns list of all matches, <code>finditer()</code> gives match objects</td>
+            </tr>
+            <tr>
+                <td>Case-sensitive vs. case-insensitive matching</td>
+                <td>Use <code>re.IGNORECASE</code> or <code>re.I</code> to make matches case-insensitive</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
