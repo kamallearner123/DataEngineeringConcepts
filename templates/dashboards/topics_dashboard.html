@@ -13,6 +13,9 @@
       padding: 0;
       background: linear-gradient(to right, #f5f7fa, #c3cfe2);
       color: #2d2d2d;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -23,6 +26,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .header-content {
@@ -33,14 +40,14 @@
     }
 
     .header-title h1 {
-      font-size: 2em;
+      font-size: 3em;
       margin: 0 0 10px 0;
-      color: #ffffff;
+      color: #ffd700;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     header img.logo {
-      height: 50px;
+      height: 180px;
     }
 
     nav {
@@ -91,65 +98,64 @@
       color: #0a2463;
     }
 
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    .hero h1 {
-      font-size: 2.8em;
-      margin-bottom: 15px;
-      color: #0a2463;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    .hero p {
-      font-size: 1.3em;
-      color: #4a4a4a;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .sections {
+    .container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 30px;
-      gap: 20px;
+      flex: 1;
+      min-height: calc(100vh - 300px); /* Adjust for header and footer */
     }
 
-    .section {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      padding: 25px;
-      flex: 1 1 220px;
-      max-width: 300px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .sidebar {
+      width: 250px;
+      background: #ffffff;
+      padding: 20px;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+      overflow-y: auto;
     }
 
-    .section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
-
-    .section i {
-      font-size: 2em;
-      color: #f57c00;
-      margin-bottom: 15px;
-    }
-
-    .section h2 {
+    .sidebar h2 {
+      margin-top: 0;
       color: #0a2463;
       font-size: 1.5em;
-      margin-bottom: 10px;
     }
 
-    .section p {
-      color: #4a4a4a;
-      font-size: 1em;
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar ul li i {
+      margin-right: 8px;
+      color: #f57c00;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #2d2d2d;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar ul li a:hover {
+      color: #ffd700;
+    }
+
+    .sidebar ul li a.active {
+      color: #f57c00;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow-y: auto;
     }
 
     footer {
@@ -157,13 +163,7 @@
       color: white;
       text-align: center;
       padding: 15px;
-      margin-top: 40px;
       font-size: 0.9em;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 768px) {
@@ -172,20 +172,25 @@
         gap: 10px;
       }
       .header-title h1 {
-        font-size: 1.5em;
+        font-size: 2em;
+      }
+      header img.logo {
+        height: 100px;
       }
       nav {
         gap: 10px;
       }
-      .hero h1 {
-        font-size: 2em;
+      .container {
+        flex-direction: column;
       }
-      .hero p {
-        font-size: 1em;
+      .sidebar {
+        width: 100%;
+        box-shadow: none;
+        border-bottom: 1px solid #ddd;
       }
-      .section {
-        flex: 1 1 100%;
-        max-width: 90%;
+      main {
+        box-shadow: none;
+        border-top: 1px solid #ddd;
       }
     }
   </style>
@@ -193,14 +198,14 @@
 <body>
   <header>
     <a href="/">
-      <img src="{% static 'images/logo.png' %}" alt="APT Computing Hub Logo" class="logo" style="height: 180px;">
-    </a></a>
-
+      <img src="{% static 'images/logo.png' %}" alt="APT Computing Hub Logo" class="logo">
+    </a>
     <div class="header-content">
       <div class="header-title">
-        <h1 style="font-size: 3em; color: #ffd700;">APT Computing Hub</h1>
+        <h1>APT Computing Hub</h1>
       </div>
       <nav>
+        <a href="/" {% if request.path == '/' %}class="active"{% endif %}><i class="fas fa-home"></i> Home</a>
         <a href="#about" {% if request.path == '#about' %}class="active"{% endif %}>About Us</a>
         <a href="/tutorials/" {% if request.path == '/tutorials/' %}class="active"{% endif %}>Tutorials</a>
         <a href="#projects" {% if request.path == '#projects' %}class="active"{% endif %}>Projects</a>
@@ -215,50 +220,31 @@
         <a href="/logout/">Logout</a>
       {% else %}
         <a href="/login/">Login</a>
-        <a href="/register/">Register</a>
       {% endif %}
     </div>
   </header>
 
-  <div class="hero">
-    <h1 style="font-size: 3.5em;">Welcome to APT Computing Hub</h1>
-    <p>Empowering Engineers with Cutting-Edge Data Skills and Innovative Projects!</p>
+  <div class="container">
+
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
   </div>
 
-  {% block content %}
-  <div class="sections">
-    <div class="section" id="about">
-      <i class="fas fa-info-circle"></i>
-      <h2>About Us</h2>
-      <p>Discover our mission to empower engineers with practical data skills.</p>
-    </div>
-    <div class="section" id="tutorials">
-      <i class="fas fa-book-open"></i>
-      <h2>Tutorials</h2>
-      <p>Explore step-by-step guides on data pipelines, ETL, SQL, Python, and more.</p>
-    </div>
-    <div class="section" id="projects">
-      <i class="fas fa-project-diagram"></i>
-      <h2>Projects</h2>
-      <p>Hands-on projects to apply your knowledge in real-world scenarios.</p>
-    </div>
-    <div class="section" id="tools">
-      <i class="fas fa-tools"></i>
-      <h2>Tools</h2>
-      <p>Learn how to use Apache Kafka, Spark, Airflow, DBT, and other tools.</p>
-    </div>
-    <div class="section" id="courses">
-      <i class="fas fa-graduation-cap"></i>
-      <h2>Courses</h2>
-      <p>Join our structured courses to become a certified data engineer.</p>
-    </div>
-    <div class="section" id="events">
-      <i class="fas fa-calendar-alt"></i>
-      <h2>Events</h2>
-      <p>Attend our webinars, hackathons, and community events.</p>
-    </div>
+
+  <div class="comment-section">
+    <h3>Leave a Comment</h3>
+    {% if user.is_authenticated %}
+      <form method="post" action="{% url 'add_comment' %}">
+        {% csrf_token %}
+        <textarea name="comment" placeholder="Write your comment here..." rows="4" required></textarea>
+        <input type="submit" value="Submit Comment">
+      </form>
+    {% else %}
+      <p class="login-prompt">Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    {% endif %}
   </div>
-  {% endblock %}
 
   <footer>
     © 2025 APT Computing Hub. All rights reserved.

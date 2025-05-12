@@ -23,7 +23,8 @@ from django.conf.urls.static import static
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import TemplateView
-
+from django.contrib.auth.views import LogoutView
+from .views import login_view, register_view
 
 def home_page(request):
     return render(request, "home/home.html")  # ✅ matches your template path
@@ -33,4 +34,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # when user open the browser and type localhost:8000, it will redirect to home page with is there in tempaltes/home/home.html
     path("", home_page, name="home"),
+    path("tutorials/", include("pages.urls")),  # Include the URLs from the book app
+    path('login/', login_view, name='login'),
+    path('register/', register_view, name='register'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]

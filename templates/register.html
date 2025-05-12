@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "dashboards/topics_dashboard.html" %}
+
+{% block content %}
+  <h1>Register</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+  </form>
+{% endblock %}
+</html>

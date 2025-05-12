@@ -1,4 +1,4 @@
-#!/usr/bin bash
+#!/bin/zsh
 
 # Configuration
 SERVER_IP="0.0.0.0"
@@ -7,7 +7,7 @@ SERVER_PORT="8000"
 # Postgres Configuration
 # Start Postgres
 # hceck this is MAC or Linux
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ]; then
     brew services start postgresql
 else
     sudo service postgresql start

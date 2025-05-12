@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - APT Computing Hub{% endblock %}
+
+{% block content %}
+<style>
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 400px); /* Adjust for header, hero, and footer */
+    padding: 20px;
+  }
+
+  .login-form {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .login-form h2 {
+    color: #0a2463;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #2d2d2d;
+  }
+
+  .login-form input[type="submit"] {
+    background-color: #0a2463;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-form input[type="submit"]:hover {
+    background-color: #ffd700;
+    color: #0a2463;
+  }
+
+  .login-form .error {
+    color: #f57c00;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+  }
+
+  .login-form a {
+    color: #0a2463;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s ease;
+  }
+
+  .login-form a:hover {
+    color: #ffd700;
+  }
+
+  @media (max-width: 768px) {
+    .login-form {
+      padding: 20px;
+      max-width: 90%;
+    }
+    .login-form h2 {
+      font-size: 1.5em;
+    }
+  }
+</style>
+
+<div class="login-container">
+  <form class="login-form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <h2>Login to APT Computing Hub</h2>
+    {% if form.errors %}
+      <p class="error">Invalid username or password. Please try again.</p>
+    {% endif %}
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <input type="submit" value="Login">
+    <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+    <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+  </form>
+</div>
+{% endblock %}

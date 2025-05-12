@@ -1,0 +1,37 @@
+{% extends "dashboards/topics_dashboard.html" %}
+
+{% block content %}
+<div class="book-container" style="display: flex; gap: 1rem; padding: 1rem;">
+    
+    <!-- Sidebar: Topics and Subtopics -->
+    <aside style="width: 25%; border-right: 1px solid #ccc; padding-right: 1rem;">
+        <h3>Topics</h3>
+        <ul>
+            {% for topic_name, subtopics in structure.items %}
+                <li>
+                    <strong>{{ topic_name }}</strong>
+                    <ul>
+                        {% for sub in subtopics %}
+                            <li>
+                                <a href="{% url 'book_detail' topic_name sub %}"
+                                    {% if topic_name == selected_topic and sub == selected_subtopic %}style="font-weight: bold;"{% endif %}>
+                                    {{ sub }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main style="width: 75%; padding-left: 1rem;">
+        <h2>{{ selected_topic }} - {{ selected_subtopic }}</h2>
+        <div class="book-content">
+            {{ content|safe }}
+        </div>
+    </main>
+
+</div>
+{% endblock %}
