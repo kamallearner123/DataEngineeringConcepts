@@ -22,15 +22,16 @@ def convert_html_to_pdf(input_dir, output_pdf):
         # Check if the directory is not empty
         for file in files:
             if file.endswith('.html'):
+                file_path = os.path.join(root, file)
                 html_files.append(os.path.join(root, file))
                 toc.append(file)
                 # open same html file and add File name as header
-                with open(file, 'r') as f:
+                with open(file_path, 'r') as f:
                     content = f.read()
                 # Add the file name as a header in the HTML content
                 content = f"<h1>{file}</h1>" + content
                 # Write the modified content back to the HTML file
-                with open(file, 'w') as f:
+                with open(file_path, 'w') as f:
                     f.write(content)
 
 
