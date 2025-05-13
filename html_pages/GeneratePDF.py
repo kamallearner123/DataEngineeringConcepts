@@ -18,15 +18,49 @@ def convert_html_to_pdf(input_dir, output_pdf):
         for file in files:
             if file.endswith('.html'):
                 html_files.append(os.path.join(root, file))
-
+    html_files.sort()
     # Create a PDF merger object
     merger = PdfMerger()
+
+    # Create table of contents with file names
+    toc = []
+    for html_file in html_files:
+        # Extract the file name without the extension
+        file_name = os.path.splitext(os.path.basename(html_file))[0]
+        toc.append(file_name)
+        # open same html file and add File name as header
+        with open(html_file, 'r') as f:
+            content = f.read()
+        # Add the file name as a header in the HTML content
+        content = f"<h1>{file_name}</h1>" + content
+        # Write the modified content back to the HTML file
+        with open(html_file, 'w') as f:
+            f.write(content)
+            
+
+    # Create a temporary HTML file for the table of contents
+    toc_html = "<html><body><h1>Table of Contents</h1><ul>"
+    for item in toc:
+        toc_html += f"<li><a href='{item}.html'>{item}</a></li>"
+    toc_html += "</ul></body></html>"
+    toc_file = os.path.join(input_dir, 'toc.html')
+    with open(toc_file, 'w') as f:
+        f.write(toc_html)
+
+    # Convert the table of contents HTML file to PDF and add it to the merger
+    toc_pdf = toc_file.replace('.html', '.pdf')
+    pdfkit.from_file(toc_file, toc_pdf)
+    merger.append(toc_pdf)
+    # remove the temporary TOC PDF file
+    os.remove(toc_pdf)
 
     # Convert each HTML file to PDF and add it to the merger
     for html_file in html_files:
         pdf_file = html_file.replace('.html', '.pdf')
         pdfkit.from_file(html_file, pdf_file)
         merger.append(pdf_file)
+        # remove the temporary PDF file
+        os.remove(pdf_file)
 
     # Write out the merged PDF
     merger.write(output_pdf)
