@@ -85,43 +85,43 @@
     <section>
         <h2>Substituting and Splitting with RegEx</h2>
         <h3>Using re.sub() for Pattern Replacement</h3>
-        <p>The <code>re.sub()</code> function replaces matches of a pattern with a specified string, useful for text manipulation.</p>
+        <p>The <code>re.sub()</code> function replaces all occurrences of a pattern with a specified string, ideal for text transformations.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Replace digits with 'X'
-text = "My number is 12345"
-result = re.sub(r'\d', 'X', text)
-print(result)  # Output: My number is XXXXX
+# Replace digits with asterisks
+text = "Order #12345"
+result = re.sub(r'\d', '*', text)
+print(result)  # Output: Order #*****
 </code></pre>
         </div>
 
         <h3>Using re.split() to Split Strings by Patterns</h3>
-        <p>The <code>re.split()</code> function splits a string based on a regex pattern, allowing flexible delimiter handling.</p>
+        <p>The <code>re.split()</code> function splits a string based on a regex pattern, supporting complex delimiters.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Split on multiple delimiters
-text = "apple,banana;orange grape"
+# Split on commas, semicolons, or spaces
+text = "cat,dog;bird fish"
 result = re.split(r'[,;\s]+', text)
-print(result)  # Output: ['apple', 'banana', 'orange', 'grape']
+print(result)  # Output: ['cat', 'dog', 'bird', 'fish']
 </code></pre>
         </div>
 
         <h3>Practical Examples</h3>
-        <p>Common use cases include anonymizing emails or splitting strings with varied delimiters.</p>
+        <p>Practical applications include masking sensitive data like emails or splitting text with multiple separators.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Replace email addresses
-text = "Contact: alice@example.com or bob@domain.com"
-result = re.sub(r'\b[\w\.-]+@[\w\.-]+\.\w+\b', '[EMAIL]', text)
-print(result)  # Output: Contact: [EMAIL] or [EMAIL]
+# Mask email addresses
+text = "Reach me at john.doe@example.com or jane@company.org"
+result = re.sub(r'\b[\w\.-]+@[\w\.-]+\.\w+\b', '[HIDDEN]', text)
+print(result)  # Output: Reach me at [HIDDEN] or [HIDDEN]
 
 # Split on multiple delimiters
-text = "one,two;three four"
+text = "item1,item2;item3 item4"
 result = re.split(r'[,;\s]+', text)
-print(result)  # Output: ['one', 'two', 'three', 'four']
+print(result)  # Output: ['item1', 'item2', 'item3', 'item4']
 </code></pre>
         </div>
     </section>
@@ -129,60 +129,60 @@ print(result)  # Output: ['one', 'two', 'three', 'four']
     <section>
         <h2>Grouping and Capturing in RegEx</h2>
         <h3>Creating Groups with Parentheses ()</h3>
-        <p>Parentheses <code>()</code> define capture groups, allowing extraction of specific parts of a match.</p>
+        <p>Parentheses <code>()</code> create capture groups to isolate parts of a matched pattern for further use.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Extract area code from phone number
-text = "Call: (123) 456-7890"
+# Capture area code from phone number
+text = "Phone: (415) 555-1234"
 match = re.search(r'\((\d{3})\)', text)
 if match:
-    print(match.group(1))  # Output: 123
+    print(match.group(1))  # Output: 415
 </code></pre>
         </div>
 
         <h3>Accessing Captured Groups in Matches</h3>
-        <p>Captured groups can be accessed via <code>match.group()</code> or iterated with <code>match.groups()</code>.</p>
+        <p>Use <code>match.group(n)</code> to access the nth captured group or <code>match.groups()</code> for all groups.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Extract date parts
-text = "Date: 2023-05-12"
+# Extract date components
+text = "Event on 2025-10-25"
 match = re.search(r'(\d{4})-(\d{2})-(\d{2})', text)
 if match:
-    print(match.groups())  # Output: ('2023', '05', '12')
-    print(match.group(2))  # Output: 05
+    print(match.groups())  # Output: ('2025', '10', '25')
+    print(match.group(1))  # Output: 2025
 </code></pre>
         </div>
 
         <h3>Named Groups and Backreferences</h3>
-        <p>Named groups use <code>(?P<name>...)</code> syntax, and backreferences like <code>\1</code> refer to captured groups.</p>
+        <p>Named groups <code>(?P<name>...)</code> assign names to groups, and backreferences <code>\n</code> reuse captured text.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Named group for email username
-text = "Email: alice@example.com"
-match = re.search(r'(?P<username>[\w\.-]+)@[\w\.-]+\.\w+', text)
+# Named group for username
+text = "Email: user@domain.com"
+match = re.search(r'(?P<user>[\w\.-]+)@[\w\.-]+\.\w+', text)
 if match:
-    print(match.group('username'))  # Output: alice
+    print(match.group('user'))  # Output: user
 
-# Backreference to match repeated word
-text = "hello hello world"
+# Backreference to remove repeated words
+text = "the the quick fox"
 result = re.sub(r'\b(\w+)\s+\1\b', r'\1', text)
-print(result)  # Output: hello world
+print(result)  # Output: the quick fox
 </code></pre>
         </div>
 
         <h3>Non-Capturing Groups</h3>
-        <p>Non-capturing groups <code>(?:...)</code> group patterns without capturing for later use.</p>
+        <p>Non-capturing groups <code>(?:...)</code> group patterns without storing them for capture.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
 # Non-capturing group for protocol
-text = "https://example.com"
+text = "http://website.com"
 match = re.search(r'(?:http|https)://(\w+)', text)
 if match:
-    print(match.group(1))  # Output: example
+    print(match.group(1))  # Output: website
 </code></pre>
         </div>
     </section>
@@ -190,68 +190,68 @@ if match:
     <section>
         <h2>Advanced RegEx Techniques</h2>
         <h3>Lookaheads and Lookbehinds</h3>
-        <p>Lookaheads <code>(?=...)</code> and lookbehinds <code>(?<=...)</code> assert conditions without including them in the match.</p>
+        <p>Positive/negative lookaheads <code>(?=...)</code>/<code>(?!...)</code> and lookbehinds <code>(?<=...)</code>/<code>(?<!...)</code> assert conditions without including them in the match.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Positive lookahead: match digits followed by 'px'
-text = "12px 34em 56px"
-result = re.findall(r'\d+(?=px)', text)
-print(result)  # Output: ['12', '56']
+# Positive lookahead: digits before 'cm'
+text = "10cm 20px 30cm"
+result = re.findall(r'\d+(?=cm)', text)
+print(result)  # Output: ['10', '30']
 
-# Positive lookbehind: match word after 'Mr.'
-text = "Mr. Smith and Mr. Jones"
-result = re.findall(r'(?<=Mr\.)\s*(\w+)', text)
-print(result)  # Output: ['Smith', 'Jones']
+# Negative lookbehind: words not after 'no-'
+text = "no-stop go run no-jump"
+result = re.findall(r'(?<!no-)\b\w+\b', text)
+print(result)  # Output: ['go', 'run']
 </code></pre>
         </div>
 
         <h3>Compiling Patterns with re.compile()</h3>
-        <p>Use <code>re.compile()</code> to precompile patterns for efficiency in repeated use.</p>
+        <p>The <code>re.compile()</code> function precompiles regex patterns for faster execution in repetitive tasks.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Compile pattern for reuse
-pattern = re.compile(r'\b\d{3}\b')
-texts = ["123 is valid", "12 is not", "456 works"]
+# Compile pattern for repeated use
+pattern = re.compile(r'\b\d{4}\b')
+texts = ["Year: 2023", "Code: 12", "Date: 2025"]
 for text in texts:
     if pattern.search(text):
-        print(f"Found in: {text}")  # Output: Found in: 123 is valid
-                                    #         Found in: 456 works
+        print(f"Match in: {text}")  # Output: Match in: Year: 2023
+                                    #         Match in: Date: 2025
 </code></pre>
         </div>
 
         <h3>Handling Multiline Text and Flags</h3>
-        <p>Flags like <code>re.MULTILINE</code> and <code>re.IGNORECASE</code> modify regex behavior for multiline text or case sensitivity.</p>
+        <p>Flags like <code>re.MULTILINE</code> and <code>re.IGNORECASE</code> enable line-specific matching and case-insensitive searches.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Match start of each line with MULTILINE
-text = "start line1\nstart line2"
-pattern = re.compile(r'^start', re.MULTILINE)
+# Match line starts with MULTILINE
+text = "begin line1\nbegin line2"
+pattern = re.compile(r'^begin', re.MULTILINE)
 result = pattern.findall(text)
-print(result)  # Output: ['start', 'start']
+print(result)  # Output: ['begin', 'begin']
 
-# Case-insensitive match
-text = "Hello WORLD"
-pattern = re.compile(r'hello', re.IGNORECASE)
-result = pattern.search(text)
-print(result.group())  # Output: Hello
+# Case-insensitive search
+text = "Python PYTHON python"
+pattern = re.compile(r'python', re.IGNORECASE)
+result = pattern.findall(text)
+print(result)  # Output: ['Python', 'PYTHON', 'python']
 </code></pre>
         </div>
 
         <h3>Debugging and Testing RegEx Patterns</h3>
-        <p>Use <code>re.finditer()</code> to inspect matches or online tools like regex101.com for testing patterns.</p>
+        <p>Use <code>re.finditer()</code> to inspect match details or tools like regex101.com to test and refine patterns.</p>
         <div class="code-box">
             <pre><code class="language-python">import re
 
-# Debug with finditer
-text = "Dates: 2023-05-12, 2024-06-15"
+# Inspect matches with finditer
+text = "Events: 2023-01-01, 2024-02-02"
 pattern = re.compile(r'\d{4}-\d{2}-\d{2}')
 for match in pattern.finditer(text):
-    print(f"Match: {match.group()} at {match.start()}-{match.end()}")
-# Output: Match: 2023-05-12 at 7-17
-#         Match: 2024-06-15 at 19-29
+    print(f"Found {match.group()} at {match.start()}-{match.end()}")
+# Output: Found 2023-01-01 at 8-18
+#         Found 2024-02-02 at 20-30
 </code></pre>
         </div>
     </section>
@@ -259,42 +259,42 @@ for match in pattern.finditer(text):
     <section>
         <h2>Challenging Questions</h2>
         <div class="question">
-            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <p><strong>Question 1:</strong> What will be the output of this code, and why?</p>
             <div class="code-box">
                 <pre><code class="language-python">import re
 
-text = "Contact: alice@example.com, bob@domain.com"
-result = re.sub(r'\b(\w+)@([\w\.]+)\b', r'\1@REDACTED', text)
+text = "Emails: user1@site.com, user2@site.com"
+result = re.sub(r'\b(\w+)@[\w\.-]+\.\w+\b', r'\1@hidden', text)
 print(result)
 </code></pre>
             </div>
             <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
             <div id="answer1" class="answer">
-                <p><strong>Answer:</strong> Contact: alice@REDACTED, bob@REDACTED</p>
-                <p><strong>Explanation:</strong> The pattern <code>\b(\w+)@([\w\.]+)\b</code> captures the username before <code>@</code> and the domain after it. <code>re.sub()</code> replaces the entire email with the captured username (<code>\1</code>) followed by <code>@REDACTED</code>.</p>
+                <p><strong>Answer:</strong> Emails: user1@hidden, user2@hidden</p>
+                <p><strong>Explanation:</strong> The pattern <code>\b(\w+)@[\w\.-]+\.\w+\b</code> captures the username before <code>@</code>. <code>re.sub()</code> replaces each email with the captured username (<code>\1</code>) followed by <code>@hidden</code>.</p>
             </div>
         </div>
 
         <div class="question">
-            <p><strong>Question 2:</strong> Why does this code produce unexpected results, and how can it be fixed?</p>
+            <p><strong>Question 2:</strong> Why does this code fail to match, and how can it be fixed?</p>
             <div class="code-box">
                 <pre><code class="language-python">import re
 
-text = "line1\nline2\nline3"
-matches = re.findall(r'^line\d$', text)
+text = "data1\ndata2\ndata3"
+matches = re.findall(r'^data\d$', text)
 print(matches)
 </code></pre>
             </div>
             <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
             <div id="answer2" class="answer">
-                <p><strong>Answer:</strong> The code outputs <code>[]</code> because the pattern <code>^line\d$</code> only matches a single line without <code>re.MULTILINE</code>, and the text is treated as one line.</p>
-                <p><strong>Fix:</strong> Add <code>re.MULTILINE</code> to make <code>^</code> and <code>$</code> match the start/end of each line.</p>
+                <p><strong>Answer:</strong> The code outputs <code>[]</code> because <code>^</code> and <code>$</code> match the start/end of the entire string, not individual lines.</p>
+                <p><strong>Fix:</strong> Use <code>re.MULTILINE</code> to make <code>^</code> and <code>$</code> match per line.</p>
                 <div class="code-box">
                     <pre><code class="language-python">import re
 
-text = "line1\nline2\nline3"
-matches = re.findall(r'^line\d$', text, re.MULTILINE)
-print(matches)  # Output: ['line1', 'line2', 'line3']
+text = "data1\ndata2\ndata3"
+matches = re.findall(r'^data\d$', text, re.MULTILINE)
+print(matches)  # Output: ['data1', 'data2', 'data3']
 </code></pre>
                 </div>
             </div>
@@ -305,17 +305,16 @@ print(matches)  # Output: ['line1', 'line2', 'line3']
             <div class="code-box">
                 <pre><code class="language-python">import re
 
-text = "The year is 2023, not 2024."
-pattern = re.compile(r'\b(?P<year>\d{4})\b')
-match = pattern.search(text)
-if match:
-    print(match.group('year'))
+text = "Price: $100 and $200"
+pattern = re.compile(r'(?<=Price: \$)\d+')
+matches = pattern.findall(text)
+print(matches)
 </code></pre>
             </div>
             <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
             <div id="answer3" class="answer">
-                <p><strong>Answer:</strong> 2023</p>
-                <p><strong>Explanation:</strong> The pattern <code>\b(?P<year>\d{4})\b</code> matches a four-digit number as a named group <code>year</code>. <code>search()</code> finds the first match, <code>2023</code>, and <code>match.group('year')</code> retrieves it.</p>
+                <p><strong>Answer:</strong> ['100', '200']</p>
+                <p><strong>Explanation:</strong> The pattern <code>(?<=Price: \$)\d+</code> uses a positive lookbehind to match digits after <code>Price: $</code>. <code>findall()</code> returns all matching numbers.</p>
             </div>
         </div>
     </section>
@@ -328,8 +327,5 @@ if match:
             answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
         }
     </script>
-    <footer>
-        <p>For more information and testing RegEx patterns, visit <a href="https://regex101.com/" target="_blank">regex101.com</a>.</p>
-    </footer>
 </body>
 </html>
