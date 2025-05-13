@@ -223,27 +223,9 @@
     <div class="header-content">
       <div class="header-title">
         <h1>APT Computing Hub</h1>
-      </div>
-      <nav>
-        <a href="/" {% if request.path == '/' %}class="active"{% endif %}><i class="fas fa-home"></i> Home</a>
-        <a href="#about" {% if request.path == '#about' %}class="active"{% endif %}>About Us</a>
-        <a href="/tutorials/" {% if request.path == '/tutorials/' %}class="active"{% endif %}>Tutorials</a>
-        <a href="#projects" {% if request.path == '#projects' %}class="active"{% endif %}>Projects</a>
-        <a href="#tools" {% if request.path == '#tools' %}class="active"{% endif %}>Tools</a>
-        <a href="#courses" {% if request.path == '#courses' %}class="active"{% endif %}>Courses</a>
-        <a href="#events" {% if request.path == '#events' %}class="active"{% endif %}>Events</a>
-      </nav>
-    </div>
-    <div class="user-options">
-      {% if user.is_authenticated %}
-        <img src="{% static 'images/user-profile.png' %}" alt="User Profile">
-        <a href="/logout/">Logout</a>
-      {% else %}
-        <a href="/login/">Login</a>
-      {% endif %}
-    </div>
   </header>
 
+  
   <div class="container">
     <main>
       {% block content %}

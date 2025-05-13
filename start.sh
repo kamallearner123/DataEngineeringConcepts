@@ -33,5 +33,6 @@ fi
 # Usage: ./start.sh
 
 python3 manage.py makemigrations
+python manage.py collectstatic
 python3 manage.py migrate
 python3 manage.py runserver ${SERVER_IP}:${SERVER_PORT}
