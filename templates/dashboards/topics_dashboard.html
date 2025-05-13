@@ -195,6 +195,26 @@
     }
   </style>
 </head>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll("nav a");
+
+    function updateActiveLink() {
+      const currentHash = window.location.hash;
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === currentHash) {
+          link.classList.add("active");
+        }
+      });
+    }
+
+    window.addEventListener("hashchange", updateActiveLink);
+    updateActiveLink();
+  });
+</script>
+
 <body>
   <header>
     <a href="/">
