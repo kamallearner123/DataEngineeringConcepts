@@ -25,12 +25,12 @@ def convert_html_to_pdf(input_dir, output_pdf):
                 html_files.append(os.path.join(root, file))
                 toc.append(file)
                 # open same html file and add File name as header
-                with open(html_file, 'r') as f:
+                with open(file, 'r') as f:
                     content = f.read()
                 # Add the file name as a header in the HTML content
                 content = f"<h1>{file}</h1>" + content
                 # Write the modified content back to the HTML file
-                with open(html_file, 'w') as f:
+                with open(file, 'w') as f:
                     f.write(content)
 
 
