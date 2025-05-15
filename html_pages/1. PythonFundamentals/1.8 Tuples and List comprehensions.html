@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python List Comprehension, Tuples, and Tuple Comprehensions (In-Depth)</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python List Comprehension, Tuples, and Tuple Comprehensions (In-Depth)</h1>
+    </header>
+
+    <section>
+        <h2>1. List Comprehension</h2>
+        <p>List comprehension is a concise, Pythonic way to create lists by applying an expression to each item in an iterable, optionally filtering with conditions. It is enclosed in square brackets <code>[]</code> and is more readable and often faster than equivalent <code>for</code> loops due to optimized C-level implementation in Python.</p>
+        <p><strong>Syntax</strong>: <code>[expression for item in iterable if condition]</code></p>
+        <p><strong>Use Cases</strong>: Generating lists, transforming data, filtering elements, creating matrices.</p>
+        <p><strong>Advantages</strong>: Reduces code verbosity, improves readability, and is generally faster than loops for simple operations.</p>
+        <p><strong>Limitations</strong>: Can become unreadable for complex logic; not suitable for side effects (e.g., printing inside comprehension).</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Basic list comprehension
+squares = [x**2 for x in range(5)]
+print(squares)  # Output: [0, 1, 4, 9, 16]
+
+# Filtering with condition
+positives = [x for x in [-2, -1, 0, 1, 2] if x > 0]
+print(positives)  # Output: [1, 2]
+
+# Transforming strings
+words = ["hello", "world"]
+upper = [word.upper() for word in words]
+print(upper)  # Output: ['HELLO', 'WORLD']
+
+# Nested comprehension for matrix
+matrix = [[i * j for j in range(3)] for i in range(3)]
+print(matrix)  # Output: [[0, 0, 0], [0, 1, 2], [0, 2, 4]]
+</code></pre>
+        </div>
+        <p><strong>Performance Note</strong>: List comprehensions are faster than loops for large datasets because they avoid Python-level loop overhead. However, they create the entire list in memory, which can be memory-intensive for very large lists.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Comparing performance (conceptual)
+import time
+start = time.time()
+squares_loop = []
+for x in range(10000):
+    squares_loop.append(x**2)
+print(f"Loop time: {time.time() - start:.4f} seconds")
+
+start = time.time()
+squares_comp = [x**2 for x in range(10000)]
+print(f"Comprehension time: {time.time() - start:.4f} seconds")
+# Output: Comprehension is typically faster
+</code></pre>
+        </div>
+        <p><strong>Edge Case</strong>: Avoid overly complex comprehensions, as they reduce readability. For complex logic, use traditional loops.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Poor readability (avoid)
+nested = [x*y for x in range(5) if x % 2 == 0 for y in range(3) if y > 0]
+print(nested)  # Output: [2, 4, 6, 8]
+
+# Better with loop
+nested_loop = []
+for x in range(5):
+    if x % 2 == 0:
+        for y in range(3):
+            if y > 0:
+                nested_loop.append(x * y)
+print(nested_loop)  # Output: [2, 4, 6, 8]
+</code></pre>
+        </div>
+
+        <h2>2. Tuples</h2>
+        <p>Tuples are ordered, immutable collections of items, defined using parentheses <code>()</code> or comma-separated values without delimiters. They are similar to lists but cannot be modified after creation, making them suitable for fixed data, dictionary keys, or function return values.</p>
+        <p><strong>Characteristics</strong>:
+        <ul>
+            <li><strong>Immutable</strong>: Cannot add, remove, or modify elements.</li>
+            <li><strong>Ordered</strong>: Elements maintain their insertion order.</li>
+            <li><strong>Heterogeneous</strong>: Can contain mixed data types (e.g., integers, strings).</li>
+            <li><strong>Hashable</strong>: Can be used as dictionary keys if all elements are hashable.</li>
+        </ul></p>
+        <p><strong>Use Cases</strong>: Storing fixed data (e.g., coordinates), returning multiple values from functions, using as dictionary keys.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Creating tuples
+point = (3, 4)
+empty = ()
+single = (42,)  # Comma required for single-element tuple
+implicit = 1, 2, 3  # Parentheses optional
+print(point)  # Output: (3, 4)
+print(single)  # Output: (42,)
+print(implicit)  # Output: (1, 2, 3)
+
+# Accessing elements
+print(point[0])  # Output: 3
+print(point[-1])  # Output: 4
+
+# Slicing
+print(point[0:2])  # Output: (3, 4)
+
+# Unpacking
+x, y = point
+print(x, y)  # Output: 3 4
+</code></pre>
+        </div>
+        <p><strong>Methods</strong>: Tuples support only two methods:
+        <ul>
+            <li><code>count(item)</code>: Returns the number of occurrences of an item.</li>
+            <li><code>index(item, [start, [end]])</code>: Returns the index of the first occurrence, raising <code>ValueError</code> if not found.</li>
+        </ul></p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Tuple methods
+numbers = (1, 2, 2, 3)
+print(numbers.count(2))  # Output: 2
+print(numbers.index(3))  # Output: 3
+# print(numbers.index(4))  # Raises ValueError: tuple.index(x): x not in tuple
+</code></pre>
+        </div>
+        <p><strong>Immutability Caveats</strong>: While tuples themselves are immutable, they can contain mutable objects (e.g., lists), which can be modified.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Mutable objects in tuples
+tup = (1, [2, 3], 4)
+tup[1].append(5)
+print(tup)  # Output: (1, [2, 3, 5], 4)
+# tup[1] = [6, 7]  # Raises TypeError: 'tuple' object does not support item assignment
+</code></pre>
+        </div>
+        <p><strong>Performance Note</strong>: Tuples are slightly faster than lists due to immutability, which reduces overhead. They also use less memory.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Memory comparison
+import sys
+lst = [1, 2, 3]
+tup = (1, 2, 3)
+print(sys.getsizeof(lst))  # Output: ~88 bytes (varies)
+print(sys.getsizeof(tup))  # Output: ~72 bytes (varies)
+</code></pre>
+        </div>
+        <p><strong>Practical Application</strong>: Tuples are ideal for returning multiple values from functions or storing constant data.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Function returning tuple
+def get_coords():
+    return (10, 20)
+x, y = get_coords()
+print(f"X: {x}, Y: {y}")  # Output: X: 10, Y: 20
+</code></pre>
+        </div>
+
+        <h2>3. Tuple Comprehensions</h2>
+        <p>Python does not support true tuple comprehensions. Using a comprehension-like syntax with parentheses <code>(x for x in iterable)</code> creates a <strong>generator expression</strong>, not a tuple. To create a tuple from such an expression, you must use the <code>tuple()</code> constructor. Generator expressions are memory-efficient for large datasets since they generate values on-the-fly.</p>
+        <p><strong>Syntax</strong>: <code>tuple(expression for item in iterable if condition)</code></p>
+        <p><strong>Use Cases</strong>: Creating immutable sequences from iterables, filtering data, converting generator results to tuples.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Generator expression (not a tuple)
+gen = (x**2 for x in range(5))
+print(gen)  # Output: <generator object <genexpr> at ...>
+print(list(gen))  # Output: [0, 1, 4, 9, 16]
+
+# Creating a tuple
+squares = tuple(x**2 for x in range(5))
+print(squares)  # Output: (0, 1, 4, 9, 16)
+
+# With condition
+odds = tuple(x for x in range(10) if x % 2 != 0)
+print(odds)  # Output: (1, 3, 5, 7, 9)
+
+# From another iterable
+names = ["alice", "bob"]
+caps = tuple(name.capitalize() for name in names)
+print(caps)  # Output: ('Alice', 'Bob')
+</code></pre>
+        </div>
+        <p><strong>Generator Advantage</strong>: Using a generator expression before converting to a tuple saves memory for large datasets, as it avoids creating an intermediate list.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Memory-efficient tuple creation
+large_tuple = tuple(x for x in range(1000))  # Generator-based
+print(len(large_tuple))  # Output: 1000
+# Less efficient: [x for x in range(1000)] creates full list in memory
+</code></pre>
+        </div>
+        <p><strong>Edge Case</strong>: Be cautious with generator expressions, as they can only be iterated once.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Generator exhaustion
+gen = (x for x in range(3))
+print(tuple(gen))  # Output: (0, 1, 2)
+print(tuple(gen))  # Output: () (generator is exhausted)
+</code></pre>
+        </div>
+        <p><strong>Practical Application</strong>: Tuple comprehensions (via generators) are useful for creating immutable sequences from dynamic data, such as filtering database query results.</p>
+        <div class="code-box">
+            <pre><code class="language-python">
+# Filtering example (simulated data)
+data = [10, -5, 0, 15, -20]
+positive_tuple = tuple(x for x in data if x > 0)
+print(positive_tuple)  # Output: (10, 15)
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">
+lst = [(x, x**2) for x in range(3) if x % 2 == 0]
+print(lst)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> [(0, 0), (2, 4)]</p>
+                <p><strong>Explanation:</strong> The list comprehension iterates over <code>range(3)</code> (0, 1, 2). The condition <code>x % 2 == 0</code> filters for even numbers (0, 2). For each, it creates a tuple <code>(x, x**2)</code>, resulting in [(0, 0), (2, 4)].</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why does this code raise an error, and how can it be fixed?</p>
+            <div class="code-box">
+                <pre><code class="language-python">
+tup = (1, 2, 3)
+tup[0] = 4
+print(tup)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The code raises a <code>TypeError: 'tuple' object does not support item assignment</code>.</p>
+                <p><strong>Explanation:</strong> Tuples are immutable, so you cannot modify elements after creation. To achieve the desired result, create a new tuple or use a list if mutability is needed.</p>
+                <div class="code-box">
+                    <pre><code class="language-python">
+# Fixed with new tuple
+tup = (1, 2, 3)
+new_tup = (4,) + tup[1:]
+print(new_tup)  # Output: (4, 2, 3)
+
+# Or use a list
+lst = [1, 2, 3]
+lst[0] = 4
+print(lst)  # Output: [4, 2, 3]
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">
+gen = (x for x in range(4) if x % 2 == 0)
+tup = tuple(gen)
+print(tup)
+print(tuple(gen))
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong></p>
+                <p>(0, 2)<br>()</p>
+                <p><strong>Explanation:</strong> The generator expression <code>(x for x in range(4) if x % 2 == 0)</code> yields even numbers (0, 2). The first <code>tuple(gen)</code> consumes the generator, creating (0, 2). The second <code>tuple(gen)</code> returns an empty tuple because the generator is exhausted after the first iteration.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 4:</strong> How does the following list comprehension differ from its loop equivalent, and what is the output?</p>
+            <div class="code-box">
+                <pre><code class="language-python">
+lst = [x + y for x in [1, 2] for y in [3, 4]]
+print(lst

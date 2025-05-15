@@ -86,7 +86,8 @@
         <h2>Creating Sets</h2>
         <p>Sets are unordered collections of unique elements, created using curly braces <code>{}</code> or the <code>set()</code> constructor.</p>
         <div class="code-box">
-            <pre><code class="language-python">numbers = {1, 2, 3}
+            <pre><code class="language-python">
+numbers = {1, 2, 3}
 fruits = set(["apple", "banana", "apple"])
 print(numbers)  # Output: {1, 2, 3}
 print(fruits)   # Output: {'apple', 'banana'}
@@ -96,7 +97,8 @@ print(fruits)   # Output: {'apple', 'banana'}
         <h2>Uniqueness Property</h2>
         <p>Sets automatically remove duplicates, ensuring each element appears only once.</p>
         <div class="code-box">
-            <pre><code class="language-python">items = {1, 1, 2, 2, 3}
+            <pre><code class="language-python">
+items = {1, 1, 2, 2, 3}
 print(items)  # Output: {1, 2, 3}
 mixed = set([1, "hello", 1, "hello"])
 print(mixed)  # Output: {1, 'hello'}
@@ -106,7 +108,8 @@ print(mixed)  # Output: {1, 'hello'}
         <h2>Set Operations</h2>
         <p>Sets support operations like union, intersection, difference, and symmetric difference.</p>
         <div class="code-box">
-            <pre><code class="language-python">set1 = {1, 2, 3}
+            <pre><code class="language-python">
+set1 = {1, 2, 3}
 set2 = {3, 4, 5}
 print(set1 | set2)  # Union: {1, 2, 3, 4, 5}
 print(set1 & set2)  # Intersection: {3}
@@ -118,7 +121,8 @@ print(set1 ^ set2)  # Symmetric difference: {1, 2, 4, 5}
         <h2>Common Set Methods</h2>
         <p>Sets provide methods like <code>add</code>, <code>remove</code>, <code>discard</code>, and <code>pop</code> for manipulation.</p>
         <div class="code-box">
-            <pre><code class="language-python">numbers = {1, 2, 3}
+            <pre><code class="language-python">
+numbers = {1, 2, 3}
 numbers.add(4)        # Add element
 print(numbers)        # Output: {1, 2, 3, 4}
 numbers.remove(2)     # Remove element (raises KeyError if not found)
@@ -133,7 +137,8 @@ print(numbers)        # Output: e.g., {3, 4}
         <h2>Membership Testing and Iteration</h2>
         <p>Sets are optimized for membership testing and can be iterated over.</p>
         <div class="code-box">
-            <pre><code class="language-python">fruits = {"apple", "banana", "cherry"}
+            <pre><code class="language-python">
+fruits = {"apple", "banana", "cherry"}
 print("apple" in fruits)  # Output: True
 print("orange" not in fruits)  # Output: True
 for fruit in fruits:
@@ -148,7 +153,8 @@ for fruit in fruits:
         <h3>Program 1: Duplicate Remover</h3>
         <p>This program takes a list of user inputs and removes duplicates using a set.</p>
         <div class="code-box">
-            <pre><code class="language-python">def remove_duplicates():
+            <pre><code class="language-python">
+def remove_duplicates():
     user_input = input("Enter items (space-separated): ").split()
     unique_items = set(user_input)
     return list(unique_items)
@@ -163,7 +169,8 @@ print("Unique items:", result)
         <h3>Program 2: Common Elements Finder</h3>
         <p>This program finds common elements between two lists using set intersection.</p>
         <div class="code-box">
-            <pre><code class="language-python">def find_common_elements(list1, list2):
+            <pre><code class="language-python">
+def find_common_elements(list1, list2):
     return list(set(list1) & set(list2))
 
 list1 = [1, 2, 3, 4]
@@ -176,7 +183,8 @@ print("Common elements:", common)  # Output: Common elements: [3, 4]
         <h3>Program 3: Unique Word Counter</h3>
         <p>This program counts unique words in a sentence by converting it to a set.</p>
         <div class="code-box">
-            <pre><code class="language-python">def count_unique_words(sentence):
+            <pre><code class="language-python">
+def count_unique_words(sentence):
     words = sentence.lower().split()
     unique_words = set(words)
     return len(unique_words)
@@ -191,7 +199,8 @@ print("Unique word count:", count)  # Output: Unique word count: 4
         <div class="question">
             <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">set1 = {1, 2, 3, 4}
+                <pre><code class="language-python">
+set1 = {1, 2, 3, 4}
 set2 = {3, 4, 5}
 print(set1 - set2)
 print(set2 - set1)
@@ -207,7 +216,8 @@ print(set2 - set1)
         <div class="question">
             <p><strong>Question 2:</strong> Why does this code raise an error, and how can it be fixed?</p>
             <div class="code-box">
-                <pre><code class="language-python">numbers = {1, 2, 3}
+                <pre><code class="language-python">
+numbers = {1, 2, 3}
 numbers.remove(4)
 </code></pre>
             </div>
@@ -216,7 +226,8 @@ numbers.remove(4)
                 <p><strong>Answer:</strong> The code raises a <code>KeyError</code> because <code>remove(4)</code> attempts to remove an element not in the set.</p>
                 <p><strong>Fix:</strong> Use <code>discard</code>, which doesn’t raise an error if the element is absent.</p>
                 <div class="code-box">
-                    <pre><code class="language-python">numbers = {1, 2, 3}
+                    <pre><code class="language-python">
+numbers = {1, 2, 3}
 numbers.discard(4)  # No error
 print(numbers)      # Output: {1, 2, 3}
 </code></pre>
@@ -227,7 +238,8 @@ print(numbers)      # Output: {1, 2, 3}
         <div class="question">
             <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">set1 = {1, 2, 3}
+                <pre><code class="language-python">
+set1 = {1, 2, 3}
 set2 = set1.copy()
 set2.add(4)
 print(set1)

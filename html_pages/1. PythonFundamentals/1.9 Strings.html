@@ -86,7 +86,8 @@
         <h2>Strings: Creating Strings</h2>
         <p>Strings are created using single quotes <code>'</code>, double quotes <code>"</code>, or triple quotes <code>'''</code> for multiline strings.</p>
         <div class="code-box">
-            <pre><code class="language-python">single = 'Hello'
+            <pre><code class="language-python">
+single = 'Hello'
 double = "World"
 multiline = '''Line 1
 Line 2'''
@@ -99,7 +100,8 @@ print(multiline)  # Output: Line 1
         <h2>Strings: Accessing Characters via Indexing and Slicing</h2>
         <p>Strings support zero-based indexing and slicing to access characters or substrings.</p>
         <div class="code-box">
-            <pre><code class="language-python">text = "Python"
+            <pre><code class="language-python">
+text = "Python"
 print(text[0])    # Output: P
 print(text[-1])   # Output: n
 print(text[1:4])  # Output: yth
@@ -110,7 +112,8 @@ print(text[:3])   # Output: Pyt
         <h2>Strings: Immutability</h2>
         <p>Strings are immutable, meaning their characters cannot be changed after creation.</p>
         <div class="code-box">
-            <pre><code class="language-python">text = "Python"
+            <pre><code class="language-python">
+text = "Python"
 # text[0] = "J"  # Error: strings are immutable
 new_text = "J" + text[1:]  # Create new string
 print(new_text)  # Output: Jython
@@ -120,7 +123,8 @@ print(new_text)  # Output: Jython
         <h2>Strings: Common String Methods</h2>
         <p>Strings offer methods like <code>upper</code>, <code>lower</code>, <code>strip</code>, <code>split</code>, and <code>join</code> for manipulation.</p>
         <div class="code-box">
-            <pre><code class="language-python">text = "  Hello, World!  "
+            <pre><code class="language-python">
+text = "  Hello, World!  "
 print(text.upper())       # Output:   HELLO, WORLD!  
 print(text.strip())       # Output: Hello, World!
 print(text.split(","))    # Output: ['  Hello', ' World!  ']
@@ -132,7 +136,8 @@ print(" ".join(words))    # Output: Python is fun
         <h2>Strings: String Formatting</h2>
         <p>Strings can be formatted using f-strings, the <code>format()</code> method, or the <code>%</code> operator.</p>
         <div class="code-box">
-            <pre><code class="language-python">name = "Alice"
+            <pre><code class="language-python">
+name = "Alice"
 age = 25
 print(f"{name} is {age}")           # f-string: Alice is 25
 print("{} is {}".format(name, age)) # format(): Alice is 25
@@ -143,7 +148,8 @@ print("%s is %d" % (name, age))    # % operator: Alice is 25
         <h2>Dictionaries: Creating Dictionaries</h2>
         <p>Dictionaries are unordered collections of key-value pairs, created using curly braces <code>{}</code> or <code>dict()</code>.</p>
         <div class="code-box">
-            <pre><code class="language-python">person = {"name": "Bob", "age": 30}
+            <pre><code class="language-python">
+person = {"name": "Bob", "age": 30}
 scores = dict(math=90, science=85)
 print(person)   # Output: {'name': 'Bob', 'age': 30}
 print(scores)   # Output: {'math': 90, 'science': 85}
@@ -153,7 +159,8 @@ print(scores)   # Output: {'math': 90, 'science': 85}
         <h2>Dictionaries: Accessing and Modifying Key-Value Pairs</h2>
         <p>Access values using keys; modify or add key-value pairs directly.</p>
         <div class="code-box">
-            <pre><code class="language-python">person = {"name": "Bob", "age": 30}
+            <pre><code class="language-python">
+person = {"name": "Bob", "age": 30}
 print(person["name"])      # Output: Bob
 person["age"] = 31         # Modify value
 person["city"] = "Paris"   # Add new pair
@@ -164,7 +171,8 @@ print(person)              # Output: {'name': 'Bob', 'age': 31, 'city': 'Paris'}
         <h2>Dictionaries: Dictionary Methods</h2>
         <p>Dictionary methods like <code>get</code>, <code>keys</code>, <code>values</code>, <code>items</code>, and <code>pop</code> facilitate operations.</p>
         <div class="code-box">
-            <pre><code class="language-python">person = {"name": "Bob", "age": 30}
+            <pre><code class="language-python">
+person = {"name": "Bob", "age": 30}
 print(person.get("city", "Unknown"))  # Output: Unknown
 print(person.keys())                 # Output: dict_keys(['name', 'age'])
 print(person.values())               # Output: dict_values(['Bob', 30])
@@ -177,7 +185,8 @@ print(person)                        # Output: {'name': 'Bob'}
         <h2>Dictionaries: Immutability for Keys</h2>
         <p>Dictionary keys must be immutable (e.g., strings, numbers, tuples), but values can be any type.</p>
         <div class="code-box">
-            <pre><code class="language-python">coords = {(0, 0): "Origin", (1, 2): "Point A"}
+            <pre><code class="language-python">
+coords = {(0, 0): "Origin", (1, 2): "Point A"}
 print(coords[(0, 0)])  # Output: Origin
 # Invalid: lists cannot be keys
 # d = {[1, 2]: "Invalid"}  # Error: unhashable type: 'list'
@@ -187,7 +196,8 @@ print(coords[(0, 0)])  # Output: Origin
         <h2>Dictionaries: Iteration over Dictionaries</h2>
         <p>Iterate over keys, values, or key-value pairs using loops.</p>
         <div class="code-box">
-            <pre><code class="language-python">scores = {"math": 90, "science": 85}
+            <pre><code class="language-python">
+scores = {"math": 90, "science": 85}
 for subject in scores:
     print(subject)  # Output: math
                     #         science
@@ -202,7 +212,8 @@ for subject, score in scores.items():
         <div class="question">
             <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">text = "python"
+                <pre><code class="language-python">
+text = "python"
 new_text = text[:2] + text[2].upper() + text[3:]
 print(new_text)
 </code></pre>
@@ -217,7 +228,8 @@ print(new_text)
         <div class="question">
             <p><strong>Question 2:</strong> Why does this code raise an error, and how can it be fixed to access the value safely?</p>
             <div class="code-box">
-                <pre><code class="language-python">d = {"name": "Alice"}
+                <pre><code class="language-python">
+d = {"name": "Alice"}
 print(d["age"])
 </code></pre>
             </div>
@@ -226,7 +238,8 @@ print(d["age"])
                 <p><strong>Answer:</strong> The code raises a <code>KeyError</code> because the key <code>"age"</code> does not exist.</p>
                 <p><strong>Fix:</strong> Use the <code>get</code> method to provide a default value.</p>
                 <div class="code-box">
-                    <pre><code class="language-python">d = {"name": "Alice"}
+                    <pre><code class="language-python">
+d = {"name": "Alice"}
 print(d.get("age", "Unknown"))  # Output: Unknown
 </code></pre>
                 </div>
@@ -236,7 +249,8 @@ print(d.get("age", "Unknown"))  # Output: Unknown
         <div class="question">
             <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">d = {"a": 1, "b": 2}
+                <pre><code class="language-python">
+d = {"a": 1, "b": 2}
 d2 = d
 d2["a"] = 10
 print(d)

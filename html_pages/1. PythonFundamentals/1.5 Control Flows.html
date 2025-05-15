@@ -86,7 +86,8 @@
         <h2>Conditional Statements (if, elif, else)</h2>
         <p>Conditional statements allow you to execute code based on conditions using <code>if</code>, <code>elif</code>, and <code>else</code>.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Conditional example
+            <pre><code class="language-python">
+# Conditional example
 score = 85
 if score >= 90:
     print("Grade: A")
@@ -101,7 +102,8 @@ else:
         <h2>Loops: for and while Loops</h2>
         <p>Loops iterate over sequences (<code>for</code>) or until a condition is met (<code>while</code>).</p>
         <div class="code-box">
-            <pre><code class="language-python"># For loop
+            <pre><code class="language-python">
+# For loop
 fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
     print(fruit)
@@ -123,7 +125,8 @@ while count <= 3:
         <h2>Break, Continue, and Pass Statements</h2>
         <p><code>break</code> exits a loop, <code>continue</code> skips to the next iteration, and <code>pass</code> is a placeholder that does nothing.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Break and continue
+            <pre><code class="language-python">
+# Break and continue
 for i in range(5):
     if i == 3:
         break
@@ -142,7 +145,8 @@ for i in range(2):
         <h2>Nested Control Structures</h2>
         <p>Nested structures combine conditionals and loops within each other for complex logic.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Nested loop and conditional
+            <pre><code class="language-python">
+# Nested loop and conditional
 for i in range(3):
     if i % 2 == 0:
         for j in range(2):
@@ -157,7 +161,8 @@ for i in range(3):
         <h2>Exception Handling (try, except, finally)</h2>
         <p>Exception handling manages errors using <code>try</code>, <code>except</code>, and <code>finally</code> blocks.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Exception handling
+            <pre><code class="language-python">
+# Exception handling
 try:
     num = int(input("Enter a number: "))
     print(10 / num)
@@ -176,7 +181,8 @@ finally:
         <h2>Logical and Comparison Operators</h2>
         <p>Logical operators (<code>and</code>, <code>or</code>, <code>not</code>) and comparison operators (<code>==</code>, <code>!=</code>, <code>></code>, etc.) evaluate conditions.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Logical and comparison operators
+            <pre><code class="language-python">
+# Logical and comparison operators
 x = 10
 if x > 5 and x < 15:
     print("x is between 5 and 15")
@@ -188,7 +194,8 @@ print(not x == 10)  # Output: False
         <h2>Comprehensions (List, Dictionary)</h2>
         <p>Comprehensions provide a concise way to create lists or dictionaries using loops and conditionals.</p>
         <div class="code-box">
-            <pre><code class="language-python"># List comprehension
+            <pre><code class="language-python">
+# List comprehension
 squares = [x**2 for x in range(5)]
 print(squares)  # Output: [0, 1, 4, 9, 16]
 
@@ -202,7 +209,8 @@ print(numbers)  # Output: {0: 0, 1: 2, 2: 4}
         <div class="question">
             <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">for i in range(5):
+                <pre><code class="language-python">
+for i in range(5):
     if i % 2 == 0:
         print(i)
     else:
@@ -219,7 +227,8 @@ print(numbers)  # Output: {0: 0, 1: 2, 2: 4}
         <div class="question">
             <p><strong>Question 2:</strong> What is wrong with this code, and how can it be fixed to handle the error?</p>
             <div class="code-box">
-                <pre><code class="language-python">numbers = [1, 2, "3", 4]
+                <pre><code class="language-python">
+numbers = [1, 2, "3", 4]
 total = 0
 for num in numbers:
     total += num
@@ -231,7 +240,8 @@ print(total)
                 <p><strong>Answer:</strong> The code raises a <code>TypeError</code> because it tries to add a string (<code>"3"</code>) to an integer.</p>
                 <p><strong>Fix:</strong> Use exception handling to convert strings to integers or skip invalid types.</p>
                 <div class="code-box">
-                    <pre><code class="language-python">numbers = [1, 2, "3", 4]
+                    <pre><code class="language-python">
+numbers = [1, 2, "3", 4]
 total = 0
 for num in numbers:
     try:
@@ -247,7 +257,8 @@ print(total)  # Output: 10
         <div class="question">
             <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
             <div class="code-box">
-                <pre><code class="language-python">evens = [x for x in range(10) if x % 2 == 0]
+                <pre><code class="language-python">
+evens = [x for x in range(10) if x % 2 == 0]
 print(evens)
 </code></pre>
             </div>

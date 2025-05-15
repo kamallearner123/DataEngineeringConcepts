@@ -82,7 +82,8 @@
         <h2>What Are Variables in Python</h2>
         <p>Variables in Python are named containers that store data values, acting as references to objects in memory. They allow you to store and manipulate data such as numbers, strings, or lists.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Example: Storing different types of data
+            <pre><code class="language-python">
+# Example: Storing different types of data
 name = "Alice"  # String
 age = 25       # Integer
 height = 5.6   # Float
@@ -110,7 +111,8 @@ print(name, age, height)
             </li>
         </ul>
         <div class="code-box">
-            <pre><code class="language-python"># Valid variable names
+            <pre><code class="language-python">
+# Valid variable names
 user_name = "Bob"
 _count = 10
 total_price2 = 99.99
@@ -124,7 +126,8 @@ total_price2 = 99.99
         <h2>Dynamic Typing in Python</h2>
         <p>Python uses dynamic typing, so you don’t need to declare a variable’s type, and its type can change during execution.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Example: Variable type changes
+            <pre><code class="language-python">
+# Example: Variable type changes
 x = 10        # x is an integer
 print(type(x))  # <class 'int'>
 x = "Hello"   # x is now a string
@@ -135,7 +138,8 @@ print(type(x))  # <class 'str'>
         <h2>Variable Assignment and Reassignment</h2>
         <p>Variables are assigned using the <code>=</code> operator. Reassignment allows changing a variable’s value or type.</p>
         <div class="code-box">
-            <pre><code class="language-python"># Assignment
+            <pre><code class="language-python">
+# Assignment
 score = 100
 print(score)  # Output: 100
 
@@ -157,7 +161,8 @@ print(a, b, c)  # Output: 1 2 3
             <li>Use the <code>global</code> keyword to modify a global variable inside a function.</li>
         </ul>
         <div class="code-box">
-            <pre><code class="language-python"># Global variable
+            <pre><code class="language-python">
+# Global variable
 x = 10
 
 def my_function():
@@ -183,7 +188,8 @@ print(f"Outside function: x = {x}")
         <div class="question">
             <p><strong>Question 1:</strong> What will be the output of the following code?</p>
             <div class="code-box">
-                <pre><code class="language-python">a = 10
+                <pre><code class="language-python">
+a = 10
 b = a
 a = 20
 print(b)
@@ -199,7 +205,8 @@ print(b)
         <div class="question">
             <p><strong>Question 2:</strong> What is wrong with this code, and how can it be fixed?</p>
             <div class="code-box">
-                <pre><code class="language-python">def increment():
+                <pre><code class="language-python">
+def increment():
     counter += 1
 
 counter = 0
@@ -212,7 +219,8 @@ print(counter)
                 <p><strong>Answer:</strong> The code raises an <code>UnboundLocalError</code> because <code>counter</code> is treated as a local variable when incremented but is not defined locally.</p>
                 <p><strong>Fix:</strong> Use the <code>global</code> keyword to indicate that <code>counter</code> is a global variable.</p>
                 <div class="code-box">
-                    <pre><code class="language-python">def increment():
+                    <pre><code class="language-python">
+def increment():
     global counter
     counter += 1
 
@@ -227,7 +235,8 @@ print(counter)  # Output: 1
         <div class="question">
             <p><strong>Question 3:</strong> Predict the output of this code:</p>
             <div class="code-box">
-                <pre><code class="language-python">x = 5
+                <pre><code class="language-python">
+x = 5
 def outer():
     x = 10
     def inner():
