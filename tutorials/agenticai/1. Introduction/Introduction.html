@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Agentic AI</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav {
+            background: #1e3a8a;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            color: #1e3a8a;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .component-card {
+            background: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .component-card h3 {
+            color: #3b82f6;
+            margin-top: 0;
+        }
+        footer {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Discover Agentic AI</h1>
+        <p>Revolutionizing Automation with Intelligent Decision-Making</p>
+    </header>
+    <nav>
+        <a href="#what-is-agentic-ai">What is Agentic AI?</a>
+        <a href="#components">Components</a>
+    </nav>
+    <div class="container">
+        <div class="section" id="what-is-agentic-ai">
+            <h2>What is Agentic AI?</h2>
+            <p>
+                Agentic AI represents the next frontier in artificial intelligence, enabling systems to make autonomous decisions with minimal human intervention. Unlike traditional AI, which follows predefined rules, Agentic AI leverages advanced reasoning, iterative planning, and integration with enterprise data to solve complex, multi-step problems. It’s transforming industries like customer service, software development, and supply chain management by automating repetitive tasks and providing personalized solutions.
+            </p>
+            <p>
+                By connecting to diverse data sources and third-party applications, Agentic AI perceives challenges, develops strategies, and executes tasks independently, enhancing efficiency and productivity.[](https://blogs.nvidia.com/blog/what-is-agentic-ai/)
+            </p>
+            <div class="image-placeholder">
+                [Image: Futuristic AI interface with glowing holographic charts and data streams. Source: Unsplash, search for 'AI technology' or 'futuristic interface']
+            </div>
+        </div>
+        <div class="section" id="components">
+            <h2>Components of Agentic AI</h2>
+            <p>
+                Agentic AI systems are built on a foundation of powerful components that work together to deliver intelligent, context-aware solutions. Below are the key components driving this technology.
+            </p>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h3>Large Language Model (LLM)</h3>
+                    <p>
+                        The core of Agentic AI, LLMs like GPT-4 or LLaMA process natural language, understand context, and generate human-like responses. They enable the system to interpret user requests and handle complex tasks like code generation or reasoning.[](https://arxiv.org/html/2501.04040v1)
+                    </p>
+                    <div class="image-placeholder" style="height: 150px;">
+                        [Image: Neural network visualization with interconnected nodes. Source: Unsplash, search for 'neural network' or 'AI model']
+                    </div>
+                </div>
+                <div class="component-card">
+                    <h3>Prompting</h3>
+                    <p>
+                        Prompt engineering designs precise instructions to guide LLMs, ensuring accurate and relevant responses. Techniques like Chain-of-Thought or ReAct break down complex tasks into manageable steps, enhancing problem-solving.[](https://arxiv.org/html/2402.05121v3)
+                    </p>
+                    <div class="image-placeholder" style="height: 150px;">
+                        [Image: Code editor with a prompt being typed. Source: Unsplash, search for 'coding' or 'programming']
+                    </div>
+                </div>
+                <div class="component-card">
+                    <h3>Memory</h3>
+                    <p>
+                        Memory modules store conversation history and past actions, enabling context-rich responses. Short-term memory handles immediate prompts, while long-term memory supports self-evolving agents, reducing errors like hallucinations.[](https://arxiv.org/html/2504.02441v1)
+                    </p>
+                    <div class="image-placeholder" style="height: 150px;">
+                        [Image: Digital brain with glowing memory connections. Source: Unsplash, search for 'digital brain' or 'memory']
+                    </div>
+                </div>
+                <div class="component-card">
+                    <h3>External Memory</h3>
+                    <p>
+                        External memory augments LLMs by storing extensive data, such as domain-specific knowledge or interaction logs, in structured formats like tables. Retrieval-Augmented Generation (RAG) ensures accurate, fact-based responses.[](https://arxiv.org/html/2404.13501v1)
+                    </p>
+                    <div class="image-placeholder" style="height: 150px;">
+                        [Image: Database server with glowing data streams. Source: Unsplash, search for 'database' or 'data storage']
+                    </div>
+                </div>
+                <div class="component-card">
+                    <h3>Tools: Email, CRM, Calendar</h3>
+                    <p>
+                        Agentic AI integrates with tools like email, CRM systems, and calendars to automate tasks. For example, it can draft emails, manage customer relationships with predictive analytics, or schedule meetings, streamlining workflows.[](https://www.ibm.com/think/topics/ai-crm)
+                    </p>
+                    <div class="image-placeholder" style="height: 150px;">
+                        [Image: Workspace with laptop showing email and calendar apps. Source: Unsplash, search for 'workspace' or 'productivity tools']
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Agentic AI Explorer. All rights reserved.</p>
+    </footer>
+</body>
+</html>

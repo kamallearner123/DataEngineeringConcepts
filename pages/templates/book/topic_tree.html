@@ -1,0 +1,27 @@
+{% load book_filters %}
+
+{% if data %}
+    <div class="topic" style="margin-left: {{ level|mul:20 }}px;">
+        <a href="{% url 'book_view' topic=topic %}"
+           class="{% if topic == selected_topic %}selected{% endif %}">
+            {{ topic }}
+        </a>
+        <ul>
+            {% if data.files %}
+                {% for file in data.files %}
+                    <li class="subtopic">
+                        <a href="{% url 'book_view' topic=topic subtopic=file %}"
+                           class="{% if topic == selected_topic and file == selected_subtopic %}selected{% endif %}">
+                            {{ file }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+            {% for subtopic, subdata in data.items %}
+                {% if subtopic != 'files' %}
+                    {% include "book/topic_tree.html" with topic=subtopic|add:"/"|add:topic data=subdata level=level|add:1 %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

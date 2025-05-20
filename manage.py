@@ -2,7 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+import logging
+import logging.config
 
 def main():
     """Run administrative tasks."""
@@ -19,4 +20,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.config.fileConfig('logging.conf')
     main()

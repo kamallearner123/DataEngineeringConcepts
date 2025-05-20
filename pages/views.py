@@ -4,26 +4,56 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+import logging
+import re
+
 
 # Define the path to the HTML pages directory
 HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'html_pages')
+HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'tutorials', 'agenticai')
 
-def get_directory_structure():
-    """Scan the html_pages directory and return a dictionary of topics and subtopics in alphanumeric order."""
+def get_directory_structure(pages_dir):
+    """Scan the html_pages directory and return a dictionary of topics and subtopics in numeric order."""
     structure = {}
-    if os.path.exists(HTML_PAGES_DIR):
-        for folder in sorted(os.listdir(HTML_PAGES_DIR), key=str.lower):
-            folder_path = os.path.join(HTML_PAGES_DIR, folder)
-            if os.path.isdir(folder_path):
-                structure[folder] = []
-                for file in sorted(os.listdir(folder_path), key=str.lower):
-                    if file.endswith('.html'):
-                        structure[folder].append(file)
+    # Check if pages_dir exists
+    print(f"Checking directory: {pages_dir}")
+    logging.info(f"Checking directory: {pages_dir}")
+    if not os.path.exists(pages_dir):
+        print(f"Directory {pages_dir} does not exist.")
+        logging.error(f"Directory {pages_dir} does not exist.")
+        return structure
+
+    def numeric_key(name):
+        """Extract numeric prefix for sorting (e.g., '1. Python' -> 1, '1.1 Python' -> 1.1)."""
+        match = re.match(r'^(\d+\.\d*)\.?', name)
+        if match:
+            return float(match.group(1))  # Convert to float to handle 1.1, 1.10, etc.
+        return float('inf')  # Non-numeric names go to the end
+
+    # Get sorted list of folders
+    folders = [f for f in os.listdir(pages_dir) if os.path.isdir(os.path.join(pages_dir, f))]
+    folders.sort(key=numeric_key)
+
+    for folder in folders:
+        folder_path = os.path.join(pages_dir, folder)
+        structure[folder] = []
+        # Get sorted list of HTML files
+        files = [f for f in os.listdir(folder_path) if f.endswith('.html')]
+        files.sort(key=numeric_key)
+        structure[folder] = files
+
+    print(f"Directory structure: {structure}")
+    logging.info(f"Directory structure: {structure}")
     return structure
 
 def book_view(request, topic=None, subtopic=None):
+    print(f"Requested topic: {topic}")
     """Render the book page with sidebar and content."""
-    structure = get_directory_structure()
+    if topic == "agenticai":
+        structure = get_directory_structure(HTML_PAGES_AGENTICAI_DIR)
+    else:
+        print("Using default HTML_PAGES_DIR")
+        structure = get_directory_structure(HTML_PAGES_DIR)
     
     # If no topic is selected, use the first topic and its first subtopic
     if not topic and structure:
