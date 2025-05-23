@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Constructors and Inheritance</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box code {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Python Constructors and Inheritance</h1>
+    </header>
+
+    <section>
+        <h2>Constructors (__init__)</h2>
+        <h3>Defining a Constructor</h3>
+        <p>The <code>__init__</code> method is a special method in Python classes, known as the constructor, used to initialize an object’s attributes when it is created.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+person = Person("Alice", 30)
+print(person.name, person.age)  # Output: Alice 30
+</code></pre>
+        </div>
+
+        <h3>Default and Parameterized Constructors</h3>
+        <p>A constructor can have default values or require parameters to initialize attributes.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Student:
+    def __init__(self, name="Unknown", grade=0):
+        self.name = name
+        self.grade = grade
+
+student1 = Student()  # Uses default values
+student2 = Student("Bob", 85)
+print(student1.name, student1.grade)  # Output: Unknown 0
+print(student2.name, student2.grade)  # Output: Bob 85
+</code></pre>
+        </div>
+
+        <h2>Inheritance</h2>
+        <h3>Basics of Inheritance</h3>
+        <p>Inheritance allows a class (child) to inherit attributes and methods from another class (parent), promoting code reuse.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        return "I make a sound"
+
+class Dog(Animal):
+    pass
+
+dog = Dog("Rex")
+print(dog.name)      # Output: Rex
+print(dog.speak())   # Output: I make a sound
+</code></pre>
+        </div>
+
+        <h2>Single Inheritance</h2>
+        <h3>Single Inheritance Example</h3>
+        <p>Single inheritance occurs when a child class inherits from one parent class.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
+    
+    def move(self):
+        return "Moving"
+
+class Car(Vehicle):
+    def __init__(self, brand, model):
+        super().__init__(brand)
+        self.model = model
+
+car = Car("Toyota", "Corolla")
+print(car.brand, car.model)  # Output: Toyota Corolla
+print(car.move())           # Output: Moving
+</code></pre>
+        </div>
+
+        <h2>Multiple Inheritance</h2>
+        <h3>Multiple Inheritance Example</h3>
+        <p>Multiple inheritance allows a class to inherit from more than one parent class.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Flyer:
+    def fly(self):
+        return "Flying"
+
+class Swimmer:
+    def swim(self):
+        return "Swimming"
+
+class Duck(Flyer, Swimmer):
+    def __init__(self, name):
+        self.name = name
+
+duck = Duck("Donald")
+print(duck.fly())   # Output: Flying
+print(duck.swim())  # Output: Swimming
+</code></pre>
+        </div>
+
+        <h3>Method Resolution Order (MRO)</h3>
+        <p>Python uses the C3 linearization algorithm to determine the order in which base classes are searched for attributes and methods.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class A:
+    def method(self):
+        return "Method from A"
+
+class B(A):
+    pass
+
+class C(A):
+    def method(self):
+        return "Method from C"
+
+class D(B, C):
+    pass
+
+d = D()
+print(d.method())       # Output: Method from C
+print(D.__mro__)        # Output: (<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)
+</code></pre>
+        </div>
+
+        <h2>Multilevel Inheritance</h2>
+        <h3>Multilevel Inheritance Example</h3>
+        <p>Multilevel inheritance involves a chain of inheritance where a class inherits from a parent, which itself inherits from another parent.</p>
+        <div class="code-box">
+            <pre><code class="language-python">class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def eat(self):
+        return "Eating"
+
+class Mammal(Animal):
+    def walk(self):
+        return "Walking"
+
+class Dog(Mammal):
+    def bark(self):
+        return "Barking"
+
+dog = Dog("Max")
+print(dog.name)      # Output: Max
+print(dog.eat())     # Output: Eating
+print(dog.walk())    # Output: Walking
+print(dog.bark())    # Output: Barking
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What will be the output of the following code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">class Parent:
+    def __init__(self):
+        self.value = 10
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        self.value = 20
+
+child = Child()
+print(child.value)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> 20</p>
+                <p><strong>Explanation:</strong> The <code>Child</code> class calls the <code>Parent</code> class’s <code>__init__</code> using <code>super().__init__()</code>, which sets <code>self.value</code> to 10. However, the <code>Child</code> class’s <code>__init__</code> then overrides <code>self.value</code> to 20, so the final output is 20.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why does this code raise an error, and how can it be fixed?</p>
+            <div class="code-box">
+                <pre><code class="language-python">class A:
+    def __init__(self):
+        self.x = 1
+
+class B:
+    def __init__(self):
+        self.y = 2
+
+class C(A, B):
+    pass
+
+c = C()
+print(c.x, c.y)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The code raises an <code>AttributeError</code> because <code>C</code> does not define an <code>__init__</code> method, so only <code>A</code>“s <code>__init__</code> is called (due to MRO), setting <code>x</code> but not <code>y</code>.</p>
+                <p><strong>Fix:</strong> Define an <code>__init__</code> method in <code>C</code> that calls both parent constructors.</p>
+                <div class="code-box">
+                    <pre><code class="language-python">class A:
+    def __init__(self):
+        self.x = 1
+
+class B:
+    def __init__(self):
+        self.y = 2
+
+class C(A, B):
+    def __init__(self):
+        A.__init__(self)
+        B.__init__(self)
+
+c = C()
+print(c.x, c.y)  # Output: 1 2
+</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What will be the output of this code, and why?</p>
+            <div class="code-box">
+                <pre><code class="language-python">class Grandparent:
+    def __init__(self):
+        self.level = "Grandparent"
+
+class Parent(Grandparent):
+    def __init__(self):
+        super().__init__()
+        self.level = "Parent"
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        self.level = "Child"
+
+child = Child()
+print(child.level)
+</code></pre>
+            </div>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> Child</p>
+                <p><strong>Explanation:</strong> In this multilevel inheritance, <code>Child</code>“s <code>__init__</code> calls <code>Parent</code>“s <code>__init__</code>, which calls <code>Grandparent</code>“s <code>__init__</code>, setting <code>level</code> to "Grandparent". Then, <code>Parent</code>“s <code>__init__</code> sets <code>level</code> to "Parent", and finally, <code>Child</code>“s <code>__init__</code> sets <code>level</code> to "Child". Thus, the output is "Child".</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>

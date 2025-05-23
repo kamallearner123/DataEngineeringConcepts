@@ -9,26 +9,26 @@ import re
 
 
 # Define the path to the HTML pages directory
-HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'html_pages')
-HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'tutorials', 'agenticai')
+HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'data_engineering')
+HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'agenticai')
 
 def get_directory_structure(pages_dir):
     """Scan the html_pages directory and return a dictionary of topics and subtopics in numeric order."""
     structure = {}
     # Check if pages_dir exists
-    print(f"Checking directory: {pages_dir}")
     logging.info(f"Checking directory: {pages_dir}")
     if not os.path.exists(pages_dir):
-        print(f"Directory {pages_dir} does not exist.")
         logging.error(f"Directory {pages_dir} does not exist.")
         return structure
 
     def numeric_key(name):
-        """Extract numeric prefix for sorting (e.g., '1. Python' -> 1, '1.1 Python' -> 1.1)."""
-        match = re.match(r'^(\d+\.\d*)\.?', name)
+        """Extract numeric prefix for sorting (e.g., '1.10 Sets.html' -> (1, 10), '1.2 Variables.html' -> (1, 2))."""
+        match = re.match(r'^(\d+)\.(\d*)\.?', name)
         if match:
-            return float(match.group(1))  # Convert to float to handle 1.1, 1.10, etc.
-        return float('inf')  # Non-numeric names go to the end
+            major = int(match.group(1))  # First part (e.g., '1' in '1.10')
+            minor = int(match.group(2) or 0)  # Second part (e.g., '10' in '1.10', or 0 if no minor part)
+            return (major, minor)
+        return (float('inf'), 0)  # Non-numeric names go to the end
 
     # Get sorted list of folders
     folders = [f for f in os.listdir(pages_dir) if os.path.isdir(os.path.join(pages_dir, f))]
@@ -42,7 +42,6 @@ def get_directory_structure(pages_dir):
         files.sort(key=numeric_key)
         structure[folder] = files
 
-    print(f"Directory structure: {structure}")
     logging.info(f"Directory structure: {structure}")
     return structure
 
@@ -52,7 +51,6 @@ def book_view(request, topic=None, subtopic=None):
     if topic == "agenticai":
         structure = get_directory_structure(HTML_PAGES_AGENTICAI_DIR)
     else:
-        print("Using default HTML_PAGES_DIR")
         structure = get_directory_structure(HTML_PAGES_DIR)
     
     # If no topic is selected, use the first topic and its first subtopic
@@ -77,6 +75,11 @@ def book_view(request, topic=None, subtopic=None):
         'content': content,
     }
     return render(request, 'book/book.html', context)
+
+
+# Return Tutorials page /template/dashboards/tutorials_dashboard.html
+def tutorials_dashboard(request):
+    return render(request, 'dashboards/tutorials_dashboard.html')
 
 @login_required
 def user_dashboard(request):

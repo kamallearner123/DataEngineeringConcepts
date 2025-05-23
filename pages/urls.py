@@ -1,10 +1,11 @@
-from .views import book_view
+from .views import book_view, tutorials_dashboard
 from django.urls import path
 
 # URL patterns
 urlpatterns = [
-    path('', book_view, name='book_home'),
-    path('topic <str:topic>/', book_view, name='book_topic'),
+    path('', tutorials_dashboard, name='tutorials_dashboard'),
+    path('tutorials/<str:topic>/', book_view, name='tutorials'),  # Handles /tutorials/topic%20agenticai/
+    path('tutorials/<str:topic>/<str:subtopic>/', book_view, name='tutorials_with_subtopic'),  # Optional subtopic
     # How to add a subtopic to the URL pattern? example with UTL 127.0.0.1:8080/topic <str:topic>/<str:subtopic>/
     # path('topic <str:topic>/<str:subtopic>/', book_view, name='book_detail'),
     # Example URL:

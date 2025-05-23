@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}APT Computing Hub - Tutorials{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      color: #2d2d2d;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #0a2463;
+      color: white;
+      padding: 15px 30px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: 3em;
+      margin: 0 0 10px 0;
+      color: #ffd700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    header img.logo {
+      height: 80px;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      background-color: #ffd700;
+      color: #0a2463;
+    }
+
+    .user-options {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-options img {
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      border: 2px solid #ffd700;
+    }
+
+    .user-options a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .user-options a:hover {
+      background-color: #ffd700;
+      color: #0a2463;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 300px);
+    }
+
+    main {
+      flex: 1;
+      padding: 20px;
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tile {
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: #2d2d2d;
+    }
+
+    .tile:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background-color: #f5f7fa;
+    }
+
+    .tile img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .tile h3 {
+      margin: 10px 0;
+      font-size: 1.2em;
+      color: #0a2463;
+    }
+
+    .tile.active {
+      border: 2px solid #f57c00;
+      background-color: #fff8e1;
+    }
+
+    footer {
+      background-color: #0a2463;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .header-title h1 {
+        font-size: 2em;
+      }
+      header img.logo {
+        height: 60px;
+      }
+      nav {
+        gap: 10px;
+      }
+      .container {
+        flex-direction: column;
+      }
+      main {
+        box-shadow: none;
+        border-top: 1px solid #ddd;
+      }
+      .tiles {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">
+      <img src="{% static 'images/logo.webp' %}" alt="APT Computing Hub Logo" class="logo">
+    </a>
+    <div class="header-content">
+      <div class="header-title">
+        <h1>APT Computing Hub</h1>
+      </div>
+      <nav>
+        <a href="/" {% if request.path == '/' %}class="active"{% endif %}>Home</a>
+        <a href="#about" {% if request.path == '#about' %}class="active"{% endif %}>About Us</a>
+        <a href="/tutorials/" {% if request.path == '/tutorials/' %}class="active"{% endif %}>Tutorials</a>
+        <a href="#projects" {% if request.path == '#projects' %}class="active"{% endif %}>Projects</a>
+        <a href="#tools" {% if request.path == '#tools' %}class="active"{% endif %}>Tools</a>
+        <a href="#courses" {% if request.path == '#courses' %}class="active"{% endif %}>Courses</a>
+        <a href="#events" {% if request.path == '#events' %}class="active"{% endif %}>Events</a>
+      </nav>
+    </div>
+    <div class="user-options">
+      {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+        <img src="{% static 'images/user_placeholder.webp' %}" alt="User Profile">
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      {% block content %}
+      <h2>Tutorial Topics</h2>
+      <div class="tiles">
+        <a href="{% url 'tutorials' 'agenticai' %}" class="tile {% if topic == 'topic agenticai' %}active{% endif %}">
+          <img src="{% static 'images/agenticai_logo.webp' %}" alt="Agentic AI Logo">
+          <h3>Agentic AI</h3>
+        </a>
+        <a href="{% url 'tutorials' 'python' %}" class="tile {% if topic == 'topic python' %}active{% endif %}">
+          <img src="{% static 'images/python_logo.webp' %}" alt="Python Logo">
+          <h3>Python Programming</h3>
+        </a>
+        <a href="{% url 'tutorials' 'rust' %}" class="tile {% if topic == 'topic rust' %}active{% endif %}">
+          <img src="{% static 'images/rust_logo.webp' %}" alt="Rust Logo">
+          <h3>Rust Programming</h3>
+        </a>
+        <a href="{% url 'tutorials' 'cpp' %}" class="tile {% if topic == 'topic cpp' %}active{% endif %}">
+          <img src="{% static 'images/cpp_logo.webp' %}" alt="C/C++ Logo">
+          <h3>C/C++ Programming</h3>
+        </a>
+        <a href="{% url 'tutorials' 'cybersecurity' %}" class="tile {% if topic == 'topic cybersecurity' %}active{% endif %}">
+          <img src="{% static 'images/cybersecurity_logo.webp' %}" alt="Cyber Security Logo">
+          <h3>Cyber Security</h3>
+        </a>
+        <a href="{% url 'tutorials' 'blockchain' %}" class="tile {% if topic == 'topic blockchain' %}active{% endif %}">
+          <img src="{% static 'images/blockchain_logo.webp' %}" alt="Blockchain Logo">
+          <h3>Blockchain</h3>
+        </a>
+      </div>
+      {% endblock %}
+    </main>
+  </div>
+
+  <div class="comment-section">
+    <h3>Leave a Comment</h3>
+    {% if user.is_authenticated %}
+      <form method="post" action="{% url 'add_comment' %}">
+        {% csrf_token %}
+        <textarea name="comment" placeholder="Write your comment here..." rows="4" required></textarea>
+        <input type="submit" value="Submit Comment">
+      </form>
+    {% else %}
+      <p class="login-prompt">Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    {% endif %}
+  </div>
+
+  <footer>
+    © Chromadata 2025 APT Computing Hub. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const navLinks = document.querySelectorAll("nav a, .tile");
+
+      function updateActiveLink() {
+        const currentPath = window.location.pathname;
+
+        navLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      window.addEventListener("popstate", updateActiveLink);
+      updateActiveLink();
+    });
+  </script>
+</body>
+</html>
