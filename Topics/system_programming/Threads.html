@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Memory Management in C: Threads and Sockets</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #007bff; /* A nice blue */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            color: #f8f8f2;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'C Code' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-bash::before {
+            content: 'Bash' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Advanced Memory Management in C: Concurrency and Networking</h1>
+    </header>
+
+    <section>
+        <h2>Threads, Shared Memory, and Mutex Locks</h2>
+        <p>Multithreading is a powerful programming paradigm that allows a program to execute multiple parts concurrently. In C, the POSIX threads (Pthreads) library is commonly used for this purpose. A key characteristic of threads within the same process is that they share the same memory space, including global variables and dynamically allocated heap memory. While this shared access provides efficiency, it also introduces challenges, primarily related to data consistency and race conditions.</p>
+
+        <h3>Shared Memory Among Threads</h3>
+        <p>When multiple threads access and modify the same shared data concurrently, the final outcome depends on the unpredictable interleaving of their operations. This is known as a race condition. For example, if two threads try to increment a shared counter simultaneously without proper synchronization, the counter might not reflect the correct total due to lost updates.</p>
+        <p>Consider the following example where multiple threads increment a shared counter:</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;pthread.h&gt; // For Pthreads
+
+volatile int shared_counter = 0; // volatile to prevent compiler optimizations
+
+// Function executed by each thread
+void *increment_counter(void *arg) {
+    for (int i = 0; i < 100000; i++) {
+        shared_counter++;
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t thread1, thread2;
+
+    // Create two threads
+    pthread_create(&thread1, NULL, increment_counter, NULL);
+    pthread_create(&thread2, NULL, increment_counter, NULL);
+
+    // Wait for both threads to finish
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    printf("Final shared_counter: %d\n", shared_counter);
+    // Expected: 200000, Actual: likely less due to race condition
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p>Compiling and running the above code multiple times will likely show a final count less than 200,000, demonstrating a race condition.</p>
+        <div class="code-box-bash">
+            <pre><code class="language-bash">
+gcc race_condition.c -o race_condition -pthread
+./race_condition
+            </code></pre>
+        </div>
+
+        <h3>Mutex Locks for Synchronization</h3>
+        <p>To prevent race conditions and ensure data integrity when multiple threads access shared resources, synchronization mechanisms are crucial. Mutex locks (Mutual Exclusion locks) are the most common way to achieve this. A mutex ensures that only one thread can access a critical section of code (where shared data is manipulated) at any given time.</p>
+        <p>The typical workflow for using a mutex is:</p>
+        <ol>
+            <li>Initialize the mutex.</li>
+            <li>Before entering the critical section, a thread tries to "lock" the mutex. If the mutex is already locked by another thread, the current thread will block until the mutex becomes available.</li>
+            <li>Once the mutex is successfully locked, the thread enters the critical section and performs its operations on the shared data.</li>
+            <li>After exiting the critical section, the thread "unlocks" the mutex, making it available for other threads.</li>
+            <li>Destroy the mutex when it's no longer needed.</li>
+        </ol>
+        <p>Here's the corrected version of the counter example using a mutex:</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;pthread.h&gt;
+
+volatile int shared_counter_safe = 0;
+pthread_mutex_t counter_mutex; // Declare a mutex variable
+
+// Function executed by each thread (with mutex)
+void *increment_counter_safe(void *arg) {
+    for (int i = 0; i < 100000; i++) {
+        pthread_mutex_lock(&counter_mutex);   // Acquire the lock
+        shared_counter_safe++;                 // Critical section
+        pthread_mutex_unlock(&counter_mutex); // Release the lock
+    }
+    return NULL;
+}
+
+int main() {
+    pthread_t thread1, thread2;
+
+    // Initialize the mutex
+    if (pthread_mutex_init(&counter_mutex, NULL) != 0) {
+        printf("Mutex init failed\n");
+        return 1;
+    }
+
+    // Create two threads
+    pthread_create(&thread1, NULL, increment_counter_safe, NULL);
+    pthread_create(&thread2, NULL, increment_counter_safe, NULL);
+
+    // Wait for both threads to finish
+    pthread_join(thread1, NULL);
+    pthread_join(thread2, NULL);
+
+    printf("Final shared_counter_safe (with mutex): %d\n", shared_counter_safe);
+    // Expected: 200000 (should be correct now)
+
+    // Destroy the mutex
+    pthread_mutex_destroy(&counter_mutex);
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p>Compiling and running this version will consistently yield 200,000 as the final counter value, demonstrating the effectiveness of mutexes in preventing race conditions.</p>
+        <div class="code-box-bash">
+            <pre><code class="language-bash">
+gcc safe_counter.c -o safe_counter -pthread
+./safe_counter
+            </code></pre>
+        </div>
+        <p>While mutexes ensure data consistency, they also introduce overhead and can lead to deadlocks if not used carefully. Other synchronization primitives include semaphores, condition variables, and read-write locks, each suited for different synchronization scenarios.</p>
+
+        <h2>Sockets and Shared Memory for Client Data</h2>
+        <p>When building network applications (like a server) using sockets, multiple clients might connect simultaneously. A common challenge is how to efficiently manage data received from different clients and potentially share it or process it concurrently. While threads within a process share memory naturally, inter-process communication (IPC) mechanisms are needed if client handlers are implemented as separate processes or if data needs to be shared between entirely distinct applications.</p>
+
+        <h3>Typical Server Architectures and Data Handling</h3>
+        <ul>
+            <li><strong>Iterative Server:</strong> Handles one client at a time. Simple, but inefficient for multiple clients. Data is typically processed within the single server thread/process.</li>
+            <li><strong>Concurrent Server (Thread-based):</strong> Spawns a new thread for each client connection. This is very common. Each client-handling thread can access shared global data (e.g., a shared buffer, a linked list of connected users) by using mutexes or other Pthread synchronization primitives, as discussed above.</li>
+            <li><strong>Concurrent Server (Process-based):</strong> Spawns a new process for each client connection. This provides strong isolation but requires explicit IPC mechanisms like shared memory segments, pipes, or message queues to share data between the parent server process and child client processes, or between child processes themselves.</li>
+        </ul>
+
+        <h3>Using Shared Memory with Sockets (Inter-Process Communication)</h3>
+        <p>When a server uses a process-per-client model or needs to share data with other independent processes, System V shared memory or POSIX shared memory can be used. This allows different processes to map the same physical memory region into their respective virtual address spaces, enabling fast data exchange without needing to copy data through the kernel (like with pipes or sockets themselves).</p>
+
+        <p>Here's a conceptual overview of using shared memory for client data in a multi-process server context (using System V shared memory for illustration):</p>
+        <ol>
+            <li><strong>Server Process:</strong>
+                <ol type="a">
+                    <li>Creates a shared memory segment using <code>shmget()</code>.</li>
+                    <li>Attaches the segment to its address space using <code>shmat()</code>.</li>
+                    <li>Initializes any shared data structures within this segment (e.g., a buffer, a queue for client requests).</li>
+                    <li>Creates a mutex or semaphore (also in shared memory or using System V semaphores) to synchronize access to the shared data.</li>
+                    <li>When a new client connects, forks a child process.</li>
+                    <li>The child process also attaches to the *same* shared memory segment and uses the shared mutex/semaphore to access the shared client data structure.</li>
+                </ol>
+            </li>
+            <li><strong>Client-Handling Child Process:</strong>
+                <ol type="a">
+                    <li>Receives data from its dedicated client socket.</li>
+                    <li>Acquires the shared mutex.</li>
+                    <li>Writes the client data to the shared data structure (e.g., adds to a queue).</li>
+                    <li>Releases the shared mutex.</li>
+                    <li>Potentially, another dedicated "worker" process could be reading from this shared queue.</li>
+                </ol>
+            </li>
+        </ol>
+
+        <p><strong>Example Sketch: Shared Counter (simplified, focusing on IPC)</strong></p>
+        <p>This is a simplified example to illustrate shared memory between processes. In a real socket server, you'd have more complex data structures for client data.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;     // For fork
+#include &lt;sys/ipc.h&gt;    // For System V IPC
+#include &lt;sys/shm.h&gt;    // For shared memory
+#include &lt;sys/sem.h&gt;    // For semaphores (for mutex functionality)
+
+// Union for semaphore operations (needed for System V semaphores)
+union semun {
+    int              val;    /* Value for SETVAL */
+    struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+    unsigned short  *array;  /* Array for GETALL, SETALL */
+    struct seminfo  *__buf;  /* Buffer for IPC_INFO (Linux specific) */
+};
+
+int main() {
+    key_t shm_key = 1234; // Unique key for shared memory
+    key_t sem_key = 5678; // Unique key for semaphore
+
+    int shm_id;
+    int sem_id;
+    int *shared_int; // Pointer to the shared integer
+
+    struct sembuf p_op = {0, -1, SEM_UNDO}; // P operation (wait/decrement)
+    struct sembuf v_op = {0, 1, SEM_UNDO};  // V operation (signal/increment)
+
+    // 1. Create shared memory segment
+    shm_id = shmget(shm_key, sizeof(int), IPC_CREAT | 0666);
+    if (shm_id == -1) {
+        perror("shmget");
+        exit(EXIT_FAILURE);
+    }
+
+    // 2. Attach shared memory
+    shared_int = (int *) shmat(shm_id, NULL, 0);
+    if (shared_int == (int *) -1) {
+        perror("shmat");
+        exit(EXIT_FAILURE);
+    }
+    *shared_int = 0; // Initialize shared integer
+
+    // 3. Create semaphore set (single semaphore for mutex)
+    sem_id = semget(sem_key, 1, IPC_CREAT | 0666);
+    if (sem_id == -1) {
+        perror("semget");
+        exit(EXIT_FAILURE);
+    }
+
+    // 4. Initialize semaphore to 1 (unlocked state)
+    union semun arg;
+    arg.val = 1;
+    if (semctl(sem_id, 0, SETVAL, arg) == -1) {
+        perror("semctl SETVAL");
+        exit(EXIT_FAILURE);
+    }
+
+    pid_t pid = fork();
+
+    if (pid == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) { // Child process
+        printf("Child process: Incrementing shared_int\n");
+        for (int i = 0; i < 50000; i++) {
+            semop(sem_id, &p_op, 1); // Lock
+            (*shared_int)++;
+            semop(sem_id, &v_op, 1); // Unlock
+        }
+        printf("Child process: Final shared_int in child = %d\n", *shared_int);
+        // Detach shared memory
+        shmdt(shared_int);
+        exit(EXIT_SUCCESS);
+    } else { // Parent process
+        printf("Parent process: Incrementing shared_int\n");
+        for (int i = 0; i < 50000; i++) {
+            semop(sem_id, &p_op, 1); // Lock
+            (*shared_int)++;
+            semop(sem_id, &v_op, 1); // Unlock
+        }
+
+        wait(NULL); // Wait for child to finish
+
+        printf("Parent process: Final shared_int after child finishes = %d\n", *shared_int);
+        printf("Expected total: 100000\n");
+
+        // Detach shared memory
+        shmdt(shared_int);
+        // Remove shared memory segment and semaphore
+        shmctl(shm_id, IPC_RMID, NULL);
+        semctl(sem_id, 0, IPC_RMID);
+    }
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p>Compiling and running this code will show the correct total count, demonstrating inter-process synchronization using System V semaphores for a shared memory segment.</p>
+        <div class="code-box-bash">
+            <pre><code class="language-bash">
+gcc shared_mem_ipc.c -o shared_mem_ipc
+./shared_mem_ipc
+            </code></pre>
+        </div>
+
+        <h3>Considerations for Sockets with Shared Memory</h3>
+        <ul>
+            <li><strong>Complexity:</strong> Managing shared memory and IPC semaphores adds significant complexity compared to thread-based synchronization.</li>
+            <li><strong>Synchronization:</strong> Just like with threads, shared memory between processes requires careful synchronization (using semaphores or mutexes that support process-sharing, like Pthread process-shared mutexes) to prevent race conditions.</li>
+            <li><strong>Data Structures:</strong> Designing thread-safe or process-safe data structures (e.g., concurrent queues, hash tables) for shared memory is crucial.</li>
+            <li><strong>Cleanup:</strong> Shared memory segments and semaphores persist even after processes terminate unless explicitly removed. Proper cleanup (e.g., using <code>shmctl(id, IPC_RMID, NULL)</code>) is vital to avoid resource leaks.</li>
+            <li><strong>Security:</strong> Shared memory can be a security risk if not properly managed, as it bypasses standard access controls.</li>
+        </ul>
+        <p>In most concurrent server designs, especially for typical client-server interactions, a thread-per-client model is often preferred due to its simpler memory sharing (all threads in the same address space) and the availability of robust Pthread synchronization primitives. Shared memory IPC is more common for inter-process communication between distinct, long-running services or for extremely high-performance data transfer where avoiding kernel copies is critical.</p>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> What is a "deadlock" in the context of mutexes, and how can it occur?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> A deadlock is a situation where two or more threads are blocked indefinitely, waiting for each other to release a resource that they need. In the context of mutexes, it typically occurs when:</p>
+                <ol>
+                    <li><strong>Mutual Exclusion:</strong> Each resource involved is held in a mutually exclusive manner (e.g., a mutex can only be locked by one thread at a time).</li>
+                    <li><strong>Hold and Wait:</strong> A thread holds at least one resource and is waiting to acquire additional resources that are currently held by other threads.</li>
+                    <li><strong>No Preemption:</strong> Resources cannot be forcibly taken away from a thread; they must be voluntarily released.</li>
+                    <li><strong>Circular Wait:</strong> A circular chain of two or more threads exists, where each thread is waiting for a resource held by the next thread in the chain.</li>
+                </ol>
+                <p><strong>Example Scenario:</strong></p>
+                <p>Thread A locks Mutex 1, then tries to lock Mutex 2.<br>
+                Thread B locks Mutex 2, then tries to lock Mutex 1.</p>
+                <p>If Thread A acquires Mutex 1 and Thread B acquires Mutex 2 simultaneously, then Thread A will wait indefinitely for Mutex 2 (held by B), and Thread B will wait indefinitely for Mutex 1 (held by A). Both are stuck.</p>
+                <p><strong>Prevention Strategies:</strong></p>
+                <ul>
+                    <li><strong>Resource Ordering:</strong> Always acquire mutexes (or other resources) in a consistent, predefined order across all threads.</li>
+                    <li><strong>Timeout/Try Lock:</strong> Use non-blocking lock attempts (<code>pthread_mutex_trylock</code>) or timed locks (<code>pthread_mutex_timedlock</code>) to avoid indefinite waiting.</li>
+                    <li><strong>Deadlock Detection and Recovery:</strong> Implement algorithms to detect deadlocks and then terminate one or more processes/threads to break the cycle (less common in application code).</li>
+                    <li><strong>Avoid Nested Locks:</strong> Minimize situations where a thread holds multiple locks simultaneously.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> When would you choose a thread-based concurrent server over a process-based one, and vice-versa, especially concerning memory management?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong></p>
+                <p><strong>Choose Thread-based Server when:</strong></p>
+                <ul>
+                    <li><strong>Shared Memory is Paramount:</strong> Threads inherently share the same address space. If different client handlers frequently need to access and modify large shared data structures (e.g., a global cache, user session data, a game world state), threads are more efficient as data doesn't need to be explicitly copied or managed via IPC. Synchronization via mutexes/semaphores is relatively straightforward.</li>
+                    <li><strong>Lower Overhead:</strong> Creating and context-switching between threads is generally faster and consumes less memory than processes, as threads are "lighter weight."</li>
+                    <li><strong>Simpler Programming Model:</strong> For many applications, managing shared data within a single address space is conceptually simpler than explicit IPC.</li>
+                    <li><strong>CPU-bound Tasks (with I/O):</strong> If tasks involve a mix of computation and I/O, threads can effectively utilize CPU while waiting for I/O.</li>
+                </ul>
+
+                <p><strong>Choose Process-based Server when:</strong></p>
+                <ul>
+                    <li><strong>Strong Isolation is Required:</strong> Processes have separate address spaces, meaning one client handler's crash or memory corruption won't directly affect others. This provides greater fault tolerance and security.</li>
+                    <li><strong>Security Concerns:</strong> If client handlers might execute untrusted code or need strict resource isolation, processes offer a more secure sandbox.</li>
+                    <li><strong>Leveraging Multiple Cores/CPUs without Global Lock Contention:</strong> While threads can run on multiple cores, heavy contention on shared locks (like a single mutex protecting a frequently accessed resource) can negate the benefits. Processes, by default, have their own independent resources, reducing this specific type of contention.</li>
+                    <li><strong>Simpler Resource Management (less explicit sharing):</strong> If each client handler primarily works on its own distinct data and requires minimal inter-client communication, the overhead of separate processes might be acceptable.</li>
+                    <li><strong>Legacy Code Integration:</strong> Sometimes, existing libraries or components are not thread-safe, making a process-per-client model safer.</li>
+                </ul>
+                <p><strong>Regarding Memory Management:</strong></p>
+                <ul>
+                    <li><strong>Threads:</strong> Memory is implicitly shared. Challenges involve ensuring thread-safety of shared data (using mutexes, condition variables) and avoiding race conditions, deadlocks, and use-after-free errors.</li>
+                    <li><strong>Processes:</strong> Memory is isolated. Shared memory requires explicit IPC mechanisms (<code>shmget</code>, <code>shmat</code>, <code>mmap</code>) and robust process-level synchronization (System V semaphores, Pthread process-shared mutexes/semaphores). Resource cleanup (detaching and removing shared segments) is critical.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> You're building a multi-threaded server. Client data (a struct containing client ID and a message buffer) needs to be stored in a linked list accessible by all client-handling threads. Outline the key memory management and synchronization considerations.</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong></p>
+                <p>Here are the key memory management and synchronization considerations for a multi-threaded server storing client data in a shared linked list:</p>
+                <ol>
+                    <li><strong>Dynamic Allocation for Client Data:</strong>
+                        <ul>
+                            <li>Each <code>client_data</code> struct (and its message buffer) should be dynamically allocated using <code>malloc()</code> when a new client connects. This allows for a flexible number of clients and prevents stack overflow if client data is large.</li>
+                            <li>The message buffer within the <code>client_data</code> struct should also be dynamically allocated based on the incoming message size.</li>
+                            <li>Each node in the linked list should also be dynamically allocated.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Linked List Management:</strong>
+                        <ul>
+                            <li><strong>Memory Ownership:</strong> Clearly define which thread is responsible for freeing a <code>client_data</code> struct and its associated message buffer. Typically, the thread that removes a node from the list and finishes processing its data should free it.</li>
+                            <li><strong>Node Removal:</strong> Ensure that when a client disconnects or its data is processed, its corresponding node is correctly removed from the linked list and its memory is freed to prevent memory leaks.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Synchronization for Linked List Access (Critical Section):</strong>
+                        <ul>
+                            <li><strong>Mutex for List Operations:</strong> The entire linked list (or at least its head/tail pointers and next pointers during traversal/modification) is a shared resource. A single <code>pthread_mutex_t</code> should protect all operations that modify the list's structure (insertion, deletion, traversal that might be interrupted by deletion).</li>
+                            <li><strong>Lock Granularity:</strong>
+                                <ul>
+                                    <li><strong>Coarse-grained:</strong> Lock the mutex for the entire duration of adding/removing/iterating the list. Simpler to implement but can limit concurrency.</li>
+                                    <li><strong>Fine-grained:</strong> More complex, but allows more concurrency. E.g., a mutex per node, or read-write locks if reads are frequent and writes are rare. For a simple linked list, a single mutex is often sufficient and safer initially.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Example Critical Sections:</strong>
+                                <ul>
+                                    <li>Adding a new client's data to the list.</li>
+                                    <li>Removing a client's data from the list.</li>
+                                    <li>Traversing the list (if elements can be removed by other threads during traversal).</li>
+                                </ul>
+                            </li>
+                            <li><strong>Correct Mutex Usage:</strong> Always call <code>pthread_mutex_lock()</code> before entering the critical section and <code>pthread_mutex_unlock()</code> upon exiting it, even if an error occurs (e.g., using <code>goto</code> or ensuring unlocks in all exit paths).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Handling Disconnecting Clients:</strong>
+                        <ul>
+                            <li>When a client disconnects, the thread handling that client should safely remove its data from the shared linked list (under mutex protection) and free the associated memory.</li>
+                            <li>Beware of "use-after-free" if another thread holds a pointer to a client data struct that has just been freed. Setting pointers to NULL after freeing is a good practice, and defensive programming with checks.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Thread-Safe Data Structures:</strong>
+                        <ul>
+                            <li>If the <code>client_data</code> struct itself contains mutable members (e.g., a counter for messages received by that client), and these members are accessed by multiple threads (e.g., one thread writes, another reads for statistics), then those members might also need their own mutexes or other synchronization. However, typically, once a client's data is associated with a specific handling thread, only that thread modifies it, reducing the need for internal struct synchronization.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Error Handling:</strong>
+                        <ul>
+                            <li>Always check the return values of <code>malloc()</code> and Pthread functions (<code>pthread_create</code>, <code>pthread_mutex_init</code>, <code>pthread_mutex_lock</code>, etc.) for errors.</li>
+                            <li>If memory allocation fails, handle it gracefully (e.g., log error, close connection).</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+<div style="text-align: right; padding: 10px;">
+    <button onclick="window.print()" style="padding: 8px 16px; background-color: #0a2463; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+  </div>
+</html>

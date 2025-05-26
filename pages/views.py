@@ -11,6 +11,8 @@ import re
 # Define the path to the HTML pages directory
 HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'data_engineering')
 HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'agenticai')
+HTML_PAGES_SYSTEM_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'system_programming')
+HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'thought_for_the_day')
 
 def get_directory_structure(pages_dir):
     """Scan the html_pages directory and return a dictionary of topics and subtopics in numeric order."""
@@ -50,6 +52,11 @@ def book_view(request, topic=None, subtopic=None):
     """Render the book page with sidebar and content."""
     if topic == "agenticai":
         structure = get_directory_structure(HTML_PAGES_AGENTICAI_DIR)
+    elif topic == "system_programming":
+        structure = get_directory_structure(HTML_PAGES_SYSTEM_PROGRAMMING_DIR)
+    elif topic == "thought_for_the_day":
+        # For "thought_for_the_day", we can return a static page or handle it differently
+        structure = get_directory_structure(HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR)
     else:
         structure = get_directory_structure(HTML_PAGES_DIR)
     

@@ -1,0 +1,88 @@
+{% extends 'tutorials.html' %}
+{% block title %}APT Computing Hub - {{ topic|title }} Tutorials{% endblock %}
+{% block content %}
+  <h2>{{ topic|title }} Tutorials</h2>
+  {% if topic == 'topic cpp' %}
+    <h3>Memory Management and Testing in C (Dynamic Memory Allocation)</h3>
+    <section>
+      <h4>1. Understanding Dynamic Memory Allocation in C</h4>
+      <p>Dynamic memory allocation in C allows programs to request memory at runtime using functions like <code>malloc</code>, <code>calloc</code>, <code>realloc</code>, and <code>free</code>. This is managed on the heap, unlike stack-based automatic variables.</p>
+      <ul>
+        <li><strong>malloc(size)</strong>: Allocates uninitialized memory.</li>
+        <li><strong>calloc(n, size)</strong>: Allocates memory for <code>n</code> elements, initialized to zero.</li>
+        <li><strong>realloc(ptr, new_size)</strong>: Resizes allocated memory.</li>
+        <li><strong>free(ptr)</strong>: Deallocates memory to prevent leaks.</li>
+      </ul>
+      <pre>
+int *arr = (int *)malloc(5 * sizeof(int));
+if (arr == NULL) {
+    printf("Memory allocation failed!\n");
+    return 1;
+}
+for (int i = 0; i < 5; i++) arr[i] = i + 1;
+free(arr);
+      </pre>
+    </section>
+    <section>
+      <h4>2. Common Memory Management Pitfalls and Best Practices</h4>
+      <p>Improper memory management can lead to memory leaks, dangling pointers, or double-free errors. Follow best practices to avoid these issues.</p>
+      <ul>
+        <li><strong>Memory Leaks</strong>: Forgetting to free memory.</li>
+        <li><strong>Dangling Pointers</strong>: Accessing freed memory.</li>
+        <li><strong>Best Practices</strong>: Check for NULL, set pointers to NULL after freeing, use tools like Valgrind.</li>
+      </ul>
+      <pre>
+int *ptr = malloc(sizeof(int));
+if (ptr) {
+    *ptr = 10;
+    free(ptr);
+    ptr = NULL;  // Prevent dangling pointer
+}
+      </pre>
+    </section>
+    <section>
+      <h4>3. Testing Dynamic Memory Allocation with Unit Tests</h4>
+      <p>Unit tests verify that memory allocation works correctly, especially for edge cases. Use frameworks like Check or Unity.</p>
+      <pre>
+#include &lt;check.h&gt;
+START_TEST(test_malloc) {
+    int *ptr = malloc(10 * sizeof(int));
+    ck_assert_ptr_nonnull(ptr);
+    free(ptr);
+} END_TEST
+      </pre>
+    </section>
+    <section>
+      <h4>4. Memory Debugging Tools for C Programs</h4>
+      <p>Tools like Valgrind and AddressSanitizer help detect memory errors.</p>
+      <ul>
+        <li><strong>Valgrind</strong>: Run <code>valgrind --leak-check=full ./program</code> to detect leaks.</li>
+        <li><strong>AddressSanitizer</strong>: Compile with <code>-fsanitize=address</code>.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>5. Memory Management Strategies for Large-Scale C Programs</h4>
+      <p>Use memory pools or custom allocators for efficiency in complex programs.</p>
+      <pre>
+#define POOL_SIZE 1024
+char pool[POOL_SIZE];
+size_t pool_offset = 0;
+void* pool_alloc(size_t size) {
+    if (pool_offset + size <= POOL_SIZE) {
+        void *ptr = pool + pool_offset;
+        pool_offset += size;
+        return ptr;
+    }
+    return NULL;
+}
+      </pre>
+    </section>
+  {% else %}
+    <h3>Tutorials for {{ topic|title }}</h3>
+    <ul>
+      {% for tutorial in tutorials %}
+        <li><a href="{% static 'tutorials/'|add:tutorial %}">{{ tutorial }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}

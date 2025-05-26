@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Dynamic Memory Allocation in C</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #0056b3; /* A shade of blue for C-related content */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            color: #f8f8f2; /* Light color for code in dark background */
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'C Code' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-output::before {
+            content: 'Output' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Understanding Dynamic Memory Allocation in C</h1>
+    </header>
+
+    <section>
+        <h2>Introduction to Memory Management in C</h2>
+        <p>In C programming, memory can be managed in two primary ways: static memory allocation (at compile time) and dynamic memory allocation (at runtime). Static allocation handles fixed-size data, while dynamic allocation allows programs to request and release memory as needed during execution. This flexibility is crucial for handling data structures of varying sizes, such as linked lists, trees, and graphs, or when the exact memory requirements are unknown until runtime.</p>
+        <p>Understanding dynamic memory allocation is fundamental for efficient and robust C programming, enabling the creation of programs that can adapt to different data loads and optimize resource usage.</p>
+
+        <h2>The Stack vs. The Heap</h2>
+        <p>C programs utilize two main areas for memory storage:</p>
+        <ul>
+            <li><strong>Stack:</strong> This is where local variables, function parameters, and return addresses are stored. Memory on the stack is allocated and deallocated automatically by the compiler as functions are called and return. It operates on a Last-In, First-Out (LIFO) principle and is generally fast but has a limited size.</li>
+            <li><strong>Heap:</strong> This is a much larger pool of memory available for dynamic allocation. Programmers explicitly request and release memory from the heap using specific functions. This gives greater control but also places the responsibility of memory management on the programmer.</li>
+        </ul>
+
+        <h2>Core Dynamic Memory Allocation Functions</h2>
+        <p>C provides a set of standard library functions for dynamic memory management, primarily found in <code>&lt;stdlib.h&gt;</code>:</p>
+
+        <h3><code>malloc()</code>: Allocate Memory</h3>
+        <p>The <code>malloc()</code> function allocates a block of memory of a specified size in bytes and returns a pointer to the beginning of the allocated block. If memory cannot be allocated, it returns <code>NULL</code>.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int *ptr;
+    int n = 5;
+
+    // Allocate memory for 5 integers
+    ptr = (int *) malloc(n * sizeof(int));
+
+    // Check if malloc was successful
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    printf("Memory successfully allocated using malloc.\n");
+
+    // Initialize and print the allocated memory
+    for (int i = 0; i < n; i++) {
+        ptr[i] = i + 1;
+        printf("%d ", ptr[i]);
+    }
+    printf("\n");
+
+    // Don't forget to free the memory later!
+    free(ptr);
+    ptr = NULL; // Good practice to set freed pointers to NULL
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Syntax:</strong> <code>void* malloc(size_t size);</code></p>
+        <p>The returned <code>void*</code> pointer must be cast to the desired data type.</p>
+
+        <h3><code>calloc()</code>: Allocate and Initialize Memory</h3>
+        <p>The <code>calloc()</code> function allocates memory for an array of <code>num</code> elements, each of <code>size</code> bytes, and initializes all bytes in the allocated block to zero. It also returns <code>NULL</code> on failure.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int *ptr;
+    int n = 5;
+
+    // Allocate memory for 5 integers and initialize to zero
+    ptr = (int *) calloc(n, sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    printf("Memory successfully allocated and initialized using calloc.\n");
+
+    // Print the allocated memory (should be all zeros)
+    for (int i = 0; i < n; i++) {
+        printf("%d ", ptr[i]);
+    }
+    printf("\n");
+
+    free(ptr);
+    ptr = NULL;
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Syntax:</strong> <code>void* calloc(size_t num, size_t size);</code></p>
+
+        <h3><code>realloc()</code>: Reallocate Memory</h3>
+        <p>The <code>realloc()</code> function is used to change the size of an already allocated block of memory. It takes the original pointer and the new size as arguments. It can expand or shrink the memory block. The contents of the original block are preserved up to the lesser of the new and old sizes. If the new size is larger, the newly added memory is uninitialized. It returns <code>NULL</code> on failure, and the original block remains unchanged.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int *ptr;
+    int n = 3;
+
+    ptr = (int *) malloc(n * sizeof(int));
+    if (ptr == NULL) { return 1; }
+
+    printf("Original memory allocation:\n");
+    for (int i = 0; i < n; i++) {
+        ptr[i] = i + 1;
+        printf("%d ", ptr[i]);
+    }
+    printf("\n");
+
+    // Reallocate to a larger size
+    int new_n = 5;
+    int *new_ptr = (int *) realloc(ptr, new_n * sizeof(int));
+
+    if (new_ptr == NULL) {
+        printf("Reallocation failed!\n");
+        free(ptr); // Free original memory if realloc fails
+        return 1;
+    }
+
+    ptr = new_ptr; // Update pointer to the new memory block
+
+    printf("Memory reallocated to larger size:\n");
+    for (int i = 0; i < new_n; i++) {
+        // New elements are uninitialized, so print them as they are
+        printf("%d ", ptr[i]);
+    }
+    printf("\n");
+
+    free(ptr);
+    ptr = NULL;
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Syntax:</strong> <code>void* realloc(void* ptr, size_t new_size);</code></p>
+
+        <h3><code>free()</code>: Deallocate Memory</h3>
+        <p>The <code>free()</code> function is used to deallocate the memory previously allocated by <code>malloc()</code>, <code>calloc()</code>, or <code>realloc()</code>. Releasing memory is crucial to prevent memory leaks, where a program continuously consumes memory without releasing it, eventually leading to system slowdowns or crashes.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main() {
+    int *ptr = (int *) malloc(10 * sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    printf("Memory allocated. Now freeing it.\n");
+    free(ptr);
+    ptr = NULL; // Set the pointer to NULL after freeing
+
+    printf("Memory freed.\n");
+
+    // Accessing freed memory (dangling pointer) is undefined behavior
+    // printf("%d\n", *ptr); // DO NOT DO THIS!
+
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Syntax:</strong> <code>void free(void* ptr);</code></p>
+        <p>It's a common best practice to set the pointer to <code>NULL</code> after freeing the memory to prevent dangling pointer issues.</p>
+
+        <h2>Common Memory Management Pitfalls and Best Practices</h2>
+        <p>Dynamic memory allocation, while powerful, comes with its own set of challenges. Avoiding common pitfalls is essential for writing robust and reliable C programs.</p>
+
+        <h3>Memory Leaks</h3>
+        <p>A memory leak occurs when a program allocates memory dynamically but fails to deallocate it when it's no longer needed. Over time, this can lead to the program consuming excessive amounts of memory, potentially causing performance degradation or system crashes.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+// Example of a memory leak
+void create_leak() {
+    int *data = (int *) malloc(100 * sizeof(int));
+    // ... use data ...
+    // No free(data); -- Memory leak here!
+}
+
+int main() {
+    for (int i = 0; i < 1000; i++) {
+        create_leak(); // Each call leaks 100 * sizeof(int) bytes
+    }
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Best Practice:</strong> Always pair every <code>malloc()</code>, <code>calloc()</code>, or <code>realloc()</code> with a corresponding <code>free()</code>. Establish clear ownership and responsibility for allocated memory.</p>
+
+        <h3>Dangling Pointers</h3>
+        <p>A dangling pointer is a pointer that points to a memory location that has been deallocated (freed). Attempting to dereference a dangling pointer leads to undefined behavior, which can result in crashes, corrupted data, or security vulnerabilities.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+int main() {
+    int *ptr = (int *) malloc(sizeof(int));
+    *ptr = 10;
+    free(ptr);
+    // ptr is now a dangling pointer
+    // printf("%d\n", *ptr); // Dereferencing a dangling pointer - UNDEFINED BEHAVIOR!
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Best Practice:</strong> Set a pointer to <code>NULL</code> immediately after freeing the memory it points to (e.g., <code>ptr = NULL;</code>). This makes it safer to check for <code>NULL</code> before dereferencing.</p>
+
+        <h3>Double Free</h3>
+        <p>Double freeing occurs when a program attempts to deallocate the same block of memory twice. This is also undefined behavior and can corrupt the heap, leading to crashes or other unpredictable program behavior.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+int main() {
+    int *ptr = (int *) malloc(sizeof(int));
+    free(ptr);
+    // free(ptr); // Double free - UNDEFINED BEHAVIOR!
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Best Practice:</strong> Use the "set to <code>NULL</code> after freeing" practice. Before calling <code>free()</code>, check if the pointer is already <code>NULL</code>, as <code>free(NULL)</code> is safe and does nothing.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+if (ptr != NULL) {
+    free(ptr);
+    ptr = NULL;
+}
+            </code></pre>
+        </div>
+
+        <h3>Buffer Overflows/Underflows</h3>
+        <p>A buffer overflow occurs when data is written beyond the allocated boundary of a buffer. An underflow is the opposite, writing before the start. Both can corrupt adjacent memory, leading to crashes or exploitable vulnerabilities.</p>
+        <div class="code-box">
+            <pre><code class="language-c">
+int main() {
+    char *buffer = (char *) malloc(10 * sizeof(char)); // Allocates 10 bytes
+
+    // Buffer overflow: Writing beyond 9th index (index 0-9)
+    // strcpy(buffer, "This is a very long string that will overflow the buffer."); // DANGER!
+
+    free(buffer);
+    return 0;
+}
+            </code></pre>
+        </div>
+        <p><strong>Best Practice:</strong> Always ensure that the amount of data being written to a dynamically allocated buffer does not exceed its allocated size. Use safe string functions like <code>strncpy</code> with size limits, and carefully manage array indexing.</p>
+
+        <h3><code>malloc()</code> returning <code>NULL</code></h3>
+        <p>If <code>malloc()</code> (or <code>calloc()</code> or <code>realloc()</code>) fails to allocate the requested memory, it returns a <code>NULL</code> pointer. Failing to check for <code>NULL</code> and then attempting to dereference it will lead to a segmentation fault.</p>
+        <p><strong>Best Practice:</strong> Always check the return value of memory allocation functions for <code>NULL</code>. Handle allocation failures gracefully, perhaps by printing an error message and exiting, or attempting to recover.</p>
+
+        <h2>Memory Debugging Tools for C Programs</h2>
+        <p>Debugging memory-related issues in C can be challenging. Fortunately, several powerful tools can assist in identifying and resolving these problems.</p>
+
+        <h3>Valgrind (Memcheck)</h3>
+        <p>Valgrind is a widely used instrumentation framework for building dynamic analysis tools. Its most popular tool, Memcheck, can detect a wide range of memory errors, including:</p>
+        <ul>
+            <li>Use of uninitialized memory</li>
+            <li>Reading/writing past the end of <code>malloc</code>'d blocks</li>
+            <li>Reading/writing into freed blocks</li>
+            <li>Double frees</li>
+            <li>Memory leaks (showing where memory was allocated but not freed)</li>
+            <li>Mismatched <code>malloc/free</code> and <code>new/delete</code></li>
+        </ul>
+        <div class="code-box">
+            <pre><code class="language-bash">
+// Compile your C program with debug symbols
+gcc -g my_program.c -o my_program
+
+// Run with Valgrind
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./my_program
+            </code></pre>
+        </div>
+        <p>Valgrind provides detailed reports, including stack traces, to pinpoint the exact location of memory errors.</p>
+
+        <h3>AddressSanitizer (ASan)</h3>
+        <p>AddressSanitizer (ASan) is a fast memory error detector that can be integrated directly into your compilation process (e.g., with GCC or Clang). It instruments your code at compile time to detect memory errors at runtime with minimal performance overhead.</p>
+        <p>ASan can detect:</p>
+        <ul>
+            <li>Use after free</li>
+            <li>Heap buffer overflow</li>
+            <li>Stack buffer overflow</li>
+            <li>Global buffer overflow</li>
+            <li>Use after return</li>
+            <li>Use after scope</li>
+            <li>Double free</li>
+            <li>Memory leaks (experimental in some versions)</li>
+        </ul>
+        <div class="code-box">
+            <pre><code class="language-bash">
+// Compile with AddressSanitizer
+gcc -fsanitize=address -g my_program.c -o my_program
+
+// Run your program
+./my_program
+            </code></pre>
+        </div>
+        <p>If a memory error is detected, ASan will print a detailed report to stderr and terminate the program.</p>
+
+        <h3>GDB (GNU Debugger)</h3>
+        <p>GDB is a general-purpose debugger that can be used to inspect program state, set breakpoints, and step through code. While not a dedicated memory error detector like Valgrind or ASan, GDB is invaluable for understanding the flow of memory allocations and deallocations, and for investigating the immediate cause of crashes related to memory.</p>
+        <div class="code-box">
+            <pre><code class="language-bash">
+// Compile with debug symbols
+gcc -g my_program.c -o my_program
+
+// Start GDB
+gdb ./my_program
+
+// Inside GDB:
+// break main
+// run
+// ... use commands like 'print', 'x', 'backtrace' to inspect memory and call stack
+            </code></pre>
+        </div>
+
+        <h2>Memory Management Strategies for Large-Scale C Programs</h2>
+        <p>For complex or large-scale C applications, basic <code>malloc/free</code> might not always be the most efficient or robust approach. Consider these advanced strategies:</p>
+
+        <h3>Memory Pools (Arena Allocation)</h3>
+        <p>A memory pool (or arena) is a pre-allocated large block of memory from which smaller chunks are distributed. Instead of individual <code>malloc/free</code> calls, memory is requested from the pool. When all objects in the pool are no longer needed, the entire pool is deallocated at once. This can significantly reduce fragmentation and overhead, especially for many small, short-lived allocations.</p>
+        <p><strong>Benefits:</strong> Faster allocation/deallocation, reduced fragmentation, improved cache locality.</p>
+        <p><strong>When to use:</strong> Game development, real-time systems, or applications with many objects of similar lifespan.</p>
+
+        <h3>Custom Allocators</h3>
+        <p>For highly specific performance requirements, you might implement your own custom memory allocator. This involves managing memory directly using system calls like <code>mmap()</code> or <code>sbrk()</code>, rather than relying on the standard library's <code>malloc</code>. This approach is complex and error-prone but offers ultimate control and optimization.</p>
+        <p><strong>Benefits:</strong> Tailored memory management for specific data patterns, potentially higher performance.</p>
+        <p><strong>When to use:</strong> Highly specialized applications where standard library allocators are a bottleneck (e.g., high-performance computing, embedded systems).</p>
+
+        <h3>Smart Pointers (C++ influenced, but conceptual in C)</h3>
+        <p>While C doesn't have built-in "smart pointers" like C++, the concept of managing memory ownership more explicitly can be applied. This often involves wrapper structs that encapsulate a pointer and a reference count or some other mechanism to determine when memory should be freed.</p>
+        <p><strong>Benefits:</strong> Helps prevent memory leaks and dangling pointers by automating deallocation based on ownership rules.</p>
+        <p><strong>When to use:</strong> When designing complex data structures where clear ownership and lifetime management are challenging to maintain manually.</p>
+
+        <h3>Garbage Collection (External Libraries)</h3>
+        <p>While C is not a garbage-collected language by default, external garbage collection libraries (e.g., Boehm-Demers-Weiser conservative garbage collector) can be integrated. These libraries automatically detect and reclaim unused memory, abstracting away manual <code>free()</code> calls.</p>
+        <p><strong>Benefits:</strong> Reduces programmer burden, eliminates most memory leaks and dangling pointer issues.</p>
+        <p><strong>Drawbacks:</strong> Can introduce performance overhead, unpredictability in pauses, and may not be suitable for real-time systems.</p>
+        <p><strong>When to use:</strong> Applications where development speed and memory safety are prioritized over strict performance control and real-time guarantees.</p>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> Explain a scenario where <code>realloc()</code> might return <code>NULL</code>, and what should be done if it does.</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> <code>realloc()</code> can return <code>NULL</code> if there isn't enough contiguous memory available to fulfill the new size request, or if the original pointer passed to <code>realloc</code> was invalid (e.g., already freed or not allocated by <code>malloc/calloc/realloc</code>).</p>
+                <p><strong>Action:</strong> If <code>realloc()</code> returns <code>NULL</code>, the <strong>original memory block remains valid and unchanged</strong>. It is crucial to <strong>not</strong> overwrite the original pointer with <code>NULL</code>, as that would lead to a memory leak of the original block. Instead, you should check for <code>NULL</code> and handle the error, typically by freeing the original block and exiting, or implementing a fallback strategy.</p>
+                <div class="code-box">
+                    <pre><code class="language-c">
+int *temp_ptr = (int *) realloc(original_ptr, new_size);
+if (temp_ptr == NULL) {
+    printf("Reallocation failed! Original memory block is still valid.\n");
+    free(original_ptr); // Clean up the original memory
+    original_ptr = NULL;
+    // Handle error, e.g., exit(EXIT_FAILURE);
+} else {
+    original_ptr = temp_ptr; // Update pointer only on success
+}
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> What is memory fragmentation, and how can dynamic memory allocation contribute to it? Name one strategy to mitigate it.</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> Memory fragmentation occurs when available memory is broken down into small, non-contiguous blocks, making it difficult or impossible to allocate a large, contiguous block, even if the total free memory is sufficient. Dynamic memory allocation contributes to this when blocks of varying sizes are allocated and freed over time, leaving "holes" in the heap.</p>
+                <p>There are two types:</p>
+                <ul>
+                    <li><strong>External Fragmentation:</strong> Free memory exists, but it's scattered in small, non-contiguous blocks.</li>
+                    <li><strong>Internal Fragmentation:</strong> Allocated memory is larger than requested, leading to unused space within the allocated block (e.g., due to alignment requirements or block sizing by the allocator).</li>
+                </ul>
+                <p><strong>Mitigation Strategy:</strong></p>
+                <ul>
+                    <li><strong>Memory Pools/Arena Allocation:</strong> By allocating one large contiguous block and managing smaller allocations within it, this strategy can significantly reduce external fragmentation.</li>
+                    <li><strong>Coalescing Free Blocks:</strong> Memory allocators often try to merge adjacent free blocks into larger ones to combat external fragmentation.</li>
+                    <li><strong>Compaction:</strong> (Less common in C due to pointer invalidation) Moving allocated blocks around to bring all free space together.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> Describe the "use-after-free" vulnerability and how it can be exploited in C programs.</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> A "use-after-free" vulnerability occurs when a program continues to use a pointer after the memory it points to has been deallocated (freed). Once memory is freed, it might be reallocated for a different purpose or used by another part of the program. If the original pointer is then dereferenced, it can lead to several dangerous outcomes:</p>
+                <ul>
+                    <li><strong>Data Corruption:</strong> Writing to the freed memory might overwrite data belonging to another, newly allocated object, leading to incorrect program behavior.</li>
+                    <li><strong>Crashes (Segmentation Faults):</strong> Attempting to read from or write to freed memory can cause a segmentation fault if the memory region has been returned to the operating system or marked as inaccessible.</li>
+                    <li><strong>Arbitrary Code Execution:</strong> In more sophisticated attacks, an attacker might intentionally free an object, then cause the program to allocate a new object (controlled by the attacker) at the same memory location. When the "use-after-free" occurs, the attacker's controlled data is then processed, potentially leading to arbitrary code execution or privilege escalation.</li>
+                </ul>
+                <p><strong>Exploitation Example:</strong></p>
+                <ol>
+                    <li>A program allocates an object (e.g., a structure with function pointers).</li>
+                    <li>The object is freed, but a pointer to it remains.</li>
+                    <li>The attacker triggers another allocation that reuses the just-freed memory. The attacker crafts the new data to contain malicious code or overwrite crucial pointers (like function pointers) to point to their own shellcode.</li>
+                    <li>The program later attempts to use the dangling pointer, effectively executing the attacker's code.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+<div style="text-align: right; padding: 10px;">
+    <button onclick="window.print()" style="padding: 8px 16px; background-color: #0a2463; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+  </div>
+</html>

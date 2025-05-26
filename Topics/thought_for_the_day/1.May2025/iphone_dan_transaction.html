@@ -1,0 +1,131 @@
+{% extends 'tutorials.html' %}
+{% block title %}APT Computing Hub - {{ topic|title }} Tutorials{% endblock %}
+{% block content %}
+  <h2>{{ topic|title }} Tutorials</h2>
+  {% if topic == 'topic cybersecurity' %}
+    <h3>Secure Transactions with Apple Pay’s Device Account Number (DAN)</h3>
+    <section>
+      <h4>1. What is a Device Account Number (DAN)?</h4>
+      <p>The DAN is a unique, tokenized number used by Apple Pay to replace a credit or debit card’s actual number (PAN) during transactions. It’s encrypted and stored in the iPhone’s Secure Element, ensuring sensitive card details are never exposed.</p>
+      <ul>
+        <li><strong>Purpose</strong>: Enhances security by using a device-specific token instead of the card number.</li>
+        <li><strong>Storage</strong>: Encrypted in a tamper-resistant chip, not on Apple servers or iCloud.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>2. How Transactions Work with DAN</h4>
+      <p>When making a purchase, the iPhone generates a dynamic security code and combines it with the DAN to create a unique hash, sent to the merchant and payment network.</p>
+      <ul>
+        <li><strong>Steps</strong>:
+          <ol>
+            <li>User authenticates via Face ID, Touch ID, or passcode.</li>
+            <li>iPhone sends DAN and cryptogram to merchant (e.g., via NFC for in-store).</li>
+            <li>Payment network maps DAN to PAN and authorizes with the bank.</li>
+          </ol>
+        </li>
+        <li><strong>Example</strong>: A $50 purchase at a store uses DAN <code>...3456</code> and a one-time code, not the card’s <code>4444-3333-2222-1111</code>.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>3. Security Benefits</h4>
+      <p>Unlike plaintext credential storage (CWE-256), DAN offers robust security:</p>
+      <ul>
+        <li><strong>Tokenization</strong>: DAN is meaningless without the dynamic code.</li>
+        <li><strong>Encryption</strong>: Only the bank can decrypt the DAN to the PAN.</li>
+        <li><strong>Authentication</strong>: Face ID or Touch ID prevents unauthorized use.</li>
+      </ul>
+      <pre>
+# Vulnerable: Storing credentials in a file (C)
+#include <stdio.h>
+int main() {
+    FILE *fp = fopen("creds.txt", "w");
+    fprintf(fp, "card:4444-3333-2222-1111");
+    fclose(fp);
+    return 0;
+}
+
+# Secure: Apple Pay’s approach (conceptual)
+# Card number is tokenized as DAN, stored in Secure Element
+# Transaction uses DAN + dynamic code, not PAN
+      </pre>
+    </section>
+    <section>
+      <h4>4. Cybersecurity Implications</h4>
+      <p>DAN avoids vulnerabilities like plaintext storage but has challenges:</p>
+      <ul>
+        <li><strong>Fraud Detection</strong>: Multiple DANs for the same card on different devices complicate velocity checks.</li>
+        <li><strong>Mitigation</strong>: Merchants use alternative fraud detection (e.g., internal card numbers).</li>
+        <li><strong>Contrast</strong>: Unlike a plaintext file, DAN is not directly exploitable, even if intercepted.</li>
+      </ul>
+    </section>
+  {% elif topic == 'topic cpp' %}
+    <h3>Common Vulnerabilities and Exposures (CVEs) in Embedded Systems</h3>
+    <section>
+      <h4>1. CVE-2024-6047: GeoVision Devices OS Command Injection</h4>
+      <p>Affects GeoVision IP cameras and DVRs, allowing remote attackers to execute arbitrary commands due to poor input validation in the web interface, often written in C/C++.</p>
+      <ul>
+        <li><strong>Impact</strong>: Full device control, compromising surveillance or network security.</li>
+        <li><strong>Mitigation</strong>: Apply patches, disable remote access, or replace EoL devices.</li>
+        <li><strong>Lesson</strong>: Use secure input handling (e.g., <code>strncpy</code>) to prevent injection.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>2. CVE-2019-0709 (BlueKeep): Windows Embedded Remote Code Execution</h4>
+      <p>A use-after-free vulnerability in Windows Embedded RDP allows unauthenticated remote code execution, affecting industrial HMIs and medical devices.</p>
+      <ul>
+        <li><strong>Impact</strong>: Enables attacks like WannaCry, compromising critical systems.</li>
+        <li><strong>Mitigation</strong>: Apply Microsoft patches, disable RDP, isolate devices.</li>
+        <li><strong>Lesson</strong>: Avoid use-after-free bugs by setting pointers to <code>NULL</code> after <code>free</code>.</li>
+      </ul>
+      <pre>
+void safe_free(void **ptr) {
+    if (*ptr) {
+        free(*ptr);
+        *ptr = NULL;  // Prevent use-after-free
+    }
+}
+      </pre>
+    </section>
+    <section>
+      <h4>3. CVE-2020-15808: STMicroelectronics USB Buffer Overflow</h4>
+      <p>A buffer overflow in STM32 USB CDC class allows memory access or code execution via crafted USB descriptors, due to missing bounds checks in C code.</p>
+      <ul>
+        <li><strong>Impact</strong>: Affects IoT and industrial devices, enabling escalation.</li>
+        <li><strong>Mitigation</strong>: Update firmware, validate USB inputs.</li>
+        <li><strong>Lesson</strong>: Always check buffer bounds before copying data.</li>
+      </ul>
+      <pre>
+void process_usb_data(char *data, size_t len) {
+    char buffer[64];
+    if (len >= sizeof(buffer)) return;  // Bounds check
+    memcpy(buffer, data, len);
+}
+      </pre>
+    </section>
+    <section>
+      <h4>4. CVE-2021-44228 (Log4j): Indirect Impact on Embedded Systems</h4>
+      <p>A remote code execution flaw in Log4j affects Java-based IoT gateways, allowing attackers to execute arbitrary code via crafted log messages.</p>
+      <ul>
+        <li><strong>Impact</strong>: Compromises network-connected embedded devices.</li>
+        <li><strong>Mitigation</strong>: Update Log4j, disable message lookups.</li>
+        <li><strong>Lesson</strong>: Vet third-party libraries in embedded projects.</li>
+      </ul>
+    </section>
+    <section>
+      <h4>5. CVE-2025-36535: Embedded Web Server Authentication Bypass</h4>
+      <p>An IoT web server lacks authentication, allowing remote configuration changes due to hardcoded credentials or missing checks in C code.</p>
+      <ul>
+        <li><strong>Impact</strong>: Enables device reconfiguration or network attacks.</li>
+        <li><strong>Mitigation</strong>: Add authentication (e.g., MbedTLS), apply patches.</li>
+        <li><strong>Lesson</strong>: Implement secure authentication in embedded servers.</li>
+      </ul>
+    </section>
+  {% else %}
+    <h3>Tutorials for {{ topic|title }}</h3>
+    <ul>
+      {% for tutorial in tutorials %}
+        <li><a href="{% static 'tutorials/'|add:tutorial %}">{{ tutorial }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
