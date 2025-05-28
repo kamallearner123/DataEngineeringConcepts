@@ -1,0 +1,914 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Python Lists: Ultimate Guide with Examples, Challenges, and Assignments\n",
+        "\n",
+        "## Introduction\n",
+        "This notebook is a comprehensive resource for mastering Python lists, one of Python's core data structures. Lists are mutable, ordered, dynamic collections that can store elements of any type. This guide dives deep into list creation, manipulation, methods, comprehensions, advanced techniques, performance considerations, common pitfalls, and real-world applications. It includes extensive examples, interactive challenges to test your skills, and assignments to apply your knowledge.\n",
+        "\n",
+        "**Why Master Lists?** Lists are foundational for tasks like data processing, algorithm design, and working with Python libraries (e.g., pandas, NumPy). Understanding their nuances—such as mutability, performance, and memory usage—unlocks efficient and elegant coding.\n",
+        "\n",
+        "**Generated on May 22, 2025, at 18:59 IST by Grok 3**"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 1. List Fundamentals\n",
+        "\n",
+        "### 1.1 Creating Lists\n",
+        "Lists are defined using square brackets `[]` or the `list()` constructor. They support any data type, are dynamic (can grow/shrink), and are ordered (elements maintain insertion order)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Empty list\n",
+        "empty_list = []\n",
+        "\n",
+        "# Homogeneous list (same type)\n",
+        "integers = [1, 2, 3, 4, 5]\n",
+        "\n",
+        "# Heterogeneous list (mixed types)\n",
+        "mixed = [1, \"hello\", 3.14, True, None]\n",
+        "\n",
+        "# Using list() constructor\n",
+        "from_string = list(\"Python\")\n",
+        "from_tuple = list((10, 20, 30))\n",
+        "from_range = list(range(1, 6))\n",
+        "print(from_string)    # Output: ['P', 'y', 't', 'h', 'o', 'n']\n",
+        "print(from_tuple)     # Output: [10, 20, 30]\n",
+        "print(from_range)     # Output: [1, 2, 3, 4, 5]\n",
+        "\n",
+        "# List with repeated elements\n",
+        "repeated = [0] * 5\n",
+        "print(repeated)       # Output: [0, 0, 0, 0, 0]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Memory Note**: Lists store references to objects, not the objects themselves. This allows flexibility but can lead to surprises with mutable objects (see Section 5.2)."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 1.2 Accessing and Length\n",
+        "Lists are zero-indexed. Negative indices access elements from the end. Use `len()` to get the list's size."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fruits = [\"apple\", \"banana\", \"cherry\", \"date\", \"elderberry\"]\n",
+        "print(fruits[0])      # Output: apple\n",
+        "print(fruits[-1])     # Output: elderberry\n",
+        "print(len(fruits))    # Output: 5\n",
+        "\n",
+        "# Error handling for out-of-bounds\n",
+        "try:\n",
+        "    print(fruits[10])\n",
+        "except IndexError as e:\n",
+        "    print(f\"Error: {e}\")  # Output: Error: list index out of range"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 1: List Creation and Access\n",
+        "Create a list of 7 favorite movies. Print the first, third, and last movie, and the total number of movies."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Your code here\n",
+        "movies = []  # Replace with 7 favorite movies\n",
+        "print(movies[0], movies[2], movies[-1], len(movies))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 2. List Operations\n",
+        "\n",
+        "### 2.1 Slicing\n",
+        "Slicing extracts sublists using `[start:end:step]`. The `start` is inclusive, `end` is exclusive. Omitting indices uses defaults (`start=0`, `end=len(list)`, `step=1`)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n",
+        "print(numbers[2:6])     # Output: [2, 3, 4, 5]\n",
+        "print(numbers[::2])     # Output: [0, 2, 4, 6, 8]\n",
+        "print(numbers[::-1])    # Output: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]\n",
+        "print(numbers[1:8:3])   # Output: [1, 4, 7]\n",
+        "\n",
+        "# Slicing with negative step\n",
+        "print(numbers[8:2:-2])  # Output: [8, 6, 4]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Tip**: Slicing creates a new list (shallow copy), so modifications to the slice don’t affect the original list."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 2.2 Modifying Lists\n",
+        "Lists are mutable, allowing element changes via indexing or slicing. Operators like `+` (concatenation) and `*` (repetition) create new lists."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "colors = [\"red\", \"blue\", \"green\"]\n",
+        "colors[1] = \"yellow\"                    # Single element modification\n",
+        "print(colors)                           # Output: ['red', 'yellow', 'green']\n",
+        "\n",
+        "colors[0:2] = [\"purple\", \"orange\"]      # Replace slice\n",
+        "print(colors)                           # Output: ['purple', 'orange', 'green']\n",
+        "\n",
+        "# Concatenation and repetition\n",
+        "list1 = [1, 2, 3]\n",
+        "list2 = [4, 5, 6]\n",
+        "combined = list1 + list2\n",
+        "print(combined)                         # Output: [1, 2, 3, 4, 5, 6]\n",
+        "repeated = list1 * 3\n",
+        "print(repeated)                         # Output: [1, 2, 3, 1, 2, 3, 1, 2, 3]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Pitfall**: Slicing assignments must use iterables (e.g., lists, tuples). Assigning a single value to a slice raises a `TypeError`."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "try:\n",
+        "    colors[0:2] = 100  # Incorrect\n",
+        "except TypeError as e:\n",
+        "    print(f\"Error: {e}\")  # Output: Error: can only assign an iterable\n",
+        "\n",
+        "colors[0:2] = [100]  # Correct: Assigning a single-element list\n",
+        "print(colors)         # Output: [100, 'green']"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 2: Advanced Slicing and Modification\n",
+        "Given the list `data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]`, replace the first four elements with `[1, 2, 3]`, then extract every third element starting from index 2 (i.e., `[30, 60, 90]`)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]\n",
+        "# Your code here\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 3. List Methods\n",
+        "Python lists offer a rich set of built-in methods for manipulation. Below is a comprehensive overview."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "items = [1, 2, 3]\n",
+        "items.append(4)          # Add single element\n",
+        "print(items)             # Output: [1, 2, 3, 4]\n",
+        "\n",
+        "items.extend([5, 6])     # Add multiple elements\n",
+        "print(items)             # Output: [1, 2, 3, 4, 5, 6]\n",
+        "\n",
+        "items.insert(2, \"new\")   # Insert at index 2\n",
+        "print(items)             # Output: [1, 2, 'new', 3, 4, 5, 6]\n",
+        "\n",
+        "items.remove(\"new\")      # Remove first occurrence\n",
+        "print(items)             # Output: [1, 2, 3, 4, 5, 6]\n",
+        "\n",
+        "popped = items.pop(2)    # Remove and return element at index 2\n",
+        "print(popped, items)     # Output: 3 [1, 2, 4, 5, 6]\n",
+        "\n",
+        "items.sort()             # Sort in-place\n",
+        "print(items)             # Output: [1, 2, 4, 5, 6]\n",
+        "\n",
+        "items.reverse()          # Reverse in-place\n",
+        "print(items)             # Output: [6, 5, 4, 2, 1]\n",
+        "\n",
+        "print(items.index(4))    # Output: 2 (first occurrence of 4)\n",
+        "print(items.count(2))    # Output: 1 (number of 2s)\n",
+        "\n",
+        "items.clear()            # Remove all elements\n",
+        "print(items)             # Output: []"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Sorting Notes**:\n",
+        "- `sort()` modifies the list in-place and requires comparable elements.\n",
+        "- `sorted()` creates a new list, leaving the original unchanged.\n",
+        "- Use the `key` parameter for custom sorting (e.g., by length for strings)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "words = [\"apple\", \"banana\", \"fig\"]\n",
+        "words.sort(key=len)  # Sort by length\n",
+        "print(words)         # Output: ['fig', 'apple', 'banana']\n",
+        "\n",
+        "numbers = [3, 1, 4, 1, 5]\n",
+        "sorted_numbers = sorted(numbers, reverse=True)\n",
+        "print(sorted_numbers, numbers)  # Output: [5, 4, 3, 1, 1] [3, 1, 4, 1, 5]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 3: Complex List Methods\n",
+        "Given `items = [15, 25, 15, 35, 45, 25]`, append 55, insert 20 at index 3, remove all 15s, sort in descending order, and find the count of 25s."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "items = [15, 25, 15, 35, 45, 25]\n",
+        "# Your code here\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 4. List Comprehensions\n",
+        "List comprehensions provide a concise, efficient way to create or transform lists. They are syntactically elegant and often outperform equivalent loops."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Basic comprehension\n",
+        "squares = [x**2 for x in range(6)]\n",
+        "print(squares)  # Output: [0, 1, 4, 9, 16, 25]\n",
+        "\n",
+        "# With condition\n",
+        "odds = [x for x in range(10) if x % 2 == 1]\n",
+        "print(odds)     # Output: [1, 3, 5, 7, 9]\n",
+        "\n",
+        "# Nested comprehension (3x3 matrix)\n",
+        "matrix = [[i * 3 + j + 1 for j in range(3)] for i in range(3)]\n",
+        "print(matrix)   # Output: [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n",
+        "\n",
+        "# Conditional logic\n",
+        "numbers = [-3, -2, -1, 0, 1, 2, 3]\n",
+        "transformed = [x * 2 if x > 0 else x for x in numbers]\n",
+        "print(transformed)  # Output: [-3, -2, -1, 0, 2, 4, 6]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Performance Advantage**: List comprehensions are optimized in Python’s C backend, making them faster than loops for simple transformations."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import time\n",
+        "\n",
+        "# Loop vs. comprehension performance\n",
+        "start = time.time()\n",
+        "loop_list = []\n",
+        "for i in range(1000000):\n",
+        "    loop_list.append(i * 2)\n",
+        "loop_time = time.time() - start\n",
+        "\n",
+        "start = time.time()\n",
+        "comp_list = [i * 2 for i in range(1000000)]\n",
+        "comp_time = time.time() - start\n",
+        "\n",
+        "print(f\"Loop time: {loop_time:.4f} seconds\")\n",
+        "print(f\"Comprehension time: {comp_time:.4f} seconds\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Readability Tip**: Keep comprehensions simple. Complex logic is better handled with explicit loops for clarity."
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 4: Nested List Comprehension\n",
+        "Create a 5x5 matrix where each element is the product of its row and column indices (0-based). Then, create a list of elements from the matrix where the product is even."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Your code here\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 5. Advanced List Techniques\n",
+        "\n",
+        "### 5.1 Nested Lists\n",
+        "Nested lists are used for multidimensional data (e.g., matrices, grids). Accessing and modifying elements requires multiple indices."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n",
+        "print(matrix[1][2])  # Output: 6\n",
+        "\n",
+        "# Modify entire row\n",
+        "matrix[1] = [10, 11, 12]\n",
+        "print(matrix)  # Output: [[1, 2, 3], [10, 11, 12], [7, 8, 9]]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Pitfall**: Creating nested lists with `[[]] * n` can lead to shared references."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Incorrect: Shared references\n",
+        "bad_matrix = [[]] * 3\n",
+        "bad_matrix[0].append(1)\n",
+        "print(bad_matrix)  # Output: [[1], [1], [1]]\n",
+        "\n",
+        "# Correct: Independent lists\n",
+        "good_matrix = [[] for _ in range(3)]\n",
+        "good_matrix[0].append(1)\n",
+        "print(good_matrix)  # Output: [[1], [], []]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 5.2 Copying Lists\n",
+        "Lists are mutable, so copying requires care. Use `copy()` for shallow copies or `copy.deepcopy()` for nested structures."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import copy\n",
+        "original = [1, [2, 3], 4]\n",
+        "shallow = original.copy()\n",
+        "deep = copy.deepcopy(original)\n",
+        "shallow[1][0] = 99\n",
+        "print(original)  # Output: [1, [99, 3], 4]\n",
+        "print(deep)      # Output: [1, [2, 3], 4]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "**Pitfall**: Assignment creates a reference, not a copy."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "original = [1, 2, 3]\n",
+        "reference = original\n",
+        "reference[0] = 100\n",
+        "print(original)  # Output: [100, 2, 3]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ### 5.3 Performance and Time Complexity\n",
+        "Understanding list operation costs is crucial for efficient coding:\n",
+        "- **O(1)**: `append()`, `pop()` (from end), indexing, `len()`.\n",
+        "- **O(n)**: `insert()`, `pop(index)`, `remove()`, `in` (search), slicing.\n",
+        "- **O(n log n)**: `sort()`.\n",
+        "\n",
+        "For large datasets, consider alternatives like sets (O(1) membership testing) or NumPy arrays (optimized for numerical operations)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import time\n",
+        "\n",
+        "# Compare list vs. set for membership testing\n",
+        "large_list = list(range(1000000))\n",
+        "large_set = set(large_list)\n",
+        "\n",
+        "start = time.time()\n",
+        "999999 in large_list\n",
+        "list_time = time.time() - start\n",
+        "\n",
+        "start = time.time()\n",
+        "999999 in large_set\n",
+        "set_time = time.time() - start\n",
+        "\n",
+        "print(f\"List search time: {list_time:.4f} seconds\")\n",
+        "print(f\"Set search time: {set_time:.4f} seconds\")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 5: Matrix Diagonal Sum\n",
+        "Create a 4x4 matrix with random integers (1-50). Write a function to compute the sum of the main diagonal (top-left to bottom-right)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import random\n",
+        "matrix = [[random.randint(1, 50) for _ in range(4)] for _ in range(4)]\n",
+        "def diagonal_sum(mat):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "print(matrix)\n",
+        "print(diagonal_sum(matrix))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 6. Practical Applications\n",
+        "\n",
+        "### 6.1 Data Processing\n",
+        "Lists are ideal for filtering, mapping, and aggregating data."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Filter temperatures above 25°C and compute statistics\n",
+        "temps = [20, 28, 22, 30, 27, 19, 26, 32]\n",
+        "warm_temps = [t for t in temps if t > 25]\n",
+        "avg_warm = sum(warm_temps) / len(warm_temps) if warm_temps else 0\n",
+        "print(warm_temps)      # Output: [28, 30, 27, 26, 32]\n",
+        "print(f\"Average: {avg_warm:.2f}\")  # Output: Average: 28.60"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 6.2 Implementing Stacks and Queues\n",
+        "Lists support stack (LIFO) and queue (FIFO) operations. For queues, `collections.deque` is more efficient for `popleft()`."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Stack (Last-In-First-Out)\n",
+        "stack = []\n",
+        "stack.append(1)\n",
+        "stack.append(2)\n",
+        "stack.append(3)\n",
+        "print(stack.pop())  # Output: 3\n",
+        "print(stack)        # Output: [1, 2]\n",
+        "\n",
+        "# Queue (First-In-First-Out)\n",
+        "from collections import deque\n",
+        "queue = deque([1, 2, 3])\n",
+        "queue.append(4)\n",
+        "print(queue.popleft())  # Output: 1\n",
+        "print(queue)            # Output: deque([2, 3, 4])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### 6.3 List as a Dynamic Array\n",
+        "Lists automatically resize when elements are added, doubling their capacity when needed. This makes `append()` efficient but can lead to memory overhead."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import sys\n",
+        "lst = []\n",
+        "print(sys.getsizeof(lst))  # Output: ~56 (empty list overhead)\n",
+        "lst.append(1)\n",
+        "print(sys.getsizeof(lst))  # Output: ~88 (room for more elements)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 6: Queue Simulation\n",
+        "Simulate a queue of tasks using `deque`. Given operations `[('add', 'task1'), ('add', 'task2'), ('process', None), ('add', 'task3')]`, return the final queue state."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from collections import deque\n",
+        "operations = [('add', 'task1'), ('add', 'task2'), ('process', None), ('add', 'task3')]\n",
+        "def process_queue(ops):\n",
+        "    queue = deque()\n",
+        "    # Your code here\n",
+        "    return queue\n",
+        "print(process_queue(operations))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 7. Common Pitfalls and Best Practices\n",
+        "- **Modifying During Iteration**: Avoid removing or adding elements while iterating, as it can skip elements or cause errors.\n",
+        "- **Overusing Comprehensions**: Complex comprehensions reduce readability; use loops for clarity.\n",
+        "- **Choosing the Right Structure**: Use sets for unique elements, dictionaries for key-value pairs, or NumPy for numerical data.\n",
+        "- **Memory Efficiency**: Be mindful of list resizing and deep copies for large datasets.\n",
+        "- **PEP 8 Compliance**: Use descriptive names (e.g., `numbers` instead of `lst`) and follow style guidelines."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Pitfall: Modifying during iteration\n",
+        "numbers = [1, 2, 3, 4, 5]\n",
+        "for num in numbers:\n",
+        "    if num % 2 == 0:\n",
+        "        numbers.remove(num)  # Skips elements!\n",
+        "print(numbers)  # Output: [1, 3, 5] (4 is skipped)\n",
+        "\n",
+        "# Correct: Use comprehension or iterate backwards\n",
+        "numbers = [1, 2, 3, 4, 5]\n",
+        "numbers = [num for num in numbers if num % 2 != 0]\n",
+        "print(numbers)  # Output: [1, 3, 5]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 7: Safe List Modification\n",
+        "Given a list `values = [10, 15, 20, 25, 30, 35]`, remove all elements divisible by 5 without modifying the list during iteration. Return the new list."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "values = [10, 15, 20, 25, 30, 35]\n",
+        "# Your code here\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 8. Assignments\n",
+        "These assignments test your mastery of Python lists with practical, challenging tasks.\n",
+        "\n",
+        "1. **List Statistics**: Generate a list of 25 random integers (1-100). Compute the median, mode, and standard deviation.\n",
+        "2. **Text Analysis**: Given a string (e.g., 'Python is awesome!'), create a list of unique words (case-insensitive) in order of appearance.\n",
+        "3. **Matrix Spiral**: Create a 5x5 matrix with values 1-25 in row-major order. Write a function to return elements in a clockwise spiral order.\n",
+        "4. **Custom Sort**: Create a list of tuples (name, grade, age). Sort by grade (descending), then age (ascending), then name (alphabetically).\n",
+        "5. **List Intersection**: Write a function that returns the intersection of two lists, preserving the order of the first list, without using sets.\n",
+        "6. **Sliding Window Median**: Given a list of integers and window size `k`, return a list of medians for each window of size `k`.\n",
+        "7. **List Compression**: Implement a simple run-length encoding for a list (e.g., `[1, 1, 2, 2, 2, 3]` → `[(1, 2), (2, 3), (3, 1)]`)."
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import random\n",
+        "import statistics\n",
+        "\n",
+        "# Assignment 1: List Statistics\n",
+        "numbers = [random.randint(1, 100) for _ in range(25)]\n",
+        "def list_stats(lst):\n",
+        "    return {\n",
+        "        'median': statistics.median(lst),\n",
+        "        'mode': statistics.mode(lst),\n",
+        "        'stdev': statistics.stdev(lst) if len(lst) > 1 else 0\n",
+        "    }\n",
+        "print(numbers, list_stats(numbers))\n",
+        "\n",
+        "# Assignment 2: Unique Words\n",
+        "text = \"Python is awesome Python is fun\"\n",
+        "def unique_words(s):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "\n",
+        "# Assignment 3: Matrix Spiral\n",
+        "matrix = [[1, 2, 3, 4, 5], [16, 17, 18, 19, 6], [15, 24, 25, 20, 7], [14, 23, 22, 21, 8], [13, 12, 11, 10, 9]]\n",
+        "def spiral_order(mat):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "\n",
+        "# Assignment 4: Custom Sort\n",
+        "students = [(\"Alice\", 85, 20), (\"Bob\", 90, 19), (\"Charlie\", 85, 21)]\n",
+        "def sort_students(students):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "\n",
+        "# Assignment 5: List Intersection\n",
+        "def list_intersection(lst1, lst2):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "\n",
+        "# Assignment 6: Sliding Window Median\n",
+        "def sliding_window_median(nums, k):\n",
+        "    # Your code here\n",
+        "    pass\n",
+        "\n",
+        "# Assignment 7: Run-Length Encoding\n",
+        "def run_length_encode(lst):\n",
+        "    # Your code here\n",
+        "    pass"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## 9. Solutions to Challenges\n",
+        "\n",
+        "### Challenge 1: List Creation and Access"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "movies = [\"Inception\", \"Matrix\", \"Interstellar\", \"Godfather\", \"Pulp Fiction\", \"Titanic\", \"Avatar\"]\n",
+        "print(movies[0], movies[2], movies[-1], len(movies))  # Output: Inception Interstellar Avatar 7"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 2: Advanced Slicing and Modification"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "data = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]\n",
+        "data[0:4] = [1, 2, 3]\n",
+        "print(data[2::3])  # Output: [30, 60, 90]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Challenge 3: Complex List Methods"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "items = [15, 25, 15, 35, 45, 25]\n",
+        "items.append(55)\n",
+        "items.insert(3, 20)\n",
+        "while 15 in items:\n",
+        "    items.remove(15)\n",
+        "items.sort(reverse=True)\n",
+        "print(items.count(25))  # Output: 2\n",
+        "print(items)            # Output: [55, 45, 35, 25, 25, 20]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ### Challenge 4: Nested List Comprehension"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "matrix = [[i * j for j in range(5)] for i in range(5)]\n",
+        "even_products = [matrix[i][j] for i in range(5) for j in range(5) if matrix[i][j] % 2 == 0]\n",
+        "print(matrix)         # Output: [[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8], [0, 3, 6, 9, 12], [0, 4, 8, 12, 16]]\n",
+        "print(even_products)  # Output: [0, 0, 0, 0, 0, 0, 2, 4, 0, 2, 4, 6, 8, 0, 6, 12, 0, 4, 8, 12, 16]"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ### Challenge 5: Matrix Diagonal Sum"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import random\n",
+        "matrix = [[random.randint(1, 50) for _ in range(4)] for _ in range(4)]\n",
+        "def diagonal_sum(mat):\n",
+        "    return sum(mat[i][i] for i in range(len(mat)))\n",
+        "print(matrix)\n",
+        "print(diagonal_sum(matrix))  # Output: Sum of diagonal elements"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ### Challenge 6: Queue Simulation"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from collections import deque\n",
+        "operations = [('add', 'task1'), ('add', 'task2'), ('process', None), ('add', 'task3')]\n",
+        "def process_queue(ops):\n",
+        "    queue = deque()\n",
+        "    for op, value in ops:\n",
+        "        if op == 'add':\n",
+        "            queue.append(value)\n",
+        "        elif op == 'process' and queue:\n",
+        "            queue.popleft()\n",
+        "    return queue\n",
+        "print(process_queue(operations))  # Output: deque(['task2', 'task3'])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        ### Challenge 7: Safe List Modification"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "values = [10, 15, 20, 25, 30, 35]\n",
+        "values = [x for x in values if x % 5 != 0]\n",
+        "print(values)  # Output: [] (all elements divisible by 5)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8.10"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 4
+}

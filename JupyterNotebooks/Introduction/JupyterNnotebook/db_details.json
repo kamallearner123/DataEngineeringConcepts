@@ -1,0 +1,6 @@
+{
+    "Host": "127.0.0.1",
+    "Port": 102,
+    "Db_name": "python_trainings",
+    "pass": "1234"
+}

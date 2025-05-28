@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivering Django with PyInstaller</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Command';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-python::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Delivering Django with PyInstaller</h1>
+    </header>
+
+    <section>
+        <h2>Introduction to PyInstaller Delivery</h2>
+        <p><strong>What is PyInstaller Delivery?</strong> PyInstaller packages Python scripts, like a Django app, into standalone executables that run without Python installed. After running <code>pyinstaller</code>, it generates <code>build/</code>, <code>dist/</code>, the original script, and a <code>.spec</code> file.</p>
+        <p><strong>Key Deliverables:</strong></p>
+        <ul>
+            <li><strong>dist/:</strong> Contains the executable and dependencies.</li>
+            <li><strong>Supporting Files:</strong> Static files, templates, and database for Django.</li>
+            <li><strong>Documentation:</strong> Instructions for running the app.</li>
+            <li><strong>Security:</strong> Avoid plaintext credentials (CWE-256).</li>
+        </ul>
+        <p>This guide explains what to deliver to customers after running PyInstaller.</p>
+
+        <h2>PyInstaller Output and Deliverables</h2>
+        <p><strong>Overview:</strong> PyInstaller generates files, but only <code>dist/</code> and supporting files are delivered.</p>
+        <p><strong>Deliverable Files:</strong> For a script like <code>print_hello.py</code>:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">dist/print_hello  # Linux/macOS
+# or dist/print_hello.exe (Windows)
+</code></pre>
+        </div>
+        <p>For a Django app, include:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">dist/print_hello
+staticfiles/  # From collectstatic
+templates/    # HTML templates
+db.sqlite3    # If using SQLite
+</code></pre>
+        </div>
+        <p><strong>Run Command:</strong> Customer executes:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">./dist/print_hello  # Linux/macOS
+# or dist\print_hello.exe (Windows)
+</code></pre>
+        </div>
+        <p><strong>Security Note:</strong> Use environment variables:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">import os
+os.environ['SECRET_KEY'] = os.getenv('SECRET_KEY')
+</code></pre>
+        </div>
+
+        <h2>Documentation for Customers</h2>
+        <p><strong>Overview:</strong> Provide a README with setup instructions.</p>
+        <p><strong>Example README:</strong></p>
+        <div class="code-box">
+            <pre><code class="language-markdown"># My Django App
+## Running the Application
+1. Run `./dist/print_hello` (Linux/macOS) or `dist\print_hello.exe` (Windows).
+2. Visit `http://localhost:8000`.
+3. Set `SECRET_KEY` in a `.env` file.
+## Requirements
+- Windows 10/11, macOS 12+, or Ubuntu 20.04+
+- 4GB RAM
+</code></pre>
+        </div>
+        <p><strong>Security Note:</strong> Sign executables to ensure integrity.</p>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> Why is only the <code>dist/</code> directory delivered to customers?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> <code>dist/</code> contains the executable and dependencies needed to run the app. <code>build/</code> has temporary files, and <code>.spec</code> is for rebuilding, not execution.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> Why is PyInstaller less suitable for Django web apps?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> Django apps are designed for server deployment, but PyInstaller’s executables run a development server, unsuitable for production. Docker Compose or Heroku are better for web apps.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What security risk exists when delivering executables, and how can it be mitigated?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> Hardcoded secrets (CWE-256) can be reverse-engineered.</p>
+                <p><strong>Mitigation:</strong> Use environment variables and sign executables.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+<div style="text-align: right; padding: 10px;">
+    <button onclick="window.print()" style="padding: 8px 16px; background-color: #0a2463; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+</div>
+</html>
