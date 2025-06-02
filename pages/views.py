@@ -10,8 +10,11 @@ import re
 
 # Define the path to the HTML pages directory
 HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'data_engineering')
+HTML_TOPICS_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics') # Ensure it's an absolute path
 HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'agenticai')
 HTML_PAGES_SYSTEM_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'system_programming')
+# add pathf for rust_programming
+HTML_PAGES_RUST_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'rust_programming')
 HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'thought_for_the_day')
 
 def get_directory_structure(pages_dir):
@@ -48,7 +51,7 @@ def get_directory_structure(pages_dir):
     return structure
 
 def book_view(request, topic=None, subtopic=None):
-    print(f"Requested topic: {topic}")
+    print(f"Requested topic: {topic} and subtopic: {subtopic}")
     """Render the book page with sidebar and content."""
     if topic == "agenticai":
         structure = get_directory_structure(HTML_PAGES_AGENTICAI_DIR)
@@ -57,6 +60,8 @@ def book_view(request, topic=None, subtopic=None):
     elif topic == "thought_for_the_day":
         # For "thought_for_the_day", we can return a static page or handle it differently
         structure = get_directory_structure(HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR)
+    elif topic == "rust_programming":
+        structure = get_directory_structure(HTML_PAGES_RUST_PROGRAMMING_DIR)
     else:
         structure = get_directory_structure(HTML_PAGES_DIR)
     
@@ -68,7 +73,8 @@ def book_view(request, topic=None, subtopic=None):
     # Read the content of the selected HTML file
     content = ""
     if topic and subtopic:
-        file_path = os.path.join(HTML_PAGES_DIR, topic, subtopic)
+        file_path = os.path.join(HTML_TOPICS_PAGES_DIR, topic, subtopic)
+        print(f"File path: {file_path}")
         if os.path.exists(file_path):
             with open(file_path, 'r', encoding='utf-8') as f:
                 content = f.read()

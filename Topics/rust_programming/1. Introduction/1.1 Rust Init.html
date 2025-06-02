@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Installation & Setup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        /* Header styling */
+        header {
+            background-color: #306998; /* A shade of blue, similar to the original Python header */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        /* Section styling for content blocks */
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        /* Inline code styling */
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        /* Preformatted code block styling */
+        pre {
+            background: #2d2d2d; /* Dark background for code */
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto; /* Allows horizontal scrolling for long lines */
+            margin: 10px 0;
+        }
+        /* Styling for question boxes */
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff; /* Blue left border */
+        }
+        /* Styling for hidden answer sections */
+        .answer {
+            display: none; /* Hidden by default */
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        /* Styling for the "Show Answer" toggle link */
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        /* Container for code blocks to add custom labels */
+        .code-box {
+            position: relative;
+        }
+        /* Default label for command-line code blocks */
+        .code-box::before {
+            content: 'Command' !important; /* Label text */
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        /* Specific label for Rust code blocks */
+        .code-box-rust::before {
+            content: 'Rust' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        /* Specific label for TOML code blocks (for Cargo.toml) */
+        .code-box-toml::before {
+            content: 'TOML' !important;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        /* Print button styling */
+        .print-button-container {
+            text-align: right;
+            padding: 10px;
+        }
+        .print-button {
+            padding: 8px 16px;
+            background-color: #0a2463; /* Dark blue for the button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rust Installation & Setup</h1>
+    </header>
+
+    <section>
+        <h2>Introducing Rust: A Modern Systems Programming Language</h2>
+        <p><strong>Rust</strong> is a powerful and modern systems programming language that focuses on safety, speed, and concurrency. It guarantees memory safety without needing a garbage collector, making it ideal for performance-critical applications, embedded systems, and web services.</p>
+        <p>Rust achieves its safety guarantees through a unique ownership system and borrow checker, which enforce strict rules at compile time. This eliminates common programming errors like null pointer dereferencing and data races, leading to more robust and reliable software.</p>
+
+        <h2>Installing Rust with `rustup`</h2>
+        <p>The recommended way to install Rust is by using **`rustup`**, the official Rust toolchain installer. `rustup` manages different versions of Rust, allowing you to easily switch between stable, beta, and nightly releases, as well as install components like documentation and formatters.</p>
+
+        <h3>Installation on Windows, macOS, and Linux:</h3>
+        <p>Open your terminal (Command Prompt on Windows, Terminal on macOS/Linux) and run the following command:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+</code></pre>
+        </div>
+        <p>Follow the on-screen instructions. It will typically prompt you for an installation type (choose the default option `1` for the recommended installation). `rustup` will install Rust, Cargo, and rustc to your system's PATH.</p>
+        <p>After installation, you might need to restart your terminal or source your shell's profile (e.g., `source $HOME/.cargo/env` on Linux/macOS, or restart Command Prompt on Windows) for the changes to take effect.</p>
+        <p>Verify your installation by running:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">rustc --version
+cargo --version
+rustup --version
+</code></pre>
+        </div>
+        <p>This should display the installed versions for each tool.</p>
+
+        <h2>Understanding `rustup`</h2>
+        <p>**`rustup`** is your primary tool for managing your Rust installation. It's designed to be flexible and allow you to stay up-to-date with the latest Rust features and bug fixes effortlessly.</p>
+        <ul>
+            <li><strong>Updating Rust:</strong> To update your Rust toolchain to the latest stable version:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">rustup update
+</code></pre>
+            </div>
+            <li><strong>Installing Specific Toolchains:</strong> You can install beta or nightly versions:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">rustup install beta
+rustup install nightly
+</code></pre>
+            </div>
+            <li><strong>Switching Toolchains:</strong> Set a specific toolchain as default or for a particular project:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">rustup default stable
+rustup override set nightly # For the current directory
+</code></pre>
+            </div>
+            <li><strong>Listing Installed Toolchains:</strong></li>
+            <div class="code-box">
+                <pre><code class="language-bash">rustup show
+</code></pre>
+            </div>
+        </ul>
+
+        <h2>Meet Cargo: The Rust Build System and Package Manager</h2>
+        <p>**Cargo** is Rust's essential build system and package manager. It handles everything from creating new projects to compiling your code, managing dependencies, running tests, and publishing libraries to <a href="https://crates.io/" target="_blank">crates.io</a>, Rust's package registry.</p>
+        <p>When you install Rust with `rustup`, Cargo is installed automatically.</p>
+
+        <h3>Key Cargo Commands:</h3>
+        <ul>
+            <li><strong>Creating a New Project:</strong> This command creates a new binary project (an executable application):</li>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo new hello_rust
+</code></pre>
+            </div>
+            <p>For a new library project:</p>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo new my_library --lib
+</code></pre>
+            </div>
+            <li><strong>Building Your Project:</strong> Navigate into your project directory (e.g., `cd hello_rust`) and build:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo build
+</code></pre>
+            </div>
+            <p>This compiles your code and places the executable in the `target/debug` directory.</p>
+            <li><strong>Running Your Project:</strong> Build and run your project in one step:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo run
+</code></pre>
+            </div>
+            <li><strong>Checking Your Code (without building):</strong> Quickly check for compilation errors:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo check
+</code></pre>
+            </div>
+            <li><strong>Running Tests:</strong> Execute tests defined in your project:</li>
+            <div class="code-box">
+                <pre><code class="language-bash">cargo test
+</code></pre>
+            </div>
+            <li><strong>Managing Dependencies:</strong> Dependencies are declared in your `Cargo.toml` file. To add a new dependency (e.g., `rand`):</li>
+            <div class="code-box-toml">
+                <pre><code class="language-toml"># Cargo.toml
+[dependencies]
+rand = "0.8.5" # Example dependency
+</code></pre>
+            </div>
+            <p>Cargo automatically downloads and compiles dependencies when you build or run your project.</p>
+        </ul>
+
+        <h2>Understanding `rustc`: The Rust Compiler</h2>
+        <p>**`rustc`** is the Rust compiler itself. While you'll primarily interact with Cargo for most tasks, `rustc` is the underlying tool that translates your Rust source code (`.rs` files) into executable binaries or libraries.</p>
+        <p>Cargo intelligently calls `rustc` with the correct flags and dependencies, so you rarely need to invoke `rustc` directly for typical project development.</p>
+
+        <h3>Direct `rustc` Usage (for simple cases):</h3>
+        <p>Create a simple Rust file, e.g., `main.rs`:</p>
+        <div class="code-box-rust">
+            <pre><code class="language-rust">fn main() {
+    println!("Hello from rustc!");
+}
+</code></pre>
+        </div>
+        <p>Compile it directly using `rustc`:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">rustc main.rs
+</code></pre>
+        </div>
+        <p>This will create an executable file (e.g., `main.exe` on Windows, `main` on Linux/macOS) in the same directory. You can then run it:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">./main # On Linux/macOS
+main.exe # On Windows
+</code></pre>
+        </div>
+        <p>This direct interaction is less common for multi-file projects, where Cargo's project management capabilities become indispensable.</p>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> You've installed Rust using `rustup`, but when you type `cargo run` in your terminal, you get "command not found". What's the most likely reason, and how do you fix it?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> The most likely reason is that the directory containing Rust's executables (usually `~/.cargo/bin` on Linux/macOS or `%USERPROFILE%\.cargo\bin` on Windows) has not been correctly added to your system's PATH environment variable, or your current terminal session hasn't picked up the updated PATH.</p>
+                <p><strong>Fix:</strong>
+                <ol>
+                    <li><strong>Restart your terminal:</strong> `rustup` usually adds a line to your shell's profile file (like `.bashrc`, `.zshrc`, or for Windows, it modifies system PATH). Restarting the terminal often reloads this.</li>
+                    <li><strong>Manually source the environment file (Linux/macOS):</strong> If restarting doesn't work, run `source $HOME/.cargo/env`.</li>
+                    <li><strong>Verify PATH (Windows):</strong> Ensure `C:\Users\YourUsername\.cargo\bin` (or similar) is correctly listed in your system's environment variables under "Path".</li>
+                </ol>
+                </p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> You want to test a new Rust feature that's only available in the nightly build. How would you switch your project to use the nightly toolchain without affecting your global default?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> You would use `rustup override set nightly` within your project's directory.</p>
+                <p><strong>Explanation:</strong> This command tells `rustup` to use the `nightly` toolchain specifically for the current directory and its subdirectories, leaving your global default (`stable`) unchanged for other projects. If you haven't installed the `nightly` toolchain yet, `rustup` will prompt you to do so before setting the override.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> What is the primary advantage of using `cargo build` instead of `rustc main.rs` when developing a larger Rust project?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> The primary advantage is **Cargo's integrated project management and dependency handling.**</p>
+                <p><strong>Explanation:</strong>
+                <ul>
+                    <li><strong>Dependency Management:</strong> Cargo automatically downloads, compiles, and links all external libraries (called "crates") listed in your `Cargo.toml` file. With `rustc` directly, you'd have to manually manage and specify paths to all dependencies, which quickly becomes unmanageable for complex projects.</li>
+                    <li><strong>Standard Project Structure:</strong> Cargo enforces a conventional project layout (`src/main.rs`, `src/lib.rs`, `Cargo.toml`, etc.), which promotes consistency, makes projects easier to understand, and simplifies collaboration.</li>
+                    <li><strong>Build System Automation:</strong> Cargo handles compilation flags, manages output directories (`target/debug`, `target/release`), and performs incremental compilation, making builds faster and more organized without manual intervention.</li>
+                    <li><strong>Integrated Tools:</strong> Cargo provides convenient, built-in commands for common development tasks like running tests (`cargo test`), checking code style (`cargo fmt`), linting (`cargo clippy`), and generating documentation (`cargo doc`), streamlining the entire development workflow.</li>
+                </ul>
+                In essence, `cargo` acts as a high-level orchestration tool that intelligently calls `rustc` and other utilities, abstracting away much of the complexity for typical Rust development.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-toml.min.js"></script>
+    <script>
+        // JavaScript function to toggle the visibility of answer sections
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            // If the display is 'block' (visible), set it to 'none' (hidden); otherwise, set to 'block'.
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+<div class="print-button-container">
+    <button onclick="window.print()" class="print-button">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+  </div>
+</html>
