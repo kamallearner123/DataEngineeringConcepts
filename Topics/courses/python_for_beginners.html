@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-Hour Python Programming Course with Raspberry Pi and Projects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e6f0fa, #f0f4f8);
+        }
+        .session-card {
+            transition: all 0.3s ease;
+            border-left: 6px solid #0a2463;
+        }
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .session-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .header-logo {
+            max-width: 150px;
+            transition: transform 0.3s ease;
+        }
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+        .register-btn {
+            background-color: #ffd700;
+            color: #0a2463;
+            transition: background-color 0.3s ease;
+        }
+        .register-btn:hover {
+            background-color: #f57c00;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-12">
+            <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Logo" class="header-logo mx-auto mb-4">
+            <h1 class="text-5xl font-bold text-blue-800 tracking-tight">20-Hour Python Programming Course</h1>
+            <p class="text-xl text-gray-600 mt-3 font-light">A Comprehensive Introduction with Raspberry Pi and Small Projects</p>
+        </header>
+        
+        <section class="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2">Course Overview</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                This 20-hour course is designed for students new to programming or with basic knowledge. It covers Python fundamentals, data structures, Raspberry Pi GPIO programming, web scraping, and small projects to build practical skills. Each session includes theory, hands-on coding, and exercises.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-600">
+                <p><strong>Duration:</strong> 20 hours (10 sessions, 2 hours each)</p>
+                <p><strong>Schedule:</strong> 4:00 PM to 6:00 PM IST, Saturday and Sunday</p>
+                <p><strong>Start Date:</strong> 7th June 2025</p>
+                <p><strong>Price:</strong> Rs 3000</p>
+                <p><strong>Level:</strong> Beginner to Intermediate</p>
+                <p><strong>Prerequisites:</strong> Access to a Raspberry Pi (optional for non-Pi sessions)</p>
+                <p><strong>Trainer:</strong> Kamal Kumar Mukiri (17 years of experience)</p>
+                <p><strong>Trainer LinkedIn:</strong> <a href="https://www.linkedin.com/in/kamalkumarmukiri/" class="text-blue-500 hover:underline">View Profile</a></p>
+            </div>
+            <div class="text-center mt-6">
+                <a href="/register" class="register-btn inline-block px-6 py-3 rounded-lg font-semibold text-lg">Register Now</a>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-8 text-center">Course Schedule</h2>
+            <div class="space-y-6">
+                <!-- Session 1 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Python Icon" class="session-icon">
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 1: Introduction to Python</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Understand Python basics and set up the development environment.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to Python: History and applications</li>
+                            <li>Installing Python on PC or Raspberry Pi; setting up an IDE (e.g., VS Code)</li>
+                            <li>Writing and running your first Python program</li>
+                            <li>Variables, data types (int, float, string, bool), and basic operations</li>
+                            <li><strong>Exercise:</strong> Write a program to perform basic arithmetic operations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 2 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-code session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 2: Control Structures</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Learn to control program flow using conditionals and loops.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Conditional statements: if, elif, else</li>
+                            <li>Comparison and logical operators</li>
+                            <li>Loops: for and while loops</li>
+                            <li>Break, continue, and pass statements</li>
+                            <li><strong>Exercise:</strong> Create a program to check if a number is prime.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 3 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-cogs session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 3: Functions</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Understand functions and modular programming.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Defining and calling functions</li>
+                            <li>Parameters and return values</li>
+                            <li>Default arguments and keyword arguments</li>
+                            <li>Scope and lifetime of variables</li>
+                            <li><strong>Exercise:</strong> Write a function to calculate the factorial of a number.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 4 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-list session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 4: Lists and Tuples</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Work with Python's list and tuple data structures.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Creating and manipulating lists</li>
+                            <li>List methods: append, remove, pop, sort, etc.</li>
+                            <li>Tuples: Creation, immutability, and use cases</li>
+                            <li>List slicing and indexing</li>
+                            <li><strong>Exercise:</strong> Create a program to manage a to-do list using lists.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 5 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-database session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 5: Dictionaries and Sets</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Explore dictionaries and sets for data organization.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Creating and using dictionaries</li>
+                            <li>Dictionary methods: keys, values, items</li>
+                            <li>Sets: Creation, operations (union, intersection, difference)</li>
+                            <li>Practical applications of dictionaries and sets</li>
+                            <li><strong>Exercise:</strong> Build a program to count word frequency in a sentence.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 6 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-globe session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 6: Strings and Web Scraping</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Master string manipulation and learn web scraping basics.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>String methods: split, join, strip, replace, etc.</li>
+                            <li>String formatting: f-strings, .format()</li>
+                            <li>Introduction to web scraping and ethics</li>
+                            <li>Using requests and BeautifulSoup to scrape data</li>
+                            <li><strong>Exercise:</strong> Scrape book titles and prices from a sample website.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 7 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Raspberry_Pi_logo.svg/50px-Raspberry_Pi_logo.svg.png" alt="Raspberry Pi Icon" class="session-icon">
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 7: Raspberry Pi GPIO Programming</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Control hardware with Python on Raspberry Pi.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to Raspberry Pi and GPIO pins</li>
+                            <li>Setting up RPi.GPIO library</li>
+                            <li>Controlling LEDs, buttons, and basic sensors (e.g., temperature sensor)</li>
+                            <li>Building simple circuits with Raspberry Pi</li>
+                            <li><strong>Exercise:</strong> Write a program to control an LED and read a temperature sensor.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 8 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-file-csv session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 8: File Handling and Error Handling</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Learn to handle files and errors in Python.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Opening, reading, and writing files</li>
+                            <li>Using with statement for file handling</li>
+                            <li>Working with CSV files for scraped or sensor data</li>
+                            <li>Error handling with try-except for file and web scraping tasks</li>
+                            <li><strong>Exercise:</strong> Save Raspberry Pi sensor data to a CSV file with error handling.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 9 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-project-diagram session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 9: Small Projects</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Apply concepts through hands-on mini-projects.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Project 1: Web scraper to collect and analyze news headlines</li>
+                            <li>Project 2: Raspberry Pi traffic light simulator using GPIO</li>
+                            <li>Project 3: Simple text-based quiz game using dictionaries</li>
+                            <li>Integrating lists, dictionaries, and functions</li>
+                            <li><strong>Exercise:</strong> Complete at least one mini-project and demo it.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Session 10 -->
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-graduation-cap session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Session 10: Capstone Project</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Combine all concepts in a real-world project.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Project: Build a Raspberry Pi-based environmental monitor</li>
+                            <li>Features: Scrape weather data, read local sensor data, control LEDs, save to file</li>
+                            <li>Integrate OOP, file handling, GPIO, and web scraping</li>
+                            <li>Present and review projects</li>
+                            <li><strong>Exercise:</strong> Complete and demo the environmental monitor project.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-12 text-center text-gray-600">
+            <p class="text-lg font-light">Designed for students to gain practical Python skills with Raspberry Pi and small projects.</p>
+            <p class="mt-2">© 2025 APT Computing Hub</p>
+        </footer>
+    </div>
+</body>
+</html>

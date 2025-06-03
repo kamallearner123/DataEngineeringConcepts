@@ -191,7 +191,7 @@
 <body>
   <header>
     <a href="/">
-      <img src="{% static 'images/logo.webp' %}" alt="APT Computing Hub Logo" class="logo">
+      <img src="{% static 'images/logo1.png' %}" alt="APT Computing Hub Logo" class="logo">
     </a>
     <div class="header-content">
       <div class="header-title">
@@ -225,11 +225,11 @@
       <h2>Tutorial Topics</h2>
       <div class="tiles">
         <a href="{% url 'tutorials' 'agenticai' %}" class="tile {% if topic == 'topic agenticai' %}active{% endif %}">
-          <img src="{% static 'images/agenticai_logo.webp' %}" alt="Agentic AI Logo">
+          <img src="{% static 'images/agenticai.jpg' %}" alt="Agentic AI Logo">
           <h3>Agentic AI</h3>
         </a>
         <a href="{% url 'tutorials' 'system_programming' %}" class="tile {% if topic == 'topic system_programming' %}active{% endif %}">
-          <img src="{% static 'images/agenticai_logo.webp' %}" alt="System Programming Logo">
+          <img src="{% static 'images/linux.jpeg' %}" alt="System Programming Logo">
           <h3>System Programming</h3>
         </a>     
         
@@ -239,11 +239,11 @@
         </a>  
 
         <a href="{% url 'tutorials' 'python' %}" class="tile {% if topic == 'topic python' %}active{% endif %}">
-          <img src="{% static 'images/python_logo.webp' %}" alt="Python Logo">
+          <img src="{% static 'images/python.png' %}" alt="Python Logo">
           <h3>Python Programming</h3>
         </a>
         <a href="{% url 'tutorials' 'rust_programming' %}" class="tile {% if topic == 'topic rust_programming' %}active{% endif %}">
-          <img src="{% static 'images/rust_logo.webp' %}" alt="Rust Logo">
+          <img src="{% static 'images/rust.png' %}" alt="Rust Logo">
           <h3>Rust Programming</h3>
         </a>
         <a href="{% url 'tutorials' 'cpp' %}" class="tile {% if topic == 'topic cpp' %}active{% endif %}">
@@ -251,11 +251,11 @@
           <h3>C/C++ Programming</h3>
         </a>
         <a href="{% url 'tutorials' 'cybersecurity' %}" class="tile {% if topic == 'topic cybersecurity' %}active{% endif %}">
-          <img src="{% static 'images/cybersecurity_logo.webp' %}" alt="Cyber Security Logo">
+          <img src="{% static 'images/cybersecurity.jpg' %}" alt="Cyber Security Logo">
           <h3>Cyber Security</h3>
         </a>
         <a href="{% url 'tutorials' 'blockchain' %}" class="tile {% if topic == 'topic blockchain' %}active{% endif %}">
-          <img src="{% static 'images/blockchain_logo.webp' %}" alt="Blockchain Logo">
+          <img src="{% static 'images/blockchain.jpg' %}" alt="Blockchain Logo">
           <h3>Blockchain</h3>
         </a>
       </div>

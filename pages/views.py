@@ -16,6 +16,7 @@ HTML_PAGES_SYSTEM_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 's
 # add pathf for rust_programming
 HTML_PAGES_RUST_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'rust_programming')
 HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'thought_for_the_day')
+HTML_PAGE_COURSE_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'courses')
 
 def get_directory_structure(pages_dir):
     """Scan the html_pages directory and return a dictionary of topics and subtopics in numeric order."""
@@ -62,6 +63,9 @@ def book_view(request, topic=None, subtopic=None):
         structure = get_directory_structure(HTML_PAGES_THOUGHT_FOR_THE_DAY_DIR)
     elif topic == "rust_programming":
         structure = get_directory_structure(HTML_PAGES_RUST_PROGRAMMING_DIR)
+    elif topic.startswith("course"):
+        # For "course", we can return a static page or handle it differently
+        structure = get_directory_structure(HTML_PAGE_COURSE_DIR)
     else:
         structure = get_directory_structure(HTML_PAGES_DIR)
     
