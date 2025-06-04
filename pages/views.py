@@ -70,7 +70,7 @@ def book_view(request, topic=None, subtopic=None):
         structure = get_directory_structure(HTML_PAGES_DIR)
     
     # If no topic is selected, use the first topic and its first subtopic
-    if not topic and structure:
+    if not subtopic and structure:
         topic = list(structure.keys())[0]
         subtopic = structure[topic][0] if structure[topic] else None
     

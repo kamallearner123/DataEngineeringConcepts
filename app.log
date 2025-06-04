@@ -1675,3 +1675,343 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'tutorials' not found. 'tutor
 2025-06-03 16:29:48 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
 2025-06-03 16:29:50 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
 2025-06-03 16:29:50 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-03 18:29:42 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-03 18:29:42 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-03 18:29:43 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-03 18:29:44 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-03 18:29:44 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-03 18:29:44 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-03 18:35:55 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-03 18:35:55 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-04 03:18:39 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:19:41 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:19:41 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-04 03:30:39 - django.request - WARNING - Not Found: /favicon.ico
+2025-06-04 03:33:01 - django.request - WARNING - Not Found: /courses/
+2025-06-04 03:33:51 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/urls.py changed, reloading.
+2025-06-04 03:33:51 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:33:55 - django.request - WARNING - Not Found: /courses/
+2025-06-04 03:34:08 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/urls.py changed, reloading.
+2025-06-04 03:34:08 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:34:11 - django.request - WARNING - Not Found: /courses/
+2025-06-04 03:34:48 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:34:48 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-04 03:35:05 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/urls.py changed, reloading.
+2025-06-04 03:35:05 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:36:06 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py changed, reloading.
+2025-06-04 03:36:07 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:38:09 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:38:09 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
+2025-06-04 03:50:36 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py changed, reloading.
+2025-06-04 03:50:36 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:50:45 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:50:45 - root - INFO - Directory structure: {'1. Python Fundamentals': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.11 Dictionaries.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.5 Control Flows.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.6 Functions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.9 Strings.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.7 Lists.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.2 Variables.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.8 Tuples and List comprehensions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.10 Sets.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python FundamentalsMultipleChoiceQuestions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.1 Python Installation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.4 Standard IO.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.3 Data Types and Operators.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python FundamentalsAssignments.html'], '2. FileHandling and RegEx': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegExPythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx2.3 Handling big files.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx2.5 Advanced Regex.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx2.4 Regular Expressions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx2.1 File Handling.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx2.2 Paths and File Operations.html'], '3. OopsConceptsModules': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules3.3 Polymorphism Method Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModulesPythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules3.1 Classes and Objects.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules3.4 Operator Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules3.2 Constructors and Inheritance.html'], '5. PandasNumpy': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy5.5 Pandas Series and Data Frames.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy5.4 Introduction to Pandas.html'], '6. DataBase': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/6. DataBasePythonInstallation.html'], '7. REST_HTTP': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/7. REST_HTTPPythonInstallation.html'], '8. AWS_Sharepoint': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/8. AWS_SharepointPythonInstallation.html'], '9. ProjectTools': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/9. ProjectToolsPythonInstallation.html'], '10. Django': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django10.3 Views and urls.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django10.2 Models and Database.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django10.1 Django Basics.html'], '100. Misc': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc100.1 Deployment.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc100.2 Pyinstaller.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc100.3 Deploy Docker Compose.html']}
+2025-06-04 03:50:45 - django.request - ERROR - Internal Server Error: /tutorials/topic 1. Python Fundamentals/1.2 Variables.html/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 94, in book_view
+    return render(request, 'book/book.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'book_detail' with arguments '('1. Python Fundamentals', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals1.11 Dictionaries.html')' not found. 1 pattern(s) tried: ['tutorials/topic\\ (?P<topic>[^/]+)/(?P<subtopic>[^/]+)/\\Z']
+2025-06-04 03:51:22 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py changed, reloading.
+2025-06-04 03:51:23 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:51:25 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:51:25 - root - INFO - Directory structure: {'1. Python Fundamentals': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.5 Control Flows.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.6 Functions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.9 Strings.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.7 Lists.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.2 Variables.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.8 Tuples and List comprehensions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.10 Sets.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/MultipleChoiceQuestions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.1 Python Installation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.4 Standard IO.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.3 Data Types and Operators.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/Assignments.html'], '2. FileHandling and RegEx': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.3 Handling big files.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.5 Advanced Regex.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.4 Regular Expressions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.1 File Handling.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.2 Paths and File Operations.html'], '3. OopsConceptsModules': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.3 Polymorphism Method Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.1 Classes and Objects.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.4 Operator Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.2 Constructors and Inheritance.html'], '5. PandasNumpy': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.5 Pandas Series and Data Frames.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.4 Introduction to Pandas.html'], '6. DataBase': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/6. DataBase/PythonInstallation.html'], '7. REST_HTTP': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/7. REST_HTTP/PythonInstallation.html'], '8. AWS_Sharepoint': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/8. AWS_Sharepoint/PythonInstallation.html'], '9. ProjectTools': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/9. ProjectTools/PythonInstallation.html'], '10. Django': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.3 Views and urls.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.2 Models and Database.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.1 Django Basics.html'], '100. Misc': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.1 Deployment.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.2 Pyinstaller.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.3 Deploy Docker Compose.html']}
+2025-06-04 03:51:25 - django.request - ERROR - Internal Server Error: /tutorials/topic 1. Python Fundamentals/1.2 Variables.html/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 94, in book_view
+    return render(request, 'book/book.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'book_detail' with arguments '('1. Python Fundamentals', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html')' not found. 1 pattern(s) tried: ['tutorials/topic\\ (?P<topic>[^/]+)/(?P<subtopic>[^/]+)/\\Z']
+2025-06-04 03:51:38 - django.request - WARNING - Not Found: /courses/
+2025-06-04 03:51:47 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:51:47 - root - INFO - Directory structure: {'1. Python Fundamentals': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.5 Control Flows.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.6 Functions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.9 Strings.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.7 Lists.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.2 Variables.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.8 Tuples and List comprehensions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.10 Sets.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/MultipleChoiceQuestions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.1 Python Installation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.4 Standard IO.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.3 Data Types and Operators.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/Assignments.html'], '2. FileHandling and RegEx': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.3 Handling big files.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.5 Advanced Regex.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.4 Regular Expressions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.1 File Handling.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.2 Paths and File Operations.html'], '3. OopsConceptsModules': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.3 Polymorphism Method Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.1 Classes and Objects.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.4 Operator Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.2 Constructors and Inheritance.html'], '5. PandasNumpy': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.5 Pandas Series and Data Frames.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.4 Introduction to Pandas.html'], '6. DataBase': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/6. DataBase/PythonInstallation.html'], '7. REST_HTTP': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/7. REST_HTTP/PythonInstallation.html'], '8. AWS_Sharepoint': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/8. AWS_Sharepoint/PythonInstallation.html'], '9. ProjectTools': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/9. ProjectTools/PythonInstallation.html'], '10. Django': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.3 Views and urls.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.2 Models and Database.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.1 Django Basics.html'], '100. Misc': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.1 Deployment.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.2 Pyinstaller.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.3 Deploy Docker Compose.html']}
+2025-06-04 03:51:48 - django.request - ERROR - Internal Server Error: /tutorials/tutorials/python/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 94, in book_view
+    return render(request, 'book/book.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'book_detail' with arguments '('1. Python Fundamentals', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html')' not found. 1 pattern(s) tried: ['tutorials/topic\\ (?P<topic>[^/]+)/(?P<subtopic>[^/]+)/\\Z']
+2025-06-04 03:54:06 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:54:06 - root - INFO - Directory structure: {'1. Python Fundamentals': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.5 Control Flows.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.6 Functions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.9 Strings.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.7 Lists.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.2 Variables.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.8 Tuples and List comprehensions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.10 Sets.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/MultipleChoiceQuestions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.1 Python Installation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.4 Standard IO.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.3 Data Types and Operators.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/Assignments.html'], '2. FileHandling and RegEx': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.3 Handling big files.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.5 Advanced Regex.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.4 Regular Expressions.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.1 File Handling.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/2. FileHandling and RegEx/2.2 Paths and File Operations.html'], '3. OopsConceptsModules': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.3 Polymorphism Method Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/PythonInstallation.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.1 Classes and Objects.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.4 Operator Overloading.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/3. OopsConceptsModules/3.2 Constructors and Inheritance.html'], '5. PandasNumpy': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.5 Pandas Series and Data Frames.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/5. PandasNumpy/5.4 Introduction to Pandas.html'], '6. DataBase': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/6. DataBase/PythonInstallation.html'], '7. REST_HTTP': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/7. REST_HTTP/PythonInstallation.html'], '8. AWS_Sharepoint': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/8. AWS_Sharepoint/PythonInstallation.html'], '9. ProjectTools': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/9. ProjectTools/PythonInstallation.html'], '10. Django': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.3 Views and urls.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.2 Models and Database.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/10. Django/10.1 Django Basics.html'], '100. Misc': ['/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.1 Deployment.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.2 Pyinstaller.html', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/100. Misc/100.3 Deploy Docker Compose.html']}
+2025-06-04 03:54:06 - django.request - ERROR - Internal Server Error: /tutorials/tutorials/python/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 94, in book_view
+    return render(request, 'book/book.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 243, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'book_detail' with arguments '('1. Python Fundamentals', '/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering/1. Python Fundamentals/1.11 Dictionaries.html')' not found. 1 pattern(s) tried: ['tutorials/topic\\ (?P<topic>[^/]+)/(?P<subtopic>[^/]+)/\\Z']
+2025-06-04 03:54:23 - django.utils.autoreload - INFO - /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py changed, reloading.
+2025-06-04 03:54:24 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-04 03:54:25 - root - INFO - Checking directory: /Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/Topics/data_engineering
+2025-06-04 03:54:25 - root - INFO - Directory structure: {'1. Python Fundamentals': ['1.1 Python Installation.html', '1.2 Variables.html', '1.3 Data Types and Operators.html', '1.4 Standard IO.html', '1.5 Control Flows.html', '1.6 Functions.html', '1.7 Lists.html', '1.8 Tuples and List comprehensions.html', '1.9 Strings.html', '1.10 Sets.html', '1.11 Dictionaries.html', 'MultipleChoiceQuestions.html', 'Assignments.html'], '2. FileHandling and RegEx': ['2.1 File Handling.html', '2.2 Paths and File Operations.html', '2.3 Handling big files.html', '2.4 Regular Expressions.html', '2.5 Advanced Regex.html', 'PythonInstallation.html'], '3. OopsConceptsModules': ['3.1 Classes and Objects.html', '3.2 Constructors and Inheritance.html', '3.3 Polymorphism Method Overloading.html', '3.4 Operator Overloading.html', 'PythonInstallation.html'], '5. PandasNumpy': ['5.4 Introduction to Pandas.html', '5.5 Pandas Series and Data Frames.html'], '6. DataBase': ['PythonInstallation.html'], '7. REST_HTTP': ['PythonInstallation.html'], '8. AWS_Sharepoint': ['PythonInstallation.html'], '9. ProjectTools': ['PythonInstallation.html'], '10. Django': ['10.1 Django Basics.html', '10.2 Models and Database.html', '10.3 Views and urls.html'], '100. Misc': ['100.1 Deployment.html', '100.2 Pyinstaller.html', '100.3 Deploy Docker Compose.html']}
