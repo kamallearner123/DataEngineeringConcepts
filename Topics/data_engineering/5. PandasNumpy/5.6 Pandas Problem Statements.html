@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas Problem Statements & Solutions</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+            color: #2563eb;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #e0f2fe;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #0d3a6d;
+        }
+        pre {
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Lighter shadow for white background */
+            background-color: #ffffff; /* Explicitly set pre background to white */
+            border: 1px solid #e2e8f0; /* Light border for code blocks */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        b {
+            color: #1e3a8a;
+        }
+        .section-separator {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(226, 232, 240, 0), #a0aec0, rgba(226, 232, 240, 0));
+            margin: 50px 0;
+        }
+        .note {
+            background-color: #fffbeb;
+            border-left: 5px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #78350f;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>5 Problem Statements to Solve Using Pandas</h1>
+
+        <p>This section presents a series of practical data analysis problems that can be solved efficiently using the Pandas library in Python. Each problem includes a brief description, sample data generation, and a proposed Pandas solution.</p>
+
+        <div class="note">
+            <b>Note:</b> The Python code snippets are self-contained with dummy data for easy testing. Copy and paste the code into a Python environment (like a Jupyter Notebook) to see the results.
+        </div>
+
+        <hr class="section-separator">
+
+        <h2>Problem 1: Customer Order Frequency Analysis</h2>
+        <h3>Problem Statement:</h3>
+        <p>You have a dataset of customer orders. Determine the frequency of orders for each customer. Categorize customers into 'Frequent' (more than 5 orders), 'Occasional' (2-5 orders), and 'Rare' (1 order) based on their total order count. Also, identify the average order value for each frequency category.</p>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+
+# Dummy Customer Orders Data
+customer_orders_data = {
+    'CustomerID': ['CUST001', 'CUST002', 'CUST001', 'CUST003', 'CUST001', 'CUST002', 'CUST004', 'CUST003', 'CUST005', 'CUST001', 'CUST002', 'CUST006', 'CUST001', 'CUST007'],
+    'OrderID': range(1001, 1015),
+    'OrderValue': np.random.randint(20, 500, size=14)
+}
+df_orders = pd.DataFrame(customer_orders_data)
+
+# 1. Calculate order count and total order value per customer
+customer_summary = df_orders.groupby('CustomerID').agg(
+    OrderCount=('OrderID', 'count'),
+    TotalOrderValue=('OrderValue', 'sum'),
+    AverageOrderValue=('OrderValue', 'mean')
+).reset_index()
+
+# 2. Categorize customers by frequency
+def categorize_frequency(count):
+    if count > 5:
+        return 'Frequent'
+    elif 2 <= count <= 5:
+        return 'Occasional'
+    else:
+        return 'Rare'
+
+customer_summary['FrequencyCategory'] = customer_summary['OrderCount'].apply(categorize_frequency)
+
+# 3. Analyze average order value by frequency category
+avg_value_by_category = customer_summary.groupby('FrequencyCategory')['AverageOrderValue'].mean().reset_index()
+
+print("### Customer Order Frequency Summary: ###")
+print(customer_summary)
+print("\n### Average Order Value by Frequency Category: ###")
+print(avg_value_by_category)
+</code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 2: Product Return Rate Analysis</h2>
+        <h3>Problem Statement:</h3>
+        <p>Given a dataset of product sales and returns, calculate the return rate for each product. Identify products with a return rate higher than the overall average return rate, indicating potential quality issues or customer dissatisfaction.</p>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+
+# Dummy Sales and Returns Data
+product_transaction_data = {
+    'TransactionID': range(1, 21),
+    'ProductID': np.random.choice(['PROD_A', 'PROD_B', 'PROD_C', 'PROD_D', 'PROD_E'], 20),
+    'TransactionType': np.random.choice(['Sale', 'Return'], 20, p=[0.85, 0.15]), # 15% chance of return
+    'Quantity': np.random.randint(1, 4, size=20)
+}
+df_transactions = pd.DataFrame(product_transaction_data)
+
+# Calculate total sales and returns per product
+product_metrics = df_transactions.groupby(['ProductID', 'TransactionType']).agg(
+    Count=('TransactionID', 'count'),
+    TotalQuantity=('Quantity', 'sum')
+).unstack(fill_value=0).stack().reset_index()
+
+# Rename columns for clarity after unstacking
+product_metrics.columns = ['ProductID', 'TransactionType', 'Count', 'TotalQuantity']
+
+# Pivot to get Sales and Returns in separate columns
+product_summary = product_metrics.pivot_table(
+    index='ProductID',
+    columns='TransactionType',
+    values='Count',
+    fill_value=0
+).reset_index()
+product_summary.rename(columns={'Sale': 'SalesCount', 'Return': 'ReturnCount'}, inplace=True)
+
+# Calculate Return Rate
+product_summary['ReturnRate'] = (product_summary['ReturnCount'] / (product_summary['SalesCount'] + product_summary['ReturnCount'])) * 100
+product_summary['ReturnRate'].fillna(0, inplace=True) # Handle products with no sales/returns
+
+# Calculate overall average return rate
+overall_avg_return_rate = product_summary['ReturnRate'].mean()
+
+# Identify products with higher than average return rate
+high_return_products = product_summary[product_summary['ReturnRate'] > overall_avg_return_rate]
+
+print("### Product Return Rates: ###")
+print(product_summary)
+print(f"\n### Overall Average Return Rate: {overall_avg_return_rate:.2f}% ###")
+print("\n### Products with Higher Than Average Return Rate: ###")
+print(high_return_products.sort_values(by='ReturnRate', ascending=False))
+</code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 3: Employee Performance Review Analysis</h2>
+        <h3>Problem Statement:</h3>
+        <p>You have employee performance data including scores from different review categories. Analyze the average scores per department, identify top 10% and bottom 10% performers overall based on their average score, and flag any employees with a particularly low score in a critical category.</p>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+
+# Dummy Employee Performance Data
+employee_performance_data = {
+    'EmployeeID': range(101, 131),
+    'Department': np.random.choice(['Sales', 'Marketing', 'IT', 'HR'], 30),
+    'Score_Communication': np.random.randint(60, 100, size=30),
+    'Score_Technical': np.random.randint(50, 100, size=30), # Introduce some lower scores
+    'Score_Teamwork': np.random.randint(70, 100, size=30)
+}
+df_employees = pd.DataFrame(employee_performance_data)
+
+# Introduce a very low score for an example
+df_employees.loc[df_employees['EmployeeID'] == 105, 'Score_Technical'] = 30
+df_employees.loc[df_employees['EmployeeID'] == 112, 'Score_Communication'] = 45
+
+
+# 1. Calculate average scores per employee
+df_employees['AverageOverallScore'] = df_employees[['Score_Communication', 'Score_Technical', 'Score_Teamwork']].mean(axis=1)
+
+# 2. Average scores per department
+dept_avg_scores = df_employees.groupby('Department')[['AverageOverallScore', 'Score_Communication', 'Score_Technical', 'Score_Teamwork']].mean().reset_index()
+
+# 3. Identify top 10% and bottom 10% performers overall
+top_10_percentile = df_employees['AverageOverallScore'].quantile(0.90)
+bottom_10_percentile = df_employees['AverageOverallScore'].quantile(0.10)
+
+top_performers = df_employees[df_employees['AverageOverallScore'] >= top_10_percentile].sort_values(by='AverageOverallScore', ascending=False)
+bottom_performers = df_employees[df_employees['AverageOverallScore'] <= bottom_10_percentile].sort_values(by='AverageOverallScore', ascending=True)
+
+# 4. Flag employees with low score in a critical category (e.g., Technical < 60)
+df_employees['Flag_LowTechnical'] = df_employees['Score_Technical'] < 60
+flagged_employees = df_employees[df_employees['Flag_LowTechnical'] == True]
+
+print("### Average Scores per Department: ###")
+print(dept_avg_scores)
+print("\n### Top 10% Performers (Overall Score): ###")
+print(top_performers[['EmployeeID', 'Department', 'AverageOverallScore']])
+print("\n### Bottom 10% Performers (Overall Score): ###")
+print(bottom_performers[['EmployeeID', 'Department', 'AverageOverallScore']])
+print("\n### Employees Flagged for Low Technical Score: ###")
+print(flagged_employees[['EmployeeID', 'Department', 'Score_Technical']])
+</code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 4: Website Traffic Analysis</h2>
+        <h3>Problem Statement:</h3>
+        <p>You have a log of website page views including timestamps and page URLs. Analyze hourly and daily traffic patterns, identify the top 5 most visited pages, and determine peak traffic hours for specific popular pages.</p>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+
+# Dummy Website Traffic Data
+website_traffic_data = {
+    'Timestamp': pd.to_datetime([
+        '2025-05-10 09:00:00', '2025-05-10 09:15:00', '2025-05-10 10:00:00', '2025-05-10 10:30:00',
+        '2025-05-10 11:00:00', '2025-05-10 12:00:00', '2025-05-10 13:00:00', '2025-05-10 14:00:00',
+        '2025-05-10 15:00:00', '2025-05-10 16:00:00', '2025-05-10 17:00:00', '2025-05-10 18:00:00',
+        '2025-05-11 09:05:00', '2025-05-11 09:20:00', '2025-05-11 10:10:00', '2025-05-11 10:45:00',
+        '2025-05-11 11:15:00', '2025-05-11 12:30:00', '2025-05-11 13:10:00', '2025-05-11 14:20:00',
+        '2025-05-11 15:30:00', '2025-05-11 16:40:00', '2025-05-11 17:50:00', '2025-05-11 18:10:00',
+        '2025-05-12 08:00:00', '2025-05-12 09:00:00', '2025-05-12 10:00:00', '2025-05-12 11:00:00',
+        '2025-05-12 12:00:00', '2025-05-12 13:00:00', '2025-05-12 14:00:00', '2025-05-12 15:00:00',
+        '2025-05-12 16:00:00', '2025-05-12 17:00:00', '2025-05-12 18:00:00', '2025-05-12 19:00:00',
+    ]),
+    'PageVisited': np.random.choice([
+        '/home', '/products', '/about', '/contact', '/blog/post1', '/blog/post2', '/services'
+    ], 36)
+}
+df_traffic = pd.DataFrame(website_traffic_data)
+
+# 1. Extract Date and Hour
+df_traffic['Date'] = df_traffic['Timestamp'].dt.date
+df_traffic['Hour'] = df_traffic['Timestamp'].dt.hour
+
+# 2. Daily Traffic
+daily_traffic = df_traffic.groupby('Date').size().reset_index(name='PageViews')
+print("### Daily Traffic: ###")
+print(daily_traffic)
+
+# 3. Hourly Traffic (Overall average)
+hourly_traffic = df_traffic.groupby('Hour').size().reset_index(name='PageViews')
+print("\n### Hourly Traffic (Overall): ###")
+print(hourly_traffic.sort_values(by='Hour'))
+
+# 4. Top 5 Most Visited Pages
+top_pages = df_traffic['PageVisited'].value_counts().head(5).reset_index(name='PageViews')
+top_pages.columns = ['PageURL', 'PageViews'] # Rename columns for clarity
+print("\n### Top 5 Most Visited Pages: ###")
+print(top_pages)
+
+# 5. Peak traffic hours for a specific popular page (e.g., '/products')
+popular_page = '/products'
+if popular_page in df_traffic['PageVisited'].unique():
+    product_page_traffic = df_traffic[df_traffic['PageVisited'] == popular_page]
+    peak_hours_product_page = product_page_traffic.groupby('Hour').size().sort_values(ascending=False).reset_index(name='PageViews')
+    print(f"\n### Peak Traffic Hours for {popular_page}: ###")
+    print(peak_hours_product_page)
+else:
+    print(f"\n'{popular_page}' not found in the dummy data.")
+</code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 5: Inventory Management - Low Stock Alert</h2>
+        <h3>Problem Statement:</h3>
+        <p>You have current inventory levels and recent sales data. Identify products that are at risk of running out of stock within the next 30 days based on their average daily sales velocity over the last 30 days and their current stock levels. Define a threshold for "low stock" (e.g., projected to last less than 7 days).</p>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+from datetime import timedelta
+
+# Dummy Current Date for analysis
+current_date = pd.to_datetime('2025-06-05')
+
+# Dummy Sales Data (Last 60 days)
+date_range = pd.date_range(end=current_date, periods=60, freq='D')
+sales_data_list = []
+for _ in range(100): # 100 random sales entries
+    sales_data_list.append({
+        'SaleDate': np.random.choice(date_range),
+        'ProductID': np.random.choice(['ITEM001', 'ITEM002', 'ITEM003', 'ITEM004', 'ITEM005', 'ITEM006', 'ITEM007']),
+        'QuantitySold': np.random.randint(1, 5)
+    })
+df_sales = pd.DataFrame(sales_data_list)
+
+# Dummy Current Stock Levels
+current_stock_data = {
+    'ProductID': ['ITEM001', 'ITEM002', 'ITEM003', 'ITEM004', 'ITEM005', 'ITEM006', 'ITEM007'],
+    'CurrentStock': [50, 15, 80, 20, 5, 120, 30] # ITEM002, ITEM004, ITEM005 are potentially low
+}
+df_stock = pd.DataFrame(current_stock_data)
+
+
+# 1. Filter sales for the last 30 days
+lookback_period_days = 30
+sales_last_30_days = df_sales[df_sales['SaleDate'] >= (current_date - timedelta(days=lookback_period_days))]
+
+# 2. Calculate average daily sales velocity per product
+# Group by product and date, then sum quantities, then take mean over days
+sales_velocity = sales_last_30_days.groupby('ProductID').agg(
+    TotalSold=('QuantitySold', 'sum'),
+    DaysActive=('SaleDate', 'nunique') # Count unique days with sales
+).reset_index()
+
+# If a product had no sales in the last 30 days, its DaysActive would be 0, avoid division by zero.
+sales_velocity['AvgDailySales'] = sales_velocity.apply(
+    lambda row: row['TotalSold'] / row['DaysActive'] if row['DaysActive'] > 0 else 0, axis=1
+)
+
+# 3. Merge with current stock data
+inventory_analysis = pd.merge(df_stock, sales_velocity, on='ProductID', how='left')
+inventory_analysis['AvgDailySales'].fillna(0, inplace=True) # Products with no sales in last 30 days
+
+# 4. Project Days to Exhaust Stock
+# Avoid division by zero for products with 0 AvgDailySales
+inventory_analysis['ProjectedDaysToExhaust'] = inventory_analysis.apply(
+    lambda row: row['CurrentStock'] / row['AvgDailySales'] if row['AvgDailySales'] > 0 else np.inf, axis=1
+)
+
+# 5. Identify Low Stock Alerts (e.g., projected to last less than 7 days)
+low_stock_threshold_days = 7
+low_stock_alerts = inventory_analysis[
+    (inventory_analysis['ProjectedDaysToExhaust'] < low_stock_threshold_days) &
+    (inventory_analysis['AvgDailySales'] > 0) # Only alert if there's actual sales velocity
+].sort_values(by='ProjectedDaysToExhaust')
+
+print(f"### Inventory Analysis (based on last {lookback_period_days} days sales velocity, current date: {current_date.strftime('%Y-%m-%d')}): ###")
+print(inventory_analysis)
+print(f"\n### Low Stock Alerts (Projected to last < {low_stock_threshold_days} days): ###")
+print(low_stock_alerts[['ProductID', 'CurrentStock', 'AvgDailySales', 'ProjectedDaysToExhaust']])
+</code></pre>
+
+        <hr class="section-separator">
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #64748b;">
+            Generated on:
+            <script>
+                const d = new Date();
+                document.write(d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+                document.write(" at " + d.toLocaleTimeString('en-US'));
+                document.write(" (IST)");
+            </script>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas in Action: Diverse Case Studies</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter for a modern look */
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f8fafc; /* Light gray-blue background for the page */
+            color: #334155; /* Dark slate gray text */
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+        h1, h2, h3 {
+            color: #1e3a8a; /* Dark blue heading */
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid #e2e8f0; /* Light gray border */
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e1; /* Slightly darker gray border */
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+            color: #2563eb; /* Medium blue sub-heading */
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #e0f2fe; /* Light blue background for inline code */
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #0d3a6d; /* Dark blue text for code */
+        }
+        pre {
+            /* highlight.js will handle the background and text color, but we keep basic styling */
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Ensure pre has a default white background if highlight.js theme fails */
+            background-color: #ffffff;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        b {
+            color: #1e3a8a; /* Dark blue for bold text */
+        }
+        .section-separator {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(226, 232, 240, 0), #a0aec0, rgba(226, 232, 240, 0));
+            margin: 50px 0;
+        }
+        .note {
+            background-color: #fffbeb; /* Light yellow for notes */
+            border-left: 5px solid #f59e0b; /* Orange left border */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #78350f; /* Dark orange text */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pandas in Action: Diverse Case Studies</h1>
+
+        <p>This page showcases the versatility and power of the **Pandas** library in Python through various real-world data analysis scenarios. You'll see how Pandas helps in everything from initial data inspection to advanced manipulation and deriving actionable insights.</p>
+
+        <div class="note">
+            <b>Note:</b> The Python code snippets provided below are for demonstration. To run them, you would typically use a Python environment like a Jupyter Notebook or a Python script with Pandas, NumPy, Matplotlib, and Seaborn installed. The data used in the examples is generated directly within the code for self-containment.
+        </div>
+
+        <hr class="section-separator">
+
+        <h2>Case Study 1: E-commerce Sales Performance Analysis</h2>
+        <p>In this case, we'll analyze a dataset representing sales transactions from an e-commerce store. Our goal is to understand sales trends, identify top-selling products, and analyze performance across different regions.</p>
+
+        <h3>1. Data Acquisition and Initial Inspection</h3>
+        <p>First, let's create a dummy sales DataFrame and get a quick overview of its structure and content.</p>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np # Used for random data generation
+
+# Create a dummy sales DataFrame
+sales_data = {
+    'OrderID': range(101, 116),
+    'OrderDate': pd.to_datetime(['2024-01-05', '2024-01-07', '2024-01-08', '2024-01-10', '2024-01-12',
+                                 '2024-02-01', '2024-02-03', '2024-02-05', '2024-02-08', '2024-02-10',
+                                 '2024-03-01', '2024-03-03', '2024-03-05', '2024-03-07', '2024-03-09']),
+    'ProductID': ['P001', 'P003', 'P001', 'P002', 'P005', 'P001', 'P004', 'P002', 'P003', 'P001',
+                  'P006', 'P001', 'P002', 'P005', 'P003'],
+    'ProductName': ['Laptop', 'Mouse', 'Laptop', 'Keyboard', 'Webcam', 'Laptop', 'Monitor', 'Keyboard', 'Mouse', 'Laptop',
+                    'Headphones', 'Laptop', 'Keyboard', 'Webcam', 'Mouse'],
+    'Quantity': [1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2],
+    'UnitPrice': [1200.00, 25.00, 1200.00, 75.00, 50.00, 1200.00, 200.00, 75.00, 25.00, 1200.00,
+                  100.00, 1200.00, 75.00, 50.00, 25.00],
+    'Region': ['North', 'South', 'East', 'West', 'North', 'South', 'East', 'West', 'North', 'South',
+               'East', 'West', 'North', 'South', 'East']
+}
+df_sales = pd.DataFrame(sales_data)
+
+# Calculate TotalPrice
+df_sales['TotalPrice'] = df_sales['Quantity'] * df_sales['UnitPrice']
+
+print("### Initial Sales Data (First 5 Rows): ###")
+print(df_sales.head())
+
+print("\n### Sales Data Info: ###")
+df_sales.info()
+
+print("\n### Sales Data Descriptive Statistics: ###")
+print(df_sales.describe())
+        </code></pre>
+
+        <h3>2. Sales Trend Analysis</h3>
+        <p>We'll look at monthly sales totals to identify trends over time.</p>
+        <pre><code class="language-python">
+# Extract month from OrderDate
+df_sales['Month'] = df_sales['OrderDate'].dt.to_period('M')
+
+# Group by month and sum TotalPrice
+monthly_sales = df_sales.groupby('Month')['TotalPrice'].sum().reset_index()
+print("### Monthly Sales Totals: ###")
+print(monthly_sales)
+
+# Visualizing monthly sales (requires matplotlib)
+# import matplotlib.pyplot as plt
+# plt.figure(figsize=(10, 6))
+# plt.plot(monthly_sales['Month'].astype(str), monthly_sales['TotalPrice'], marker='o', linestyle='-')
+# plt.title('Monthly Sales Trend')
+# plt.xlabel('Month')
+# plt.ylabel('Total Sales ($)')
+# plt.grid(True)
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.show()
+        </code></pre>
+
+        <h3>3. Top Selling Products</h3>
+        <p>Identify which products are generating the most revenue.</p>
+        <pre><code class="language-python">
+# Group by Product and sum TotalPrice
+top_products = df_sales.groupby('ProductName')['TotalPrice'].sum().sort_values(ascending=False).reset_index()
+print("### Top Selling Products by Total Revenue: ###")
+print(top_products)
+
+# Visualizing top products (requires seaborn and matplotlib)
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x='TotalPrice', y='ProductName', data=top_products, palette='viridis')
+# plt.title('Top Selling Products by Total Revenue')
+# plt.xlabel('Total Revenue ($)')
+# plt.ylabel('Product Name')
+# plt.tight_layout()
+# plt.show()
+        </code></pre>
+
+        <h3>4. Regional Performance</h3>
+        <p>Compare sales performance across different geographical regions.</p>
+        <pre><code class="language-python">
+# Group by Region and sum TotalPrice
+regional_sales = df_sales.groupby('Region')['TotalPrice'].sum().sort_values(ascending=False).reset_index()
+print("### Sales Performance by Region: ###")
+print(regional_sales)
+
+# Visualizing regional sales (requires seaborn and matplotlib)
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# plt.figure(figsize=(8, 5))
+# sns.pie(regional_sales['TotalPrice'], labels=regional_sales['Region'], autopct='%1.1f%%', startangle=90, colors=sns.color_palette('pastel'))
+# plt.title('Sales Distribution by Region')
+# plt.axis('equal') # Equal aspect ratio ensures that pie is drawn as a circle.
+# plt.show()
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Case Study 2: Weather Data Cleaning and Analysis</h2>
+        <p>This case study involves a hypothetical weather dataset. We'll focus on common data cleaning tasks like handling missing values and date transformations, followed by basic statistical analysis.</p>
+
+        <h3>1. Data Acquisition and Initial Inspection</h3>
+        <p>Let's create a dummy weather DataFrame, including some missing values and incorrect data types, to simulate real-world challenges.</p>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+
+# Create a dummy weather DataFrame with some issues
+weather_data = {
+    'Date': ['2023-07-01', '2023-07-02', '2023-07-03', '2023-07-04', '2023-07-05',
+             '2023-07-06', '2023-07-07', '2023-07-08', '2023-07-09', '2023-07-10'],
+    'City': ['London', 'London', 'Paris', 'London', 'Paris',
+             'London', 'Paris', 'London', 'Paris', 'London'],
+    'Temperature_C': [20, 22, np.nan, 25, 23,
+                      18, 20, 21, np.nan, 24],
+    'Humidity_%': [75, 78, 80, np.nan, 72,
+                   85, 82, 79, 70, 76],
+    'Precipitation_mm': [0.5, 0.0, 1.2, 0.0, 0.0,
+                         2.1, 0.8, 0.0, 0.0, 0.3],
+    'WindSpeed_kmh': [10, 12, 8, 'missing', 15,
+                       9, 11, 13, 10, 'NA']
+}
+df_weather = pd.DataFrame(weather_data)
+
+print("### Initial Weather Data: ###")
+print(df_weather)
+
+print("\n### Weather Data Info (before cleaning): ###")
+df_weather.info()
+
+print("\n### Missing Values (before cleaning): ###")
+print(df_weather.isnull().sum())
+        </code></pre>
+
+        <h3>2. Data Cleaning and Transformation</h3>
+        <p>We'll handle missing values, correct data types, and prepare the data for analysis.</p>
+        <pre><code class="language-python">
+# Convert 'Date' column to datetime objects
+df_weather['Date'] = pd.to_datetime(df_weather['Date'])
+
+# Handle 'WindSpeed_kmh': Convert non-numeric values to NaN, then fill NaNs with mean
+df_weather['WindSpeed_kmh'] = pd.to_numeric(df_weather['WindSpeed_kmh'], errors='coerce')
+mean_windspeed = df_weather['WindSpeed_kmh'].mean()
+df_weather['WindSpeed_kmh'].fillna(mean_windspeed, inplace=True)
+
+# Fill missing 'Temperature_C' with the mean temperature for its respective city
+df_weather['Temperature_C'] = df_weather.groupby('City')['Temperature_C'].transform(lambda x: x.fillna(x.mean()))
+
+# Fill remaining NaNs (e.g., Humidity) with a reasonable default or column mean
+df_weather['Humidity_%'].fillna(df_weather['Humidity_%'].mean(), inplace=True)
+
+print("\n### Weather Data Info (after cleaning): ###")
+df_weather.info()
+
+print("\n### Cleaned Weather Data (First 5 Rows): ###")
+print(df_weather.head())
+        </code></pre>
+
+        <h3>3. Basic Statistical Analysis</h3>
+        <p>Now that the data is clean, we can perform some statistical summaries.</p>
+        <pre><code class="language-python">
+# Calculate average temperature and humidity per city
+avg_city_weather = df_weather.groupby('City').agg(
+    Avg_Temperature_C=('Temperature_C', 'mean'),
+    Avg_Humidity_Pct=('Humidity_%', 'mean'),
+    Total_Precipitation_mm=('Precipitation_mm', 'sum')
+).reset_index()
+
+print("### Average Weather Metrics per City: ###")
+print(avg_city_weather)
+
+# Find the day with the highest precipitation
+highest_precip_day = df_weather.loc[df_weather['Precipitation_mm'].idxmax()]
+print("\n### Day with Highest Precipitation: ###")
+print(highest_precip_day[['Date', 'City', 'Precipitation_mm']])
+
+# Count how many days had precipitation
+days_with_precip = df_weather[df_weather['Precipitation_mm'] > 0].shape[0]
+print(f"\n### Number of Days with Precipitation: {days_with_precip} ###")
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #64748b;">
+            Generated on:
+            <script>
+                const d = new Date();
+                document.write(d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+                document.write(" at " + d.toLocaleTimeString('en-US'));
+                document.write(" (IST)");
+            </script>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas Problems with Seaborn Datasets</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+            color: #2563eb;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #e0f2fe;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #0d3a6d;
+        }
+        pre {
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        b {
+            color: #1e3a8a;
+        }
+        .section-separator {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(226, 232, 240, 0), #a0aec0, rgba(226, 232, 240, 0));
+            margin: 50px 0;
+        }
+        .note {
+            background-color: #fffbeb;
+            border-left: 5px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #78350f;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Pandas Problems with Standard Seaborn Datasets</h1>
+
+        <p>These problems challenge your Pandas skills using readily available, clean datasets from the Seaborn library. This is a great way to practice data loading, inspection, cleaning, manipulation, and aggregation on realistic data scenarios.</p>
+
+        <div class="note">
+            <b>Note:</b> To run these code snippets, you'll need Python with **Pandas** and **Seaborn** installed. The datasets are loaded directly using <code>sns.load_dataset()</code>.
+        </div>
+
+        <hr class="section-separator">
+
+        <h2>Problem 1: Analyze Tips Data</h2>
+        <h3>Dataset: <code>tips</code></h3>
+        <h3>Problem Statement:</h3>
+        <p>The <code>tips</code> dataset contains information about restaurant tips. Your task is to:</p>
+        <ol>
+            <li>Calculate the average tip percentage for each day of the week.</li>
+            <li>Identify which gender tends to give a higher average tip percentage.</li>
+            <li>Determine if smokers or non-smokers give a higher average tip percentage.</li>
+        </ol>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+
+# Load the tips dataset
+df_tips = sns.load_dataset('tips')
+
+# Calculate tip percentage
+df_tips['tip_pct'] = (df_tips['tip'] / df_tips['total_bill']) * 100
+
+print("### Tips Data Head: ###")
+print(df_tips.head())
+
+# 1. Average tip percentage by day of the week
+avg_tip_by_day = df_tips.groupby('day')['tip_pct'].mean().reset_index()
+print("\n### Average Tip Percentage by Day: ###")
+print(avg_tip_by_day.sort_values(by='tip_pct', ascending=False))
+
+# 2. Average tip percentage by gender
+avg_tip_by_gender = df_tips.groupby('sex')['tip_pct'].mean().reset_index()
+print("\n### Average Tip Percentage by Gender: ###")
+print(avg_tip_by_gender.sort_values(by='tip_pct', ascending=False))
+
+# 3. Average tip percentage by smoker status
+avg_tip_by_smoker = df_tips.groupby('smoker')['tip_pct'].mean().reset_index()
+print("\n### Average Tip Percentage by Smoker Status: ###")
+print(avg_tip_by_smoker.sort_values(by='tip_pct', ascending=False))
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 2: Explore Titanic Survival Rates</h2>
+        <h3>Dataset: <code>titanic</code></h3>
+        <h3>Problem Statement:</h3>
+        <p>The <code>titanic</code> dataset provides information about passengers on the Titanic. Your task is to:</p>
+        <ol>
+            <li>Calculate the overall survival rate.</li>
+            <li>Determine the survival rate for each passenger class (<code>pclass</code>).</li>
+            <li>Analyze the survival rate based on gender (<code>sex</code>) for each passenger class.</li>
+        </ol>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+
+# Load the titanic dataset
+df_titanic = sns.load_dataset('titanic')
+
+print("### Titanic Data Info: ###")
+df_titanic.info() # Check for missing values and data types
+
+# 1. Overall survival rate
+overall_survival_rate = df_titanic['survived'].mean() * 100
+print(f"\n### Overall Survival Rate: {overall_survival_rate:.2f}% ###")
+
+# 2. Survival rate by passenger class
+survival_by_pclass = df_titanic.groupby('pclass')['survived'].mean().reset_index()
+survival_by_pclass['survived_rate'] = survival_by_pclass['survived'] * 100
+print("\n### Survival Rate by Passenger Class: ###")
+print(survival_by_pclass.sort_values(by='survived_rate', ascending=False))
+
+# 3. Survival rate by gender for each passenger class
+survival_by_pclass_gender = df_titanic.groupby(['pclass', 'sex'])['survived'].mean().unstack().reset_index()
+survival_by_pclass_gender['male_survived_rate'] = survival_by_pclass_gender['male'] * 100
+survival_by_pclass_gender['female_survived_rate'] = survival_by_pclass_gender['female'] * 100
+print("\n### Survival Rate by Passenger Class and Gender: ###")
+print(survival_by_pclass_gender[['pclass', 'male_survived_rate', 'female_survived_rate']])
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 3: Analyze Car Crash Severity by Day of Week</h2>
+        <h3>Dataset: <code>car_crashes</code></h3>
+        <h3>Problem Statement:</h3>
+        <p>The <code>car_crashes</code> dataset contains information about fatal car crashes. Your task is to:</p>
+        <ol>
+            <li>Determine which day of the week has the highest number of fatal crashes.</li>
+            <li>Calculate the average number of vehicles involved per crash for each day of the week.</li>
+            <li>Identify which day of the week has the highest proportion of crashes involving alcohol (<code>alcohol</code> column is <code>True</code>).</li>
+        </ol>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+
+# Load the car_crashes dataset
+df_crashes = sns.load_dataset('car_crashes')
+
+print("### Car Crashes Data Head: ###")
+print(df_crashes.head())
+
+# 1. Number of fatal crashes by day of the week
+crashes_by_day = df_crashes.groupby('day')['total'].sum().reset_index(name='TotalCrashes')
+print("\n### Total Crashes by Day of Week: ###")
+print(crashes_by_day.sort_values(by='TotalCrashes', ascending=False))
+
+# 2. Average number of vehicles involved per crash by day
+# 'vehicles' column seems to represent avg vehicles, or total vehicles
+# If 'total' is number of crashes, and 'vehicles' is vehicles per crash, this is directly available
+# Let's assume 'total' is number of crashes and 'vehicles' is vehicles involved per crash
+avg_vehicles_by_day = df_crashes.groupby('day')['vehicles'].mean().reset_index()
+print("\n### Average Vehicles Involved Per Crash by Day: ###")
+print(avg_vehicles_by_day.sort_values(by='vehicles', ascending=False))
+
+# 3. Proportion of crashes involving alcohol by day
+alcohol_crashes_by_day = df_crashes.groupby('day')['alcohol'].mean().reset_index() # 'alcohol' is 1 for True, 0 for False
+alcohol_crashes_by_day['alcohol_proportion'] = alcohol_crashes_by_day['alcohol'] * 100
+print("\n### Proportion of Crashes Involving Alcohol by Day: ###")
+print(alcohol_crashes_by_day.sort_values(by='alcohol_proportion', ascending=False))
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 4: Analyze Flights Data (Monthly Passengers)</h2>
+        <h3>Dataset: <code>flights</code></h3>
+        <h3>Problem Statement:</h3>
+        <p>The <code>flights</code> dataset provides monthly passenger numbers for airlines. Your task is to:</p>
+        <ol>
+            <li>Find the year with the highest total number of passengers.</li>
+            <li>Determine which month has the highest average number of passengers across all years.</li>
+            <li>Calculate the year-over-year percentage growth in total passengers.</li>
+        </ol>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+
+# Load the flights dataset
+df_flights = sns.load_dataset('flights')
+
+print("### Flights Data Head: ###")
+print(df_flights.head())
+
+# 1. Year with the highest total passengers
+total_passengers_by_year = df_flights.groupby('year')['passengers'].sum().reset_index()
+year_highest_passengers = total_passengers_by_year.sort_values(by='passengers', ascending=False).iloc[0]
+print(f"\n### Year with Highest Total Passengers: {year_highest_passengers['year']} ({year_highest_passengers['passengers']} passengers) ###")
+
+# 2. Month with the highest average passengers across all years
+avg_passengers_by_month = df_flights.groupby('month')['passengers'].mean().reset_index()
+month_highest_avg_passengers = avg_passengers_by_month.sort_values(by='passengers', ascending=False).iloc[0]
+print(f"\n### Month with Highest Average Passengers: {month_highest_avg_passengers['month']} ({month_highest_avg_passengers['passengers']:.2f} avg passengers) ###")
+
+# 3. Year-over-year percentage growth in total passengers
+total_passengers_by_year['prev_year_passengers'] = total_passengers_by_year['passengers'].shift(1)
+total_passengers_by_year['YoY_Growth_Pct'] = ((total_passengers_by_year['passengers'] - total_passengers_by_year['prev_year_passengers']) / total_passengers_by_year['prev_year_passengers']) * 100
+print("\n### Year-over-Year Passenger Growth: ###")
+print(total_passengers_by_year)
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <h2>Problem 5: Analyze Penguin Species Body Mass Distribution</h2>
+        <h3>Dataset: <code>penguins</code></h3>
+        <h3>Problem Statement:</h3>
+        <p>The <code>penguins</code> dataset contains measurements for different penguin species. Your task is to:</p>
+        <ol>
+            <li>Calculate the average body mass (<code>body_mass_g</code>) for each penguin species.</li>
+            <li>Determine the largest and smallest body mass recorded for each species.</li>
+            <li>Identify the average body mass for male and female penguins within each species.</li>
+        </ol>
+
+        <h3>Pandas Solution:</h3>
+        <pre><code class="language-python">
+import pandas as pd
+import seaborn as sns
+
+# Load the penguins dataset
+df_penguins = sns.load_dataset('penguins')
+
+print("### Penguins Data Head: ###")
+print(df_penguins.head())
+print("\n### Penguins Data Missing Values: ###")
+print(df_penguins.isnull().sum())
+
+# Drop rows with missing values for body_mass_g or sex for this analysis
+df_penguins_cleaned = df_penguins.dropna(subset=['body_mass_g', 'sex']).copy()
+
+# 1. Average body mass for each species
+avg_body_mass_by_species = df_penguins_cleaned.groupby('species')['body_mass_g'].mean().reset_index()
+print("\n### Average Body Mass (g) by Species: ###")
+print(avg_body_mass_by_species.sort_values(by='body_mass_g', ascending=False))
+
+# 2. Largest and smallest body mass per species
+min_max_body_mass_by_species = df_penguins_cleaned.groupby('species')['body_mass_g'].agg(['min', 'max']).reset_index()
+print("\n### Min and Max Body Mass (g) by Species: ###")
+print(min_max_body_mass_by_species)
+
+# 3. Average body mass for male and female penguins within each species
+avg_body_mass_by_species_sex = df_penguins_cleaned.groupby(['species', 'sex'])['body_mass_g'].mean().unstack().reset_index()
+print("\n### Average Body Mass (g) by Species and Sex: ###")
+print(avg_body_mass_by_species_sex)
+        </code></pre>
+
+        <hr class="section-separator">
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #64748b;">
+            Generated on:
+            <script>
+                const d = new Date();
+                document.write(d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+                document.write(" at " + d.toLocaleTimeString('en-US'));
+                document.write(" (IST)");
+            </script>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Pandas Example: Customer RFM Segmentation</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 2.5em;
+            letter-spacing: -0.02em;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        h3 {
+            font-size: 1.4em;
+            margin-top: 30px;
+            color: #2563eb;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #e0f2fe;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #0d3a6d;
+        }
+        pre {
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95em;
+            line-height: 1.4;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        b {
+            color: #1e3a8a;
+        }
+        .section-separator {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(226, 232, 240, 0), #a0aec0, rgba(226, 232, 240, 0));
+            margin: 50px 0;
+        }
+        .note {
+            background-color: #fffbeb;
+            border-left: 5px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #78350f;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Comprehensive Pandas Example: Customer RFM Segmentation</h1>
+
+        <p>This example walks through a common business analysis task: **Customer Segmentation** using the **RFM (Recency, Frequency, Monetary) model**. We'll simulate a customer transaction dataset and use Pandas to calculate RFM metrics, assign scores, define segments, and analyze their characteristics.</p>
+
+        <div class="note">
+            <b>Note:</b> This code is self-contained with dummy data. Copy and paste it into a Python environment (like a Jupyter Notebook) to execute the analysis steps.
+        </div>
+
+        <hr class="section-separator">
+
+        <h2>Problem Statement: Customer Segmentation for Targeted Marketing</h2>
+        <p>As a data analyst for an e-commerce company, you've been tasked with understanding customer behavior to create more targeted marketing campaigns. You need to segment your customer base into meaningful groups based on their purchasing history. Specifically, you will implement an RFM analysis to identify:</p>
+        <ol>
+            <li>How recently customers made a purchase (<b>Recency</b>).</li>
+            <li>How often customers purchase (<b>Frequency</b>).</li>
+            <li>How much money customers spend (<b>Monetary</b>).</li>
+        </ol>
+        <p>Based on these metrics, you will score customers, create distinct segments (e.g., 'Champions', 'Loyal', 'At-Risk'), and provide an overview of each segment's characteristics.</p>
+
+        <h3>1. Data Generation and Initial Exploration</h3>
+        <p>First, we'll create a dummy dataset simulating customer transactions over a period. This involves customer IDs, order dates, product IDs, quantities, and unit prices. We'll then perform initial checks on the data.</p>
+        <pre><code class="language-python">
+import pandas as pd
+import numpy as np
+from datetime import timedelta
+
+# Define a current date for recency calculation
+CURRENT_DATE = pd.to_datetime('2025-06-01')
+
+# --- Generate Dummy Transaction Data ---
+np.random.seed(42) # for reproducibility
+
+num_customers = 100
+num_transactions = 1000
+
+customer_ids = [f'CUST_{i:03d}' for i in np.random.choice(range(1, num_customers + 1), size=num_transactions, replace=True)]
+order_dates = [CURRENT_DATE - timedelta(days=np.random.randint(1, 365)) for _ in range(num_transactions)]
+product_ids = [f'PROD_{i:02d}' for i in np.random.choice(range(1, 21), size=num_transactions, replace=True)]
+quantities = np.random.randint(1, 5, size=num_transactions)
+unit_prices = np.random.uniform(5.0, 200.0, size=num_transactions).round(2)
+
+df_transactions = pd.DataFrame({
+    'CustomerID': customer_ids,
+    'OrderDate': order_dates,
+    'ProductID': product_ids,
+    'Quantity': quantities,
+    'UnitPrice': unit_prices
+})
+
+# Calculate Total Price for each transaction
+df_transactions['TotalPrice'] = df_transactions['Quantity'] * df_transactions['UnitPrice']
+
+print("### Raw Transaction Data (Head): ###")
+print(df_transactions.head())
+
+print("\n### Transaction Data Info: ###")
+df_transactions.info()
+
+print("\n### Transaction Data Descriptive Statistics: ###")
+print(df_transactions.describe())
+        </code></pre>
+
+        <h3>2. Calculate RFM Metrics (Recency, Frequency, Monetary)</h3>
+        <p>We'll aggregate the transaction data to get the three core RFM metrics for each customer.</p>
+        <ul>
+            <li><b>Recency:</b> Days since the last purchase (lower is better).</li>
+            <li><b>Frequency:</b> Total number of unique orders (higher is better).</li>
+            <li><b>Monetary:</b> Total spending (higher is better).</li>
+        </ul>
+        <pre><code class="language-python">
+# Group by CustomerID to calculate RFM metrics
+rfm_df = df_transactions.groupby('CustomerID').agg(
+    # Recency: Days since last purchase
+    Recency=('OrderDate', lambda date: (CURRENT_DATE - date.max()).days),
+    # Frequency: Number of unique orders
+    Frequency=('OrderDate', 'nunique'), # Using unique orders to count frequency
+    # Monetary: Sum of total spending
+    Monetary=('TotalPrice', 'sum')
+).reset_index()
+
+print("### Calculated RFM Metrics (Head): ###")
+print(rfm_df.head())
+
+print("\n### RFM Metrics Descriptive Statistics: ###")
+print(rfm_df[['Recency', 'Frequency', 'Monetary']].describe())
+        </code></pre>
+
+        <h3>3. RFM Scoring</h3>
+        <p>To make RFM values comparable and easier to interpret, we'll assign scores (e.g., from 1 to 5) to each metric. We'll use quantiles for this, ensuring an even distribution of scores.</p>
+        <ul>
+            <li>For **Recency**: Lower values get higher scores (e.g., 1=oldest, 5=most recent).</li>
+            <li>For **Frequency & Monetary**: Higher values get higher scores (e.g., 1=lowest, 5=highest).</li>
+        </ul>
+        <pre><code class="language-python">
+# Assign scores using quantiles (qcut)
+# Recency: Smaller value = higher score
+rfm_df['R_Score'] = pd.qcut(rfm_df['Recency'], 5, labels=[5, 4, 3, 2, 1], duplicates='drop') # 'duplicates=drop' handles cases where quantiles might be identical
+
+# Frequency: Larger value = higher score
+rfm_df['F_Score'] = pd.qcut(rfm_df['Frequency'], 5, labels=[1, 2, 3, 4, 5], duplicates='drop')
+
+# Monetary: Larger value = higher score
+rfm_df['M_Score'] = pd.qcut(rfm_df['Monetary'], 5, labels=[1, 2, 3, 4, 5], duplicates='drop')
+
+# Combine RFM scores into a single string for segmentation
+rfm_df['RFM_Score'] = rfm_df['R_Score'].astype(str) + rfm_df['F_Score'].astype(str) + rfm_df['M_Score'].astype(str)
+
+print("### RFM Scores (Head): ###")
+print(rfm_df.head())
+print("\n### Distribution of RFM Scores: ###")
+print(rfm_df['RFM_Score'].value_counts().head(10))
+        </code></pre>
+
+        <h3>4. Customer Segmentation</h3>
+        <p>Now, we'll define customer segments based on their RFM scores. This involves setting up logical rules to categorize customers into groups like 'Champions', 'Loyal Customers', 'At-Risk', etc.</p>
+        <pre><code class="language-python">
+def rfm_segment(df):
+    if df['R_Score'] == 5 and df['F_Score'] == 5 and df['M_Score'] == 5:
+        return 'Champions' # Best customers: bought recently, buy often, spend most
+    elif df['R_Score'] == 5 and df['F_Score'] == 5:
+        return 'Loyal Customers' # Bought recently, buy often
+    elif df['R_Score'] == 5 and df.F_Score >= 3:
+        return 'Promising' # Recently bought, average frequency
+    elif df['R_Score'] == 5 and df['F_Score'] == 1:
+        return 'New Customers' # Recently bought, low frequency (new to the business)
+    elif df['R_Score'] == 4 and df['F_Score'] == 5:
+        return 'About To Sleep' # High frequency, high monetary, but not recently
+    elif df['R_Score'] <= 2 and df['F_Score'] <= 2:
+        return 'At Risk' # Low recency, low frequency, low monetary
+    elif df['R_Score'] <= 1:
+        return 'Can\'t Lose Them' # Very low recency, but might have high F/M from past
+    else:
+        return 'Needs Attention' # General category for others
+
+rfm_df['CustomerSegment'] = rfm_df.apply(rfm_segment, axis=1)
+
+print("### Customer Segments Distribution: ###")
+print(rfm_df['CustomerSegment'].value_counts())
+        </code></pre>
+
+        <h3>5. Segment Analysis and Insights</h3>
+        <p>Finally, we'll analyze the characteristics of each customer segment to understand their average RFM values, helping us tailor marketing strategies.</p>
+        <pre><code class="language-python">
+# Analyze the average RFM values for each segment
+segment_analysis = rfm_df.groupby('CustomerSegment').agg(
+    AvgRecency=('Recency', 'mean'),
+    AvgFrequency=('Frequency', 'mean'),
+    AvgMonetary=('Monetary', 'mean'),
+    NumCustomers=('CustomerID', 'count')
+).reset_index()
+
+print("### Analysis of Customer Segments: ###")
+print(segment_analysis.sort_values(by='NumCustomers', ascending=False))
+
+# Example: Displaying Champions segment details
+print("\n### Champions Segment Details (Head): ###")
+print(rfm_df[rfm_df['CustomerSegment'] == 'Champions'].head())
+        </code></pre>
+
+        <h3>Summary of Insights:</h3>
+        <p>This RFM analysis allows the e-commerce company to:</p>
+        <ul>
+            <li><b>Identify 'Champions'</b> who are their most valuable customers, ideal for loyalty programs or exclusive offers.</li>
+            <li><b>Target 'New Customers'</b> with onboarding sequences and incentives for repeat purchases.</li>
+            <li><b>Engage 'At Risk' customers</b> with re-engagement campaigns or special discounts to prevent churn.</li>
+            <li><b>Understand 'Loyal Customers'</b> to maintain their satisfaction and encourage continued high frequency.</li>
+        </ul>
+        <p>By segmenting customers in this way, marketing efforts become more efficient and effective, leading to better customer retention and increased revenue.</p>
+
+        <hr class="section-separator">
+
+        <p style="text-align: center; margin-top: 40px; font-size: 0.9em; color: #64748b;">
+            Generated on:
+            <script>
+                const d = new Date();
+                document.write(d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+                document.write(" at " + d.toLocaleTimeString('en-US'));
+                document.write(" (IST)");
+            </script>
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html>
