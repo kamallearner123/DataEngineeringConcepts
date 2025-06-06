@@ -29,6 +29,9 @@ from .views import login_view, register_view
 def home_page(request):
     return render(request, "home/home.html")  # ✅ matches your template path
 
+def course_rpi_python(request):
+    return render(request, "courses/python_for_beginners.html")  # ✅ matches your template path
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,4 +41,5 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('course_rpi_python/', course_rpi_python, name='course_rpi_python'),
 ]
