@@ -18,4 +18,5 @@ settings_module = 'DataEngineering.deployment' if 'WEB_HOSTNAME' in os.environ e
 # Set the DJANGO_SETTINGS_MODULE environment variable
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
 
+
 application = get_wsgi_application()
