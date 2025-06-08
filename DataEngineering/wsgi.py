@@ -13,7 +13,7 @@ from django.core.wsgi import get_wsgi_application
 
 # Determine the settings module based on the environment variable
 # If 'WEB_HOSTNAME' is set, use the production settings; otherwise, use the default settings.
-settings_module = 'DataEngineering.settings' if 'WEB_HOSTNAME' in os.environ else 'DataEngineering.settings'
+settings_module = 'DataEngineering.deployment' if 'WEB_HOSTNAME' in os.environ else 'DataEngineering.settings'
 
 # Set the DJANGO_SETTINGS_MODULE environment variable
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", settings_module)
