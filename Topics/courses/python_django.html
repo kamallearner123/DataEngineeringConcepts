@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-Hour Django & Python Web Development Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e6f0fa, #f0f4f8);
+        }
+        .session-card {
+            transition: all 0.3s ease;
+            border-left: 6px solid #0056b3; /* Django blue */
+        }
+        .session-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .session-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .header-logo {
+            max-width: 150px;
+            transition: transform 0.3s ease;
+        }
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+        .register-btn {
+            background-color: #ffd700;
+            color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+        .register-btn:hover {
+            background-color: #f57c00;
+            color: white;
+        }
+        .project-card {
+            border-left: 6px solid #28a745; /* Project green */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-blue-800 tracking-tight">20-Hour Django & Python Web Development Course</h1>
+            <p class="text-xl text-gray-600 mt-3 font-light">Build Web Applications with Python's Powerful Framework Django</p>
+        </header>
+
+        <section class="bg-white rounded-2xl shadow-xl p-8 mb-12 max-w-4xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2">Course Overview</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                This intensive 20-hour course is designed for individuals with basic Python knowledge who want to dive into web development using the Django framework. You'll learn core Django concepts, build practical projects, and gain a solid understanding of full-stack web development.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-600">
+                <p><strong>Duration:</strong> 20 hours (10 chapters, approx. 2 hours each)</p>
+                <p><strong>Schedule:</strong> 11:00 AM to 12:30 PM IST, Saturday and Sunday</p>
+                <p><strong>Start Date:</strong> 15th June 2025</p>
+                <p><strong>Price:</strong> Rs 3000/-</p>
+                <p><strong>Level:</strong> Beginner to Intermediate (Basic Python knowledge assumed)</p>
+                <p><strong>Projects:</strong> 3 hands-on projects</p>
+                <p><strong>Focus:</strong> Full-stack web development with Django, Python, HTML, CSS, JavaScript basics</p>
+            </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-8 text-center">Course Curriculum</h2>
+            <div class="space-y-6">
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-desktop session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 1: Python & Web Fundamentals Refresher (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Solidify Python basics and understand web development concepts relevant to Django.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Python refresh: Functions, classes, modules, virtual environments (`venv`, `pip`).</li>
+                            <li>Web fundamentals: HTTP/HTTPS, client-server model, HTML, CSS, JavaScript (brief overview).</li>
+                            <li>Introduction to Web Frameworks: Why Django? MVT (Model-View-Template) architecture.</li>
+                            <li>Setting up Django: Installation, creating a project and your first app.</li>
+                            <li>Running the Django development server.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-database session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 2: Django Models - Data Representation (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Design database schemas using Django's ORM.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to ORM (Object-Relational Mapper) and SQLite.</li>
+                            <li>Defining Models: `models.Model`, common field types (CharField, IntegerField, DateTimeField, ForeignKey).</li>
+                            <li>Model relationships: One-to-Many, Many-to-Many, One-to-One.</li>
+                            <li>Migrations: `makemigrations` and `migrate` for database schema management.</li>
+                            <li>Interacting with the database via Django Shell (CRUD operations).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-route session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 3: Django Views - Logic & Routing (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Process requests and define application logic.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Understanding Views: Function-based views (`HttpRequest`, `HttpResponse`).</li>
+                            <li>URL Routing (`urls.py`): Defining URL patterns with `path()`.</li>
+                            <li>Dynamic URLs, path converters, and named URLs.</li>
+                            <li>Including URLs from apps into the project's `urls.py`.</li>
+                            <li>Passing data from views to templates using `render()`.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-code session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 4: Django Templates - Presentation (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Create dynamic HTML pages using Django's templating engine.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to Django Template Language (DTL).</li>
+                            <li>Displaying variables (`{{ }}`), using template tags (`{% %}`), and filters.</li>
+                            <li>Control flow in templates: Loops (`for`), conditionals (`if`).</li>
+                            <li>Template inheritance: `{% extends %}`, `{% block %}` for reusable layouts.</li>
+                            <li>Static files management (CSS, JavaScript, images): `STATIC_URL`, `STATICFILES_DIRS`.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card project-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-lightbulb session-icon text-green-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-2">Project 1: Simple Blog Application (<span class="text-purple-700">3 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Goal:</strong> Build a basic blog to list posts and view individual post details.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li><strong>Models:</strong> `Post` (title, content, publish_date, author - ForeignKey to User).</li>
+                            <li><strong>Views:</strong> Function-based views to display a list of all posts and a single post.</li>
+                            <li><strong>URLs:</strong> Set up routes for home page, post list, and individual post details.</li>
+                            <li><strong>Templates:</strong> Create `base.html` for common layout, `post_list.html`, `post_detail.html`.</li>
+                            <li><strong>Static Files:</strong> Include basic CSS for styling.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-file-alt session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 5: Django Forms - Handling User Input (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Create and process web forms for user interaction.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to Django Forms API.</li>
+                            <li>Creating forms from scratch (`forms.Form`): Defining fields and custom validation.</li>
+                            <li>Model Forms (`forms.ModelForm`): Automatically generating forms from models.</li>
+                            <li>Handling form submissions in views (GET vs. POST requests).</li>
+                            <li>Displaying form errors and ensuring CSRF protection.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-user-shield session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 6: Django Admin Interface & User Authentication (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Leverage Django's powerful built-in features for administration and user management.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to Django Admin: Registering models, customizing display.</li>
+                            <li>Creating superusers and managing data through the admin panel.</li>
+                            <li>Django's built-in Authentication system: Users, Groups, Permissions.</li>
+                            <li>Implementing user registration, login, and logout functionalities.</li>
+                            <li>Restricting access with `login_required` decorator.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card project-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-pencil-alt session-icon text-green-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-2">Project 2: Interactive To-Do List (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Goal:</strong> Build a simple To-Do List application with CRUD operations and user authentication.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li><strong>Models:</strong> `TodoItem` (title, description, completed, user - ForeignKey).</li>
+                            <li><strong>Forms:</strong> Create a `TodoForm` for adding/editing items.</li>
+                            <li><strong>Views:</strong> List, add, update, delete To-Do items. Ensure only logged-in users can manage their own tasks.</li>
+                            <li><strong>Templates:</strong> Forms for input, list display.</li>
+                            <li><strong>Admin:</strong> Integrate To-Do items into Django Admin.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-dice-d6 session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 7: Class-Based Views (CBVs) & Mixins (<span class="text-purple-700">1.5 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Streamline code and leverage Django's powerful CBV system.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to CBVs: Advantages and common types (`TemplateView`, `ListView`, `DetailView`).</li>
+                            <li>Using `CreateView`, `UpdateView`, `DeleteView` for CRUD operations.</li>
+                            <li>Understanding mixins: `LoginRequiredMixin`, `UserPassesTestMixin`.</li>
+                            <li>Refactoring function-based views to CBVs.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-images session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 8: Media Files & Messages Framework (<span class="text-purple-700">1.5 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Handle user-uploaded files and provide user feedback.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Configuring Media files: `MEDIA_ROOT`, `MEDIA_URL`.</li>
+                            <li>Handling file uploads with `ImageField` and `FileField`.</li>
+                            <li>Serving media files in development.</li>
+                            <li>The Django Messages Framework: Displaying one-time notifications (success, error, info).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-cog session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 9: Advanced Topics & Deployment Concepts (<span class="text-purple-700">1 Hour</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Explore more advanced concepts and prepare for production deployment.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Custom User Models (brief overview).</li>
+                            <li>Signals in Django.</li>
+                            <li>Overview of Django REST Framework (DRF) for APIs (what it is and why use it).</li>
+                            <li>Deployment considerations: `DEBUG=False`, `ALLOWED_HOSTS`, WSGI (Gunicorn), web servers (Nginx).</li>
+                            <li>Brief mention of database choices for production (PostgreSQL).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-rocket session-icon text-blue-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-blue-600 mb-2">Chapter 10: Testing & Continuous Learning (<span class="text-purple-700">1 Hour</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Objective:</strong> Understand the importance of testing and identify resources for ongoing growth.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li>Introduction to testing in Django: Unit tests, integration tests.</li>
+                            <li>Writing simple tests for models and views.</li>
+                            <li>Debugging techniques in Django (PDB, VS Code debugger).</li>
+                            <li>Performance optimization tips.</li>
+                            <li>Resources for continuous learning: Django documentation, community, advanced topics.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="session-card project-card bg-white rounded-xl shadow-lg p-6 flex items-start">
+                    <i class="fas fa-chart-bar session-icon text-green-600 mt-2"></i>
+                    <div>
+                        <h3 class="text-2xl font-bold text-green-600 mb-2">Project 3: Simple Polling/Voting App (<span class="text-purple-700">2 Hours</span>)</h3>
+                        <p class="text-gray-600 mb-3"><strong>Goal:</strong> Create a web application where users can create polls and vote on choices.</p>
+                        <ul class="list-disc pl-6 text-gray-600 space-y-1">
+                            <li><strong>Models:</strong> `Question` (question_text, pub_date), `Choice` (choice_text, votes).</li>
+                            <li><strong>Forms:</strong> For creating new questions and choices.</li>
+                            <li><strong>Views:</strong> Display poll list, detail view for voting, results view.</li>
+                            <li><strong>Authentication:</strong> Ensure only logged-in users can create polls.</li>
+                            <li><strong>CBVs:</strong> Utilize `ListView`, `DetailView`, `CreateView` for efficiency.</li>
+                            <li><strong>Messages:</strong> Provide feedback on successful votes or errors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-12 text-center text-gray-600">
+            <p class="text-lg font-light">Empowering your journey into Python web development with Django.</p>
+            <p class="mt-2">© 2025 Your Training Provider Name</p>
+        </footer>
+    </div>
+</body>
+</html>
