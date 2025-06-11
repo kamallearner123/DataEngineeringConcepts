@@ -4,8 +4,10 @@ from django.urls import path
 # URL patterns
 urlpatterns = [
     path('', tutorials_dashboard, name='tutorials_dashboard'),
-    path('tutorials/<str:topic>/', book_view, name='tutorials'),  # Handles /tutorials/topic%20agenticai/
-    path('tutorials/<str:topic>/<str:subtopic>/', book_view, name='tutorials_with_subtopic'),  # Optional subtopic
+    path('tutorials/topic <str:topic>/<path:subtopic>/', book_view, name='book_detail'),
+
+    #path('tutorials/<str:topic>/', book_view, name='tutorials'),  # Handles /tutorials/topic%20agenticai/
+    #path('tutorials/<str:topic>/<str:subtopic>/', book_view, name='tutorials_with_subtopic'),  # Optional subtopic
     # include path to just display page from directory Topics/course/<str:topic>/
     path('courses/<str:topic>/', book_view, name='course_topic'),  # Handles /course/topic/
     

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorizing Pandas Concepts with Plots</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Light gray background */
+            color: #343a40; /* Dark gray text */
+        }
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        h1, h2, h3 {
+            color: #007bff; /* Primary blue for headings */
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            color: #0056b3; /* Darker blue for main title */
+            margin-bottom: 1em;
+        }
+        h2 {
+            font-size: 1.8em;
+            border-bottom: 2px solid #e9ecef; /* Subtle separator */
+            padding-bottom: 0.5em;
+        }
+        h3 {
+            font-size: 1.3em;
+            color: #28a745; /* Green for sub-sections */
+            margin-top: 1.2em;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        code {
+            background-color: #e2e2e2;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-family: 'Inter', monospace;
+            font-size: 0.9em;
+            color: #d63384; /* Pink for inline code */
+        }
+        pre {
+            background-color: #e9ecef; /* Lighter gray for code blocks */
+            padding: 18px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border: 1px solid #dee2e6;
+        }
+        pre code {
+            display: block; /* Ensures code block takes full width */
+            background-color: transparent;
+            padding: 0;
+            color: #000; /* Black for code text */
+            font-size: 1em;
+            line-height: 1.4;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 1em;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+        strong {
+            color: #dc3545; /* Red for bolded keywords */
+        }
+        .note {
+            background-color: #d1ecf1; /* Light blue */
+            border-left: 6px solid #007bff; /* Primary blue border */
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            color: #0c5460;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Categorizing Pandas Concepts with Plots</h1>
+        <p>Practicing Pandas concepts with plots is an excellent way to solidify your understanding of data manipulation and gain insights from your data. You can categorize your practice into logical steps that mirror a typical data analysis pipeline.</p>
+
+        <hr>
+
+        <h2>1. Data Loading and Initial Inspection</h2>
+        <p>This is where you bring your data into Pandas and get a first look. Plots here help you understand the basic structure and distribution.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><code>pd.read_csv()</code>, <code>pd.read_excel()</code>, <code>pd.read_sql()</code>, <code>pd.read_json()</code>: <strong>Loading various data formats</strong>.</li>
+            <li><code>.head()</code>, <code>.tail()</code>, <code>.sample()</code>: <strong>Previewing data</strong>.</li>
+            <li><code>.info()</code>, <code>.shape</code>, <code>.columns</code>, <code>.dtypes</code>: <strong>Understanding data types and structure</strong>.</li>
+            <li><code>.describe()</code>: <strong>Getting summary statistics</strong> for numerical columns.</li>
+            <li><code>.value_counts()</code>: <strong>Counting unique values</strong> in categorical columns.</li>
+        </ul>
+        <h3>Plotting Concepts (using Matplotlib/Seaborn):</h3>
+        <ul>
+            <li><strong>Histograms</strong> (<code>plt.hist()</code>, <code>sns.histplot()</code>): Visualize the <strong>distribution of numerical data</strong> (e.g., student marks).</li>
+            <li><strong>Bar Plots</strong> (<code>sns.countplot()</code>): Show the <strong>frequency of categories</strong> (e.g., number of students per grade, per city, or per gender).</li>
+            <li><strong>Scatter Plots</strong> (<code>plt.scatter()</code>, <code>sns.scatterplot()</code>): Identify potential <strong>relationships between two numerical variables</strong> (less common in initial inspection, but good for spotting outliers if you plot index vs. value).</li>
+        </ul>
+
+        <hr>
+
+        <h2>2. Data Cleaning and Preprocessing</h2>
+        <p>Data rarely comes clean. This stage involves handling missing values, duplicates, and incorrect data types. Plots can help identify these issues.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><code>.isnull()</code>, <code>.notnull()</code>, <code>.isna()</code>: <strong>Checking for missing values</strong>.</li>
+            <li><code>.dropna()</code>, <code>.fillna()</code>: <strong>Handling missing values</strong>.</li>
+            <li><code>.drop_duplicates()</code>: <strong>Removing duplicate rows</strong>.</li>
+            <li><code>.astype()</code>: <strong>Changing data types</strong>.</li>
+            <li><code>.replace()</code>: <strong>Replacing specific values</strong>.</li>
+        </ul>
+        <h3>Plotting Concepts:</h3>
+        <ul>
+            <li><strong>Heatmaps</strong> (<code>sns.heatmap()</code> with <code>df.isnull()</code>): Visually <strong>identify patterns of missing data</strong>.</li>
+            <li><strong>Box Plots</strong> (<code>sns.boxplot()</code>): <strong>Detect outliers</strong> in numerical data, which might be data entry errors.</li>
+            <li><strong>Bar Plots:</strong> Show the count of unique values before and after cleaning, especially for categorical data.</li>
+        </ul>
+
+        <hr>
+
+        <h2>3. Data Selection and Filtering</h2>
+        <p>This is about focusing on specific subsets of your data for analysis. Plots will then display the characteristics of these subsets.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><strong>Column Selection:</strong> <code>df['column_name']</code>, <code>df[['col1', 'col2']]</code>.</li>
+            <li><strong>Row Selection (Boolean Indexing):</strong> <code>df[df['Marks'] &gt; 80]</code>, <code>df[(df['Grade'] == 10) &amp; (df['Subject'] == 'Mathematics')]</code>.</li>
+            <li><code>.loc[]</code>, <code>.iloc[]</code>: <strong>Advanced selection</strong> by label or integer location.</li>
+        </ul>
+        <h3>Plotting Concepts:</h3>
+        <ul>
+            <li>After filtering, apply any of the basic plots (<strong>histograms</strong>, <strong>bar plots</strong>, <strong>scatter plots</strong>) to the <strong>filtered DataFrame</strong> to understand the characteristics of the subset. For example, a histogram of marks <em>only for Grade 12 students</em>.</li>
+        </ul>
+
+        <hr>
+
+        <h2>4. Data Aggregation and Grouping</h2>
+        <p>Summarizing data is a core strength of Pandas. Plots effectively visualize these summaries.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><code>.groupby()</code>: <strong>Grouping data</strong> by one or more columns.</li>
+            <li><code>.agg()</code>, <code>.mean()</code>, <code>.sum()</code>, <code>.count()</code>, <code>.min()</code>, <code>.max()</code>, <code>.median()</code>, <code>.std()</code>: <strong>Applying aggregation functions</strong>.</li>
+            <li><code>.pivot_table()</code>: <strong>Creating summary tables</strong>.</li>
+        </ul>
+        <h3>Plotting Concepts:</h3>
+        <ul>
+            <li><strong>Bar Plots</strong> (<code>sns.barplot()</code>): Display <strong>group-wise statistics</strong> (e.g., average marks per subject, total students per city).</li>
+            <li><strong>Line Plots</strong> (<code>sns.lineplot()</code>): Show <strong>trends over ordered categories</strong> (e.g., average marks across grades, if grades were ordered).</li>
+            <li><strong>Box Plots</strong> (<code>sns.boxplot()</code>): <strong>Compare the distribution</strong> of a numerical variable across different categories (e.g., distribution of marks across different grades or subjects).</li>
+        </ul>
+
+        <hr>
+
+        <h2>5. Data Transformation and Feature Engineering</h2>
+        <p>Creating new columns or transforming existing ones can reveal new insights. Plots can show the impact of these transformations.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><strong>Creating new columns:</strong> <code>df['New_Column'] = df['Col1'] + df['Col2']</code>, <code>df['Pass/Fail'] = np.where(df['Marks'] &gt;= 50, 'Pass', 'Fail')</code>.</li>
+            <li><strong>Applying functions:</strong> <code>.apply()</code>.</li>
+        </ul>
+        <h3>Plotting Concepts:</h3>
+        <ul>
+            <li>Plot the <strong>newly created columns</strong> (e.g., a <strong>bar plot</strong> of 'Pass' vs. 'Fail' counts).</li>
+            <li>Use plots to <strong>compare distributions before and after transformation</strong> (e.g., a <strong>histogram</strong> of raw marks vs. normalized marks).</li>
+        </ul>
+
+        <hr>
+
+        <h2>6. Advanced Visualization and Insights</h2>
+        <p>Once you're comfortable with the basics, explore more complex visualizations to uncover deeper patterns.</p>
+        <h3>Pandas Concepts:</h3>
+        <ul>
+            <li><strong>Combining multiple Pandas operations</strong> (e.g., filter, group, then transform).</li>
+        </ul>
+        <h3>Plotting Concepts:</h3>
+        <ul>
+            <li><strong>Pair Plots</strong> (<code>sns.pairplot()</code>): <strong>Visualize relationships between all numerical variables</strong> (if you have more).</li>
+            <li><strong>Facet Grids</strong> (<code>sns.FacetGrid()</code>): Create multiple plots based on categories (e.g., separate histograms of marks for each gender).</li>
+            <li><strong>Violin Plots</strong> (<code>sns.violinplot()</code>): Show <strong>distribution and density of data</strong> across categories.</li>
+            <li><strong>Stacked Bar Plots:</strong> <strong>Compare proportions across groups</strong>.</li>
+        </ul>
+
+        <hr>
+
+        <h2>Practice Workflow Example</h2>
+        <p>Using the <code>student_marks.csv</code> data:</p>
+        <pre><code class="language-python">import pandas as pd
+import io
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Assuming csv_data is defined as in the previous example
+csv_data = """StudentID,Grade,Subject,Marks,Gender,City
+S001,10,Mathematics,85,Male,Bengaluru
+S010,12,English,92,Female,Kolkata
+S011,10,Mathematics,78,Male,Mumbai
+S012,11,Science,88,Female,Delhi
+S013,12,History,65,Male,Chennai
+S014,10,Computer Science,95,Female,Bengaluru
+S015,11,Mathematics,70,Male,Mumbai
+S016,12,English,80,Female,Delhi
+S017,10,Science,90,Male,Chennai
+S018,11,History,75,Female,Kolkata
+S019,12,Computer Science,82,Male,Bengaluru
+S020,10,Mathematics,60,Female,Mumbai
+S021,11,English,91,Male,Delhi
+S022,12,Science,73,Female,Chennai
+S023,10,History,88,Male,Kolkata
+S024,11,Computer Science,79,Female,Bengaluru
+S025,12,Mathematics,93,Male,Mumbai
+S026,10,English,68,Female,Delhi
+S027,11,Science,84,Male,Chennai
+S028,12,History,77,Female,Kolkata
+S029,10,Computer Science,89,Male,Bengaluru
+S030,11,Mathematics,90,Female,Mumbai
+S031,12,English,70,Male,Delhi
+S032,10,Science,81,Female,Chennai
+S033,11,History,66,Male,Kolkata
+S034,12,Computer Science,94,Female,Bengaluru
+S035,10,Mathematics,72,Male,Mumbai
+S036,11,English,83,Female,Delhi
+S037,12,Science,76,Male,Chennai
+S038,10,History,87,Female,Kolkata
+S039,11,Computer Science,96,Male,Bengaluru
+S040,12,Mathematics,71,Female,Mumbai
+S041,10,English,74,Male,Delhi
+S042,11,Science,89,Female,Chennai
+S043,12,History,62,Male,Kolkata
+S044,10,Computer Science,91,Female,Bengaluru
+S045,11,Mathematics,69,Male,Mumbai
+S046,12,English,86,Female,Delhi
+S047,10,Science,78,Male,Chennai
+S048,11,History,70,Female,Kolkata
+S049,12,Computer Science,90,Male,Bengaluru
+S050,10,Mathematics,80,Female,Mumbai
+S002,10,Science,75,Female,Mumbai
+S003,11,English,90,Male,Delhi
+S004,12,History,60,Female,Chennai
+S005,10,Computer Science,98,Male,Kolkata
+S006,11,Mathematics,65,Female,Bengaluru
+S007,12,English,88,Male,Mumbai
+S008,10,Science,82,Female,Delhi
+S009,11,History,70,Male,Chennai
+"""
+df = pd.read_csv(io.StringIO(csv_data))
+
+# 1. Load & Inspect (already done above)
+
+# 2. Initial Plots (example using the provided data)
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1) # 1 row, 2 columns, 1st plot
+sns.histplot(df['Marks'], kde=True, bins=10, color='skyblue')
+plt.title('Distribution of Student Marks')
+plt.xlabel('Marks')
+plt.ylabel('Frequency')
+
+plt.subplot(1, 2, 2) # 1 row, 2 columns, 2nd plot
+sns.countplot(x='Grade', data=df, palette='viridis')
+plt.title('Number of Students per Grade')
+plt.xlabel('Grade')
+plt.ylabel('Count')
+
+plt.tight_layout()
+plt.show() # In a real environment, this would display the plot
+
+# 3. Aggregation & Plots
+avg_marks_per_subject = df.groupby('Subject')['Marks'].mean().sort_values(ascending=False)
+plt.figure(figsize=(8, 6))
+sns.barplot(x=avg_marks_per_subject.index, y=avg_marks_per_subject.values, palette='coolwarm')
+plt.title('Average Marks per Subject')
+plt.xlabel('Subject')
+plt.ylabel('Average Marks')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+
+# 4. Filtering & Plots
+grade_12_df = df[df['Grade'] == 12]
+avg_marks_grade_12 = grade_12_df.groupby('Subject')['Marks'].mean().sort_values(ascending=False)
+plt.figure(figsize=(8, 5))
+sns.barplot(x=avg_marks_grade_12.index, y=avg_marks_grade_12.values, palette='magma')
+plt.title('Average Marks per Subject for Grade 12 Students')
+plt.xlabel('Subject')
+plt.ylabel('Average Marks')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+
+# 5. Transformation & Plots
+import numpy as np # For np.where
+
+df['Performance_Category'] = np.where(df['Marks'] > 90, 'Excellent',
+                                      np.where(df['Marks'] >= 70, 'Good',
+                                               np.where(df['Marks'] >= 50, 'Average', 'Needs Improvement')))
+
+plt.figure(figsize=(7, 5))
+sns.countplot(x='Performance_Category', data=df, palette='pastel', order=['Excellent', 'Good', 'Average', 'Needs Improvement'])
+plt.title('Student Performance Categories')
+plt.xlabel('Category')
+plt.ylabel('Number of Students')
+plt.tight_layout()
+plt.show()
+</code></pre>
+
+        <p>By following this structured approach, you'll not only master Pandas operations but also gain crucial skills in data visualization to effectively communicate your findings.</p>
+        <p>Which of these categories sounds most interesting to start practicing with, or do you have a specific visualization in mind?</p>
+        <p><a href="https://pandas.pydata.org/docs/index.html" target="_blank" class="button">Explore Pandas Documentation</a></p>
+    </div>
+</body>
+</html>

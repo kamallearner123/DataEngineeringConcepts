@@ -10,6 +10,7 @@ import re
 
 # Define the path to the HTML pages directory
 HTML_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'data_engineering')
+HTML_PYTHON_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'data_engineering')
 HTML_TOPICS_PAGES_DIR = os.path.join(settings.BASE_DIR, 'Topics') # Ensure it's an absolute path
 HTML_PAGES_AGENTICAI_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'agenticai')
 HTML_PAGES_SYSTEM_PROGRAMMING_DIR = os.path.join(settings.BASE_DIR, 'Topics', 'system_programming')
@@ -36,19 +37,32 @@ def get_directory_structure(pages_dir):
             return (major, minor)
         return (float('inf'), 0)  # Non-numeric names go to the end
 
-    # Get sorted list of folders
-    folders = [f for f in os.listdir(pages_dir) if os.path.isdir(os.path.join(pages_dir, f))]
-    folders.sort(key=numeric_key)
-
-    for folder in folders:
-        folder_path = os.path.join(pages_dir, folder)
-        structure[folder] = []
-        # Get sorted list of HTML files
-        files = [f for f in os.listdir(folder_path) if f.endswith('.html')]
-        files.sort(key=numeric_key)
-        structure[folder] = files
+    # Walk through all subdirectories and collect HTML files
+    for root, dirs, files in os.walk(pages_dir):
+        # Get the relative path from pages_dir to current root
+        rel_path = os.path.relpath(root, pages_dir)
+        if rel_path == ".":
+            topic = os.path.basename(pages_dir)
+        else:
+            topic = rel_path.split(os.sep)[0]
+        if topic not in structure:
+            structure[topic] = []
+        # Only add HTML files that are directly under this root
+        html_files = [f for f in files if f.endswith('.html')]
+        html_files.sort(key=numeric_key)
+        # Store files with their relative path from the topic folder
+        for f in html_files:
+            # Get the path relative to the topic folder
+            file_rel_path = os.path.relpath(os.path.join(root, f), os.path.join(pages_dir, topic))
+            structure[topic].append(file_rel_path)
+    # Sort topics
+    structure = dict(sorted(structure.items(), key=lambda x: numeric_key(x[0])))
+    # Sort subtopics for each topic
+    for topic in structure:
+        structure[topic].sort(key=numeric_key)
 
     logging.info(f"Directory structure: {structure}")
+    print(structure)
     return structure
 
 def book_view(request, topic=None, subtopic=None):
@@ -56,6 +70,9 @@ def book_view(request, topic=None, subtopic=None):
     """Render the book page with sidebar and content."""
     if topic == "agenticai":
         structure = get_directory_structure(HTML_PAGES_AGENTICAI_DIR)
+    elif topic == "python":
+        # For "python", we can return a static page or handle it differently
+        structure = get_directory_structure(HTML_PYTHON_PAGES_DIR)
     elif topic == "system_programming":
         structure = get_directory_structure(HTML_PAGES_SYSTEM_PROGRAMMING_DIR)
     elif topic == "thought_for_the_day":

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Operations with Pandas in MySQL and SQLite</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <style>
+    pre { background-color: #1a202c; padding: 16px; border-radius: 8px; overflow-x: auto; }
+    code { font-family: 'Courier New', Courier, monospace; }
+    .section-bg { background-color: #e6fffa; }
+    .header-bg { background-color: #4c51bf; }
+  </style>
+</head>
+<body class="bg-teal-50 font-sans">
+  <div class="container mx-auto p-8">
+    <h1 class="text-4xl font-bold text-center text-indigo-900 mb-8">CRUD Operations with Pandas in MySQL and SQLite</h1>
+
+    <!-- Introduction -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Introduction</h2>
+      <p class="text-gray-700">
+        This guide demonstrates how to perform <strong>CRUD (Create, Read, Update, Delete)</strong> operations on MySQL and SQLite databases using Python's <code>pandas</code> library, with <code>mysql-connector-python</code> for MySQL and <code>sqlite3</code> for SQLite. Examples use a <code>sales</code> table, covering basic operations, large dataset handling, and best practices.
+      </p>
+    </section>
+
+    <!-- Setup -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Setup</h2>
+      <p class="text-gray-700 mb-4">Install required libraries and set up databases.</p>
+      <pre><code class="language-python">
+# Install dependencies
+pip install mysql-connector-python pandas
+
+# MySQL Database Setup
+# Run in MySQL client:
+CREATE DATABASE sales_db;
+USE sales_db;
+CREATE TABLE sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product VARCHAR(100),
+    amount DECIMAL(10, 2),
+    sale_date TEXT,
+    INDEX idx_sale_date (sale_date)
+);
+
+# SQLite Setup
+# Run in Python
+import sqlite3
+conn = sqlite3.connect('sales.db')
+cursor = conn.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS sales (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        product TEXT,
+        amount REAL,
+        sale_date TEXT
+    )
+''')
+conn.commit()
+conn.close()
+      </code></pre>
+      <p class="text-gray-700 mt-4">Ensure MySQL server is running with valid credentials. SQLite uses a local file (sales.db).</p>
+    </section>
+
+    <!-- MySQL CRUD Operations -->
+    <section class="section-bg p-8 rounded-lg mb- **MySQL CRUD Operations**:
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">MySQL: CRUD Operations</h2>
+
+      <!-- Create -->
+      <h3 class="text-xl font-medium text-center text-indigo-600 mb-2">Create</h3>
+      <p class="text-gray-700 mb-4">Insert new records using <code>to_sql</code>.</p>
+      <pre><code class="language-python">
+import pandas as pd
+import mysql.connector
+from sqlalchemy import create_engine
+
+# Sample data
+data = pd.DataFrame({
+    'product': ['Laptop', 'Mouse', 'Tablet'],
+    'amount': [1000.00, 50.00, 300.00],
+    'sale_date': ['2023-01-10', '2023-01-12', '2023-01-15']
+})
+
+try:
+    # Connect using SQLAlchemy
+    engine = create_engine('mysql+mysqlconnector://user:password@localhost/sales_db')
+    data.to_sql('sales', con=engine, if_exists='append', index=False)
+    print(f"{len(data)} record(s) inserted")
+except Exception as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- Read -->
+      <h3 class="text-xl font-medium text-center text-indigo-600 mb-2">Read</h3>
+      <p class="text-gray-700 mb-4">Read data with <code>read_sql</code>, including chunking.</p>
+      <pre><code class="language-python">
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Basic read
+try:
+    engine = create_engine('mysql+mysqlconnector://user:password@localhost/sales_db')
+    df = pd.read_sql("SELECT * FROM sales WHERE sale_date >= '2023-01-01' LIMIT 10", con=engine)
+    print(df)
+except Exception as e:
+    print(f"Error: {e}")
+
+# Read large dataset in chunks
+try:
+    engine = create_engine('mysql+mysqlconnector://user:password@localhost/sales_db')
+    query = "SELECT * FROM sales"
+    for chunk in pd.read_sql(query, engine, chunksize=1000):
+        print(chunk.head())
+except Exception as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- Update -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Update</h3>
+      <p class="text-gray-700 mb-4">Update records using SQL queries.</p>
+      <pre><code class="language-python">
+import mysql.connector
+from sqlalchemy import create_engine
+
+try:
+    connection = mysql.connector.connect(
+        host='localhost',
+        database='sales_db',
+        user='user',
+        password='password'
+    )
+    cursor = connection.cursor()
+    update_query = "UPDATE sales SET amount = amount * 1.10 WHERE sale_date LIKE '2023%'"
+    cursor.execute(update_query)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except Exception as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+
+      <!-- Delete -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Delete</h3>
+      <p class="text-gray-700 mb-4">Delete records using SQL queries.</p>
+      <pre><code class="language-python">
+import mysql.connector
+from sqlalchemy import create_engine
+
+try:
+    connection = mysql.connector.connect(
+        host='localhost',
+        database='sales_db',
+        user='user',
+        password='password'
+    )
+    cursor = connection.cursor()
+    delete_query = "DELETE FROM sales WHERE amount < 100.00"
+    cursor.execute(delete_query)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) deleted")
+except Exception as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+    </section>
+
+    <!-- SQLite CRUD Operations -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">SQLite: CRUD Operations</h2>
+
+      <!-- Create -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Create</h3>
+      <p class="text-gray-700 mb-4">Insert new records using <code>to_sql</code>.</p>
+      <pre><code class="language-python">
+import pandas as pd
+import sqlite3
+from sqlalchemy import create_engine
+
+# Sample data
+data = pd.DataFrame({
+    'product': ['Laptop', 'Mouse', 'Tablet'],
+    'amount': [1000.00, 50.00, 300.00],
+    'sale_date': ['2023-01-10', '2023-01-12', '2023-01-15']
+})
+
+try:
+    engine = create_engine('sqlite:///sales.db')
+    data.to_sql('sales', con=engine, if_exists='append', index=False)
+    print(f"{len(data)} record(s) inserted")
+except Exception as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- Read -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Read</h3>
+      <p class="text-gray-700 mb-4">Read data with <code>read_sql</code>.</p>
+      <pre><code class="language-python">
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Basic read
+try:
+    engine = create_engine('sqlite:///sales.db')
+    df = pd.read_sql("SELECT * FROM sales WHERE sale_date >= '2023-01-01' LIMIT 10", engine)
+    print(df)
+except Exception as e:
+    print(f"Error: {e}")
+
+# Read large dataset in chunks
+try:
+    engine = create_engine('sqlite:///sales.db')
+    query = "SELECT * FROM sales"
+    for chunk in pd.read_sql(query, engine, chunksize=1000):
+        print(chunk.head())
+except Exception as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- Update -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Update</h3>
+      <p class="text-gray-700 mb-4">Update records using SQL queries.</p>
+      <pre><code class="language-python">
+import sqlite3
+
+try:
+    connection = sqlite3.connect('sales.db')
+    cursor = connection.cursor()
+    update_query = "UPDATE sales SET amount = amount * 1.10 WHERE sale_date LIKE '2023%'"
+    cursor.execute(update_query)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except sqlite3.Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+
+      <!-- Delete -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Delete</h3>
+      <p class="text-gray-700 mb-4">Delete records using SQL queries.</p>
+      <pre><code class="language-python">
+import sqlite3
+
+try:
+    connection = sqlite3.connect('sales.db')
+    cursor = connection.cursor()
+    delete_query = "DELETE FROM sales WHERE amount < 100.00"
+    cursor.execute(delete_query)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) deleted")
+except sqlite3.Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+    </section>
+
+    <!-- Visualization -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Sample Visualization</h2>
+      <p class="text-gray-700 mb-4">Visualize row counts before and after CRUD operations.</p>
+      <canvas id="rowCountChart" class="w-full h-64"></canvas>
+      <script>
+        const ctx = document.getElementById('rowCountChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['MySQL Before', 'MySQL After', 'SQLite Before', 'SQLite After'],
+            datasets: [{
+              label: 'Row Count',
+              data: [1000, 998, 500, 498],
+              backgroundColor: ['rgba(79, 70, 229, 0.5)', 'rgba(79, 70, 229, 0.8)', 'rgba(255, 127, 127, 0.5)', 'rgba(255, 127, 127, 0.8)'],
+              borderColor: ['rgba(79, 70, 229, 1)', 'rgba(79, 70, 229, 1)', 'rgba(255, 127, 127, 1)', 'rgba(255, 127, 127, 1)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: 'Rows' } },
+              x: { title: { display: true, text: 'Database State' } }
+            }
+          }
+        });
+      </script>
+    </section>
+
+    <!-- Best Practices -->
+    <section class="section-bg p-8 rounded-lg shadow-lg">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Best Practices</h2>
+      <ul class="list-disc list-inside text-gray-700">
+        <li><strong>Parameterized Queries</strong>: Use for Update/Delete to prevent SQL injection.</li>
+        <li><strong>Chunking</strong>: Use <code>chunksize</code> in <code>read_sql</code> and <code>to_sql</code> for large datasets.</li>
+        <li><strong>Transaction Management</strong>: Ensure commit/rollback for data integrity.</li>
+        <li><strong>Indexing</strong>: Create indexes on columns in WHERE clauses (e.g., <code>sale_date</code>).</li>
+        <li><strong>Validation</strong>: Validate DataFrame data before operations.</li>
+        <li><strong>Connection Pooling</strong>: Use SQLAlchemy with pooling for MySQL.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

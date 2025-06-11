@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Updating Data in MySQL and SQLite with Python</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    pre { background-color: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    code { font-family: 'Courier New', Courier, monospace; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">Updating Data in MySQL and SQLite with Python</h1>
+
+    <!-- Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Introduction</h2>
+      <p class="text-gray-600">
+        This guide demonstrates how to update data in MySQL and SQLite databases using Python, focusing on safe and efficient operations. We'll use <code>mysql-connector-python</code> for MySQL and the built-in <code>sqlite3</code> module for SQLite. Examples include basic updates, batch updates for large datasets, and connection pooling for MySQL, applied to a <code>sales</code> table.
+      </p>
+    </section>
+
+    <!-- Setup -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Setup</h2>
+      <p class="text-gray-600 mb-4">Ensure the required library is installed and databases are set up as follows.</p>
+      <pre><code>
+# Install mysql-connector-python
+pip install mysql-connector-python
+
+# Verify MySQL Database (sales_db)
+# Schema (should already exist from previous setup):
+CREATE DATABASE sales_db;
+USE sales_db;
+CREATE TABLE sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product VARCHAR(100),
+    amount DECIMAL(10, 2),
+    sale_date DATE,
+    INDEX idx_sale_date (sale_date)
+);
+
+# Verify SQLite Database (sales.db)
+# Schema (should already exist):
+import sqlite3
+conn = sqlite3.connect('sales.db')
+cursor = conn.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS sales (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        product TEXT,
+        amount REAL,
+        sale_date TEXT
+    )
+''')
+conn.commit()
+conn.close()
+
+# Insert sample data (for testing updates)
+INSERT INTO sales (product, amount, sale_date) VALUES
+    ('Laptop', 1000.00, '2023-01-15'),
+    ('Phone', 500.00, '2023-02-20'),
+    ('Tablet', 300.00, '2023-03-10');
+      </code></pre>
+      <p class="text-gray-600 mt-4">Ensure MySQL server is running and you have credentials (host, user, password). SQLite uses a local file (sales.db).</p>
+    </section>
+
+    <!-- MySQL Examples -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">MySQL: Updating Data</h2>
+
+      <!-- Basic Update -->
+      <h3 class="text-xl font-medium text-gray-700 mb-2">Basic Update</h3>
+      <p class="text-gray-600 mb-4">Update a single record in the <code>sales</code> table using a parameterized query.</p>
+      <pre><code>
+import mysql.connector
+from mysql.connector import Error
+
+try:
+    connection = mysql.connector.connect(
+        host='localhost',
+        database='sales_db',
+        user='your_username',
+        password='your_password'
+    )
+    cursor = connection.cursor()
+    update_query = "UPDATE sales SET amount = %s WHERE id = %s"
+    data = (1200.00, 1)  # Update amount for id=1
+    cursor.execute(update_query, data)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    if connection.is_connected():
+        cursor.close()
+        connection.close()
+      </code></pre>
+
+      <!-- Batch Updates -->
+      <h3 class="text-xl font-medium text-gray-700 mb-2 mt-6">Batch Updates for Large Datasets</h3>
+      <p class="text-gray-600 mb-4">Update multiple records in batches to handle large datasets efficiently.</p>
+      <pre><code>
+import mysql.connector
+import pandas as pd
+
+def batch_update(updates, batch_size=1000):
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            database='sales_db',
+            user='your_username',
+            password='your_password'
+        )
+        cursor = connection.cursor()
+        update_query = "UPDATE sales SET amount = %s WHERE id = %s"
+        for i in range(0, len(updates), batch_size):
+            batch = updates[i:i + batch_size]
+            cursor.executemany(update_query, batch)
+            connection.commit()
+            print(f"Updated {cursor.rowcount} records in batch")
+        return cursor.rowcount
+    except Error as e:
+        print(f"Error: {e}")
+        connection.rollback()
+    finally:
+        cursor.close()
+        connection.close()
+
+# Example: Update amounts for multiple IDs
+updates = [(1100.00, 1), (550.00, 2), (350.00, 3)]  # List of (amount, id)
+batch_update(updates, batch_size=2)
+
+# Example: Update based on condition (e.g., increase amount by 10% for 2023 sales)
+try:
+    connection = mysql.connector.connect(
+        host='localhost',
+        database='sales_db',
+        user='your_username',
+        password='your_password'
+    )
+    cursor = connection.cursor()
+    cursor.execute("UPDATE sales SET amount = amount * 1.10 WHERE sale_date LIKE '2023%'")
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+
+      <!-- Connection Pooling -->
+      <h3 class="text-xl font-medium text-gray-700 mb-2 mt-6">Connection Pooling for Updates</h3>
+      <p class="text-gray-600 mb-4">Use connection pooling to manage multiple update operations efficiently.</p>
+      <pre><code>
+from mysql.connector.pooling import MySQLConnectionPool
+
+pool_config = {
+    "pool_name": "mypool",
+    "pool_size": 5,
+    "host": "localhost",
+    "database": "sales_db",
+    "user": "your_username",
+    "password": "your_password"
+}
+db_pool = MySQLConnectionPool(**pool_config)
+
+# Perform update using pooled connection
+try:
+    connection = db_pool.get_connection()
+    cursor = connection.cursor()
+    update_query = "UPDATE sales SET product = %s WHERE id = %s"
+    data = ('Updated Laptop', 1)
+    cursor.execute(update_query, data)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+    </section>
+
+    <!-- SQLite Examples -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">SQLite: Updating Data</h2>
+
+      <!-- Basic Update -->
+      <h3 class="text-xl font-medium text-gray-700 mb-2">Basic Update</h3>
+      <p class="text-gray-600 mb-4">Update a single record in the <code>sales</code> table.</p>
+      <pre><code>
+import sqlite3
+
+try:
+    connection = sqlite3.connect('sales.db')
+    cursor = connection.cursor()
+    update_query = "UPDATE sales SET amount = ? WHERE id = ?"
+    data = (1200.00, 1)  # Update amount for id=1
+    cursor.execute(update_query, data)
+    connection.commit()
+    print(f"{cursor.rowcount} record(s) updated")
+except sqlite3.Error as e:
+    print(f"Error: {e}")
+    connection.rollback()
+finally:
+    cursor.close()
+    connection.close()
+      </code></pre>
+
+      <!-- Batch Updates -->
+      <h3 class="text-xl font-medium text-gray-700 mb-2 mt-6">Batch Updates for Large Datasets</h3>
+      <p class="text-gray-600 mb-4">Update multiple records in batches.</p>
+      <pre><code>
+import sqlite3
+
+def batch_update(updates, batch_size=1000):
+    try:
+        connection = sqlite3.connect('sales.db')
+        cursor = connection.cursor()
+        update_query = "UPDATE sales SET amount = ? WHERE id = ?"
+        for i in range(0, len(updates), batch_size):
+            batch = updates[i:i + batch_size]
+            cursor.executemany(update_query, batch)
+            connection.commit()
+            print(f"Updated {cursor.rowcount} records in batch")
+        return cursor.rowcount
+    except sqlite3.Error as e:
+        print(f"Error: {e}")
+        connection.rollback()
+    finally:
+        cursor.close()
+        connection.close()
+
+# Example: Update amounts for multiple IDs
+updates = [(1100.00, 1), (550.00, 2), (350.00, 3)]
+batch_update(updates, batch_size=2)
+      </code></pre>
+    </section>
+
+    <!-- Visualization -->
+    <section class="bg-white p-6 rounded-lg shadow-md mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Sample Visualization</h2>
+      <p class="text-gray-600 mb-4">Visualize the number of rows updated in MySQL and SQLite.</p>
+      <canvas id="updateCountChart" class="w-full h-64"></canvas>
+      <script>
+        const ctx = document.getElementById('updateCountChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['MySQL', 'SQLite'],
+            datasets: [{
+              label: 'Rows Updated',
+              data: [3, 2], // Sample data
+              backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+              borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: 'Rows Updated' } },
+              x: { title: { display: true, text: 'Database' } }
+            }
+          }
+        });
+      </script>
+    </section>
+
+    <!-- Best Practices -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Best Practices for Database Updates</h2>
+      <ul class="list-disc list-inside text-gray-600">
+        <li><strong>Parameterized Queries</strong>: Use placeholders to prevent SQL injection.</li>
+        <li><strong>Batch Updates</strong>: Process updates in batches to reduce transaction overhead.</li>
+        <li><strong>Transaction Management</strong>: Use commit/rollback for data integrity.</li>
+        <li><strong>Indexing</strong>: Ensure indexes on columns in WHERE clauses (e.g., <code>id</code>, <code>sale_date</code>).</li>
+        <li><strong>Validation</strong>: Validate data before updating to avoid errors.</li>
+        <li><strong>Connection Pooling</strong>: Use for MySQL to manage multiple updates efficiently.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

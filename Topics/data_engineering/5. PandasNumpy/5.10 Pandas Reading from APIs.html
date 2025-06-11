@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Data from API Gateway with Python Requests</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <style>
+    pre { background-color: #1a202c; padding: 16px; border-radius: 8px; overflow-x: auto; }
+    code { font-family: 'Courier New', Courier, monospace; }
+    .section-bg { background-color: #e6fffa; }
+  </style>
+</head>
+<body class="bg-teal-50 font-sans">
+  <div class="container mx-auto p-8">
+    <h1 class="text-4xl font-bold text-center text-indigo-900 mb-8">Reading Data from API Gateway with Python Requests</h1>
+
+    <!-- Introduction -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Introduction</h2>
+      <p class="text-gray-700">
+        This guide demonstrates how to read data from an API Gateway using Python's <code>requests</code> library, a powerful tool for making HTTP requests. We'll cover fetching data from a public API (JSONPlaceholder) and an AWS API Gateway, handling errors, and processing large datasets. These techniques are essential for data engineering pipelines, such as integrating API data with databases like MySQL or SQLite.
+      </p>
+    </section>
+
+    <!-- Setup -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Setup</h2>
+      <p class="text-gray-700 mb-4">Install the required library and prepare for API access.</p>
+      <pre><code class="language-python">
+# Install requests
+pip install requests
+
+# Public API Setup
+# We'll use JSONPlaceholder API (https://jsonplaceholder.typicode.com/) for testing
+# No authentication required
+
+# AWS API Gateway Setup (Optional)
+# 1. Create an API Gateway in AWS Console
+# 2. Deploy an endpoint (e.g., GET /sales)
+# 3. Obtain API Key or IAM credentials for authentication
+# 4. Store credentials securely (e.g., environment variables)
+      </code></pre>
+      <p class="text-gray-700 mt-4">Ensure you have an internet connection. For AWS, replace placeholders with your API endpoint and key.</p>
+    </section>
+
+    <!-- Examples -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Examples</h2>
+
+      <!-- Public API -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2">Fetching Data from a Public API</h3>
+      <p class="text-gray-700 mb-4">Fetch posts from JSONPlaceholder and convert to a pandas DataFrame.</p>
+      <pre><code class="language-python">
+import requests
+import pandas as pd
+
+try:
+    response = requests.get('https://jsonplaceholder.typicode.com/posts')
+    response.raise_for_status()  # Check for HTTP errors
+    data = response.json()  # Parse JSON
+    df = pd.DataFrame(data)
+    print(df.head())
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- AWS API Gateway -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2 mt-6">Fetching Data from AWS API Gateway</h3>
+      <p class="text-gray-700 mb-4">Fetch data from an AWS API Gateway with API key authentication.</p>
+      <pre><code class="language-python">
+import requests
+import pandas as pd
+
+api_url = 'https://your-api-id.execute-api.us-east-1.amazonaws.com/prod/sales'
+api_key = 'your_api_key'
+
+try:
+    headers = {'x-api-key': api_key}
+    response = requests.get(api_url, headers=headers)
+    response.raise_for_status()
+    data = response.json()
+    df = pd.DataFrame(data['items'])  # Adjust based on response structure
+    print(df.head())
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")
+      </code></pre>
+
+      <!-- Handling Large Datasets -->
+      <h3 class="text-xl font-medium text-indigo-600 mb-2 mt-6">Handling Large Datasets with Pagination</h3>
+      <p class="text-gray-700 mb-4">Fetch paginated data from an API with multiple pages.</p>
+      <pre><code class="language-python">
+import requests
+import pandas as pd
+
+base_url = 'https://jsonplaceholder.typicode.com/comments'
+all_data = []
+
+try:
+    page = 1
+    while True:
+        params = {'page': page, '_limit': 50}  # Adjust based on API
+        response = requests.get(base_url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        if not data:  # Break if no more data
+            break
+        all_data.extend(data)
+        page += 1
+    df = pd.DataFrame(all_data)
+    print(f"Fetched {len(df)} records")
+    print(df.head())
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")
+      </code></pre>
+    </section>
+
+    <!-- Visualization -->
+    <section class="section-bg p-8 rounded-lg shadow-lg mb-8">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Sample Visualization</h2>
+      <p class="text-gray-700 mb-4">Visualize post counts by user from JSONPlaceholder API.</p>
+      <canvas id="postCountChart" class="w-full h-64"></canvas>
+      <script>
+        const ctx = document.getElementById('postCountChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['User 1', 'User 2', 'User 3', 'User 4', 'User 5'],
+            datasets: [{
+              label: 'Post Count',
+              data: [10, 8, 12, 7, 9], // Sample data
+              backgroundColor: 'rgba(79, 70, 229, 0.5)', // Indigo
+              borderColor: 'rgba(79, 70, 229, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: 'Posts' } },
+              x: { title: { display: true, text: 'User ID' } }
+            }
+          }
+        });
+      </script>
+    </section>
+
+    <!-- Best Practices -->
+    <section class="section-bg p-8 rounded-lg shadow-lg">
+      <h2 class="text-3xl font-semibold text-indigo-800 mb-4">Best Practices</h2>
+      <ul class="list-disc list-inside text-gray-700">
+        <li><strong>Error Handling</strong>: Use <code>raise_for_status</code> and try-except blocks for robust error handling.</li>
+        <li><strong>Rate Limiting</strong>: Respect API rate limits; use <code>time.sleep</code> if needed.</li>
+        <li><strong>Pagination</strong>: Handle paginated responses for large datasets.</li>
+        <li><strong>Authentication</strong>: Store API keys securely (e.g., environment variables).</li>
+        <li><strong>Streaming</strong>: Use <code>stream=True</code> for large responses to reduce memory usage.</li>
+        <li><strong>Logging</strong>: Log requests and errors for debugging.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
