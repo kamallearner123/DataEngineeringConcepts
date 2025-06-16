@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Form and Email in Django</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Command';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-python::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-html::before {
+            content: 'HTML';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Form and Email in Django</h1>
+    </header>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>This tutorial guides you through creating a Django application where users submit a form with their details (name, email, and message), and an email is sent to the admin with the submitted information. You’ll learn to set up a Django project, create a form, handle form submissions, configure email settings, and send emails using Django’s email backend.</p>
+        <p><strong>Prerequisites:</strong> Basic knowledge of Python, Django, and HTML. Ensure Django is installed (<code>pip install django</code>). Access to an SMTP server (e.g., Gmail) or use the console backend for testing.</p>
+        <p><strong>Features:</strong></p>
+        <ul>
+            <li>User form for name, email, and message.</li>
+            <li>Email notification sent to admin upon form submission.</li>
+            <li>Form validation and user feedback.</li>
+        </ul>
+
+        <h2>Step 1: Project Setup</h2>
+        <p>Create a Django project and app:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">django-admin startproject contact_form
+cd contact_form
+python manage.py startapp contact
+</code></pre>
+        </div>
+        <p>Add the <code>contact</code> app to <code>INSTALLED_APPS</code> in <code>contact_form/settings.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'contact',  # Add this
+]
+</code></pre>
+        </div>
+
+        <h2>Step 2: Configure Email Settings</h2>
+        <p>For testing, use Django’s console email backend, which prints emails to the console. For production, configure an SMTP server (e.g., Gmail). Add to <code>contact_form/settings.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python"># Console backend for testing
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# For Gmail (uncomment in production)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your-app-specific-password'
+# DEFAULT_FROM_EMAIL = 'your-email@gmail.com'
+
+# Admin email for receiving notifications
+ADMINS = [('Admin', 'admin@example.com')]
+</code></pre>
+        </div>
+        <p><strong>Note:</strong> Replace <code>admin@example.com</code> with your email. For Gmail, generate an app-specific password if using two-factor authentication.</p>
+
+        <h2>Step 3: Create a Form</h2>
+        <p>Define a form to collect user details in <code>contact/forms.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">from django import forms
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
+</code></pre>
+        </div>
+        <p>This form includes fields for name, email, and message with basic validation.</p>
+
+        <h2>Step 4: Configure URLs</h2>
+        <p>Define URL patterns for the form page. Edit <code>contact_form/urls.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('contact.urls')),
+]
+</code></pre>
+        </div>
+        <p>Create <code>contact/urls.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.contact_form, name='contact_form'),
+]
+</code></pre>
+        </div>
+        <p>The <code>contact_form</code> view handles both GET (display form) and POST (process submission).</p>
+
+        <h2>Step 5: Write Views</h2>
+        <p>Create a view to handle form rendering and email sending in <code>contact/views.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import ContactForm
+
+def contact_form(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            
+            # Send email to admin
+            subject = f"New Contact Form Submission from {name}"
+            email_message = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+            send_mail(
+                subject,
+                email_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [admin[1] for admin in settings.ADMINS],
+                fail_silently=False,
+            )
+            
+            return render(request, 'contact/success.html')
+    else:
+        form = ContactForm()
+    
+    return render(request, 'contact/contact_form.html', {'form': form})
+</code></pre>
+        </div>
+        <p><strong>Explanation:</strong></p>
+        <ul>
+            <li>GET: Displays the empty form.</li>
+            <li>POST: Validates the form, sends an email to the admin, and redirects to a success page.</li>
+            <li><code>send_mail</code>: Sends the email using Django’s email backend.</li>
+        </ul>
+
+        <h2>Step 6: Create Templates</h2>
+        <p>Configure the template directory in <code>contact_form/settings.py</code>:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        ...
+    },
+]
+</code></pre>
+        </div>
+        <p>Create <code>templates/contact/contact_form.html</code>:</p>
+        <div class="code-box-html">
+            <pre><code class="language-html"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Contact Us</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Name:</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <p class="error">{{ form.name.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <p class="error">{{ form.email.errors }}</p>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.message.id_for_label }}">Message:</label>
+            {{ form.message }}
+            {% if form.message.errors %}
+                <p class="error">{{ form.message.errors }}</p>
+            {% endif %}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+</code></pre>
+        </div>
+        <p>Create <code>templates/contact/success.html</code>:</p>
+        <div class="code-box-html">
+            <pre><code class="language-html"><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Thank You!</h1>
+    <p class="success">Your message has been sent successfully.</p>
+    <a href="{% url 'contact_form' %}">Submit another message</a>
+</body>
+</html>
+</code></pre>
+        </div>
+        <p>The form template includes validation error display, and the success template confirms submission.</p>
+
+        <h2>Step 7: Run the Project</h2>
+        <p>Run migrations and start the server:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">python manage.py migrate
+python manage.py runserver
+</code></pre>
+        </div>
+        <p>Visit <code>http://localhost:8000/</code> to access the form. Submit details, and check the console (or admin email if using SMTP) for the email.</p>
+
+        <h2>Directory Structure</h2>
+        <p>Final project structure:</p>
+        <div class="code-box">
+            <pre><code class="language-bash">contact_form/
+├── manage.py
+├── contact_form/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   ├── wsgi.py
+├── contact/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+├── templates/
+│   ├── contact/
+│   │   ├── contact_form.html
+│   │   ├── success.html
+</code></pre>
+        </div>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> Why is <code>fail_silently=False</code> used in <code>send_mail</code>, and what happens if an email fails to send?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> <code>fail_silently=False</code> raises an exception if the email fails (e.g., due to SMTP errors), allowing error handling. If <code>True</code>, failures are ignored, which could silently skip notifications.</p>
+                <p><strong>Explanation:</strong> With <code>False</code>, you can catch exceptions in the view to inform users of issues, improving reliability.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> How can you prevent spam submissions in the contact form?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> Use CSRF protection (already included via <code>{% csrf_token %}</code>), add a CAPTCHA (e.g., reCAPTCHA), implement rate limiting, or use honeypot fields to detect bots.</p>
+                <p><strong>Example (Honeypot):</strong> Add a hidden field that bots might fill:</p>
+                <div class="code-box-html">
+                    <pre><code class="language-html"><input type="text" name="honeypot" style="display:none;">
+</code></pre>
+                </div>
+                <p>In the view, reject submissions if the honeypot field is filled.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> How can you save form submissions to the database before sending the email?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> Create a model to store submissions, then save the form data before sending the email.</p>
+                <p><strong>Example:</strong></p>
+                <div class="code-box-python">
+                    <pre><code class="language-python">from django.db import models
+
+class ContactSubmission(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    submitted_at = models.DateTimeField(auto_now_add=True)
+
+# Update view
+def contact_form(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            submission = ContactSubmission(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                message=form.cleaned_data['message']
+            )
+            submission.save()
+            # Send email code here
+            ...
+</code></pre>
+                </div>
+                <p>Run <code>python manage.py makemigrations</code> and <code>python manage.py migrate</code> after adding the model.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-html.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+<div style="text-align: right; padding: 10px;">
+    <button onclick="window.print()" style="padding: 8px 16px; background-color: #0a2463; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+</div>
+</html>

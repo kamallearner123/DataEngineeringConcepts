@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Templates Tutorial</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #306998;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .question {
+            background: #e8f4f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 5px solid #007bff;
+        }
+        .answer {
+            display: none;
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .toggle-answer {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .code-box {
+            position: relative;
+        }
+        .code-box::before {
+            content: 'Command';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-python::before {
+            content: 'Python';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .code-box-html::before {
+            content: 'HTML';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            color: #aaa;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Django Templates Tutorial</h1>
+    </header>
+
+    <section>
+        <h2>Introduction to Django Templates</h2>
+        <p>Django templates are text files (usually HTML) that define the structure and layout of a web page. They allow you to dynamically generate content by embedding Python-like expressions and logic using Django’s template language. Templates separate presentation from logic, promoting clean and maintainable code.</p>
+        <p><strong>Key Features:</strong></p>
+        <ul>
+            <li>Dynamic content rendering with variables and context data.</li>
+            <li>Reusable components via template inheritance and includes.</li>
+            <li>Built-in filters and tags for formatting and control flow.</li>
+        </ul>
+        <p>Example: A simple template displaying a list of posts:</p>
+        <div class="code-box-html">
+            <pre><code class="language-html">&lt;ul&gt;
+{% for post in posts %}
+    &lt;li&gt;{{ post.title }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+</code></pre>
+        </div>
+        <p>This template loops through a <code>posts</code> context variable, rendering each post’s title in a list.</p>
+
+        <h2>Template Syntax</h2>
+        <p>Django’s template language uses three main constructs:</p>
+        <ul>
+            <li><strong>Variables:</strong> <code>{{ variable }}</code> outputs a value from the context. Dot notation accesses attributes (e.g., <code>{{ post.title }}</code>).</li>
+            <li><strong>Tags:</strong> <code>{% tag %}</code> controls logic (e.g., loops, conditionals). Example: <code>{% if user.is_authenticated %}</code>.</li>
+            <li><strong>Filters:</strong> <code>{{ variable|filter }}</code> modifies output (e.g., <code>{{ post.date|date:"Y-m-d" }}</code> formats a date).</li>
+        </ul>
+        <p>Example: Combining variables, tags, and filters:</p>
+        <div class="code-box-html">
+            <pre><code class="language-html">{% if posts %}
+    &lt;h2&gt;Latest Posts&lt;/h2&gt;
+    {% for post in posts %}
+        &lt;p&gt;{{ post.title|title }} (Published: {{ post.date|date:"F j, Y" }})&lt;/p&gt;
+    {% empty %}
+        &lt;p&gt;No posts available.&lt;/p&gt;
+    {% endfor %}
+{% else %}
+    &lt;p&gt;No posts found.&lt;/p&gt;
+{% endif %}
+</code></pre>
+        </div>
+        <p>This template checks if <code>posts</code> exists, loops through them, capitalizes titles with the <code>title</code> filter, and formats dates. The <code>empty</code> clause handles empty lists.</p>
+
+        <h2>Template Inheritance</h2>
+        <p>Template inheritance allows you to create a base template with common elements (e.g., header, footer) and extend it in child templates. This promotes DRY (Don’t Repeat Yourself) principles.</p>
+        <p><strong>Key Tags:</strong></p>
+        <ul>
+            <li><code>{% block name %}</code>: Defines a block that child templates can override.</li>
+            <li><code>{% extends "base.html" %}</code>: Specifies the parent template.</li>
+        </ul>
+        <p>Example: Base template (<code>base.html</code>):</p>
+        <div class="code-box-html">
+            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}My Site{% endblock %}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Site&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        {% block content %}
+        &lt;/main&gt;
+        &lt;footer&gt;
+            &lt;p&gt;&copy; 2025 My Site&lt;/p&gt;
+        &lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+        </div>
+        <p>Child template (<code>post_list.html</code>):</p>
+        <div class="code-box-html">
+            <pre><code class="language-html">{% extends "base.html" %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+    &lt;h2&gt;Blog Posts&lt;/h2&gt;
+    &lt;ul&gt;
+    {% for post in posts %}
+        &lt;li&gt;{{ post.title }}&lt;/li&gt;
+    {% endfor %}
+    &lt;/ul&gt;
+{% endblock %}
+</code></pre>
+        </div>
+        <p>The child template overrides the <code>title</code> and <code>content</code> blocks, inheriting the rest from <code>base.html</code>.</p>
+
+        <h2>Common Filters and Tags</h2>
+        <p><strong>Filters</strong> transform variable output. Examples:</p>
+        <ul>
+            <li><code>{{ text|truncatewords:10 }}</code>: Shortens text to 10 words.</li>
+            <li><code>{{ number|add:5 }}</code>: Adds 5 to a number.</li>
+            <li><code>{{ string|default:"N/A" }}</code>: Displays "N/A" if the string is empty.</li>
+        </ul>
+        <p><strong>Tags</strong> control template logic. Examples:</p>
+        <ul>
+            <li><code>{% url 'name' arg %}</code>: Generates a URL for a named route.</li>
+            <li><code>{% include "partial.html" %}</code>: Embeds another template.</li>
+            <li><code>{% with var=value %}</code>: Defines a temporary variable.</li>
+        </ul>
+        <p>Example: Using filters and tags:</p>
+        <div class="code-box-html">
+            <pre><code class="language-html">&lt;a href="{% url 'post_detail' post.slug %}"&gt;{{ post.title|truncatewords:5 }}&lt;/a&gt;
+{% include "comments.html" with comments=post.comments.all %}
+</code></pre>
+        </div>
+        <p>This generates a link to a post’s detail page and includes a comments partial with a custom context.</p>
+
+        <h2>Rendering Templates in Views</h2>
+        <p>Templates are rendered in views using the <code>render</code> shortcut, which takes a request, template name, and context dictionary.</p>
+        <p>Example: A view rendering a template:</p>
+        <div class="code-box-python">
+            <pre><code class="language-python">from django.shortcuts import render
+from .models import Post
+
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/post_list.html', {'posts': posts})
+</code></pre>
+        </div>
+        <p>The <code>posts</code> variable is passed to the template as context, accessible as <code>{{ posts }}</code>.</p>
+
+        <h2>Challenging Questions</h2>
+        <div class="question">
+            <p><strong>Question 1:</strong> How does template inheritance improve code maintainability, and what happens if a child template doesn’t override a block?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer1')">Show Answer</span>
+            <div id="answer1" class="answer">
+                <p><strong>Answer:</strong> Template inheritance allows a base template to define shared structure (e.g., header, footer), reducing duplication. Child templates override specific blocks, keeping code DRY. If a child doesn’t override a block, the parent’s block content is used.</p>
+                <p><strong>Explanation:</strong> For example, if <code>base.html</code> has <code>{% block title %}Default{% endblock %}</code> and the child doesn’t override it, “Default” is used in the rendered page.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 2:</strong> What is the purpose of the <code>{% url %}</code> tag, and how does it prevent issues in a Django project?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer2')">Show Answer</span>
+            <div id="answer2" class="answer">
+                <p><strong>Answer:</strong> The <code>{% url %}</code> tag generates URLs dynamically based on named URL patterns, avoiding hardcoded URLs. This prevents broken links if URL patterns change.</p>
+                <p><strong>Fix:</strong> For example, <code>{% url 'post_detail' post.slug %}</code> resolves to the correct URL, even if the path changes in <code>urls.py</code>.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p><strong>Question 3:</strong> How can you create a custom template filter, and when would you use it?</p>
+            <span class="toggle-answer" onclick="toggleAnswer('answer3')">Show Answer</span>
+            <div id="answer3" class="answer">
+                <p><strong>Answer:</strong> Create a custom filter by defining a Python function in a <code>templatetags</code> module and registering it with <code>@register.filter</code>. Use it for reusable formatting logic not covered by built-in filters.</p>
+                <p><strong>Example:</strong></p>
+                <div class="code-box-python">
+                    <pre><code class="language-python">from django import template
+
+register = template.Library()
+
+@register.filter
+def add_prefix(value, prefix):
+    return f"{prefix}{value}"
+</code></pre>
+                </div>
+                <p>Usage: <code>{{ name|add_prefix:"Mr. " }}</code> outputs "Mr. John".</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-html.min.js"></script>
+    <script>
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+<div style="text-align: right; padding: 10px;">
+    <button onclick="window.print()" style="padding: 8px 16px; background-color: #0a2463; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
+      <i class="fas fa-print"></i> Print Page
+    </button>
+</div>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Analytics Dashboard Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-coy.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        pre {
+            background-color: #ffffff !important;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        code {
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6 max-w-4xl">
+        <h1 class="text-4xl font-bold text-center text-blue-700 mb-6">Sales Analytics Dashboard Documentation</h1>
+
+        <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Application Concept</h2>
+            <p class="text-gray-700 mb-4">
+                The <strong>Sales Analytics Dashboard</strong> is a Django-based web application that allows users to upload sales data (CSV files) to a Data Lake, process it using Pandas, and visualize key metrics through an interactive dashboard. It is designed for businesses to analyze sales data efficiently, with features for file uploads, data processing, and visualizations.
+            </p>
+            <p class="text-gray-700">
+                Key features include:
+                <ul class="list-disc pl-6">
+                    <li>Uploading sales data (CSV) to a Data Lake (simulated locally for development).</li>
+                    <li>Processing data with Pandas to compute metrics like total sales and sales by region.</li>
+                    <li>Displaying visualizations (e.g., bar charts) on a Django-powered dashboard.</li>
+                    <li>Filtering data by date range or region.</li>
+                </ul>
+            </p>
+        </section>
+
+        <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Requirements</h2>
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Functional Requirements</h3>
+            <ul class="list-disc pl-6 text-gray-700 mb-4">
+                <li><strong>Data Upload</strong>: Users upload CSV files with columns: <code>order_id</code>, <code>product</code>, <code>region</code>, <code>sales_amount</code>, <code>date</code>.</li>
+                <li><strong>Data Processing</strong>: Pandas processes CSV files to compute metrics (e.g., total sales, top products).</li>
+                <li><strong>Dashboard</strong>: Displays visualizations and allows filtering by date or region.</li>
+                <li><strong>Database</strong>: Stores file metadata (file name, upload date) using Django models.</li>
+                <li><strong>User Interface</strong>: Simple web interface for uploads and dashboard viewing.</li>
+            </ul>
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Non-Functional Requirements</h3>
+            <ul class="list-disc pl-6 text-gray-700 mb-4">
+                <li><strong>Scalability</strong>: Handles large CSV files (up to 1 GB).</li>
+                <li><strong>Performance</strong>: Optimized Pandas processing for large datasets.</li>
+                <li><strong>Security</strong>: Restricts access to authenticated users.</li>
+                <li><strong>Testing</strong>: Includes unit tests for upload, processing, and visualization.</li>
+            </ul>
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Technical Requirements</h3>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><strong>Language</strong>: Python 3.8+</li>
+                <li><strong>Libraries</strong>: Django, Pandas, django-pandas, Matplotlib, Seaborn</li>
+                <li><strong>Database</strong>: SQLite (development), PostgreSQL (production)</li>
+                <li><strong>Storage</strong>: Local directory as mock Data Lake</li>
+                <li><strong>Testing</strong>: Django’s testing framework</li>
+            </ul>
+        </section>
+
+        <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Directory Structure</h2>
+            <pre><code class="language-python">sales_dashboard/
+├── manage.py
+├── sales_app/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations/
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── views.py
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── upload.html
+│   │   ├── dashboard.html
+│   ├── static/
+│   │   ├── visualizations/
+│   ├── data_lake/
+├── sales_dashboard/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+├── requirements.txt
+</code></pre>
+        </section>
+
+        <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Python Code</h2>
+
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Models (sales_app/models.py)</h3>
+            <pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import User
+
+class DataFile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    file_name = models.CharField(max_length=255)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    file_path = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.file_name
+</code></pre>
+
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Views (sales_app/views.py)</h3>
+            <pre><code class="language-python">import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from .models import DataFile
+
+@login_required
+def upload_file(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        file_name = file.name
+        file_path = os.path.join(settings.BASE_DIR, 'sales_app', 'data_lake', file_name)
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        DataFile.objects.create(user=request.user, file_name=file_name, file_path=file_path)
+        return redirect('dashboard')
+    return render(request, 'upload.html')
+
+@login_required
+def dashboard(request):
+    files = DataFile.objects.filter(user=request.user)
+    if not files.exists():
+        return render(request, 'dashboard.html', {'data': None})
+
+    # Process the latest file with Pandas
+    latest_file = files.latest('upload_date')
+    df = pd.read_csv(latest_file.file_path)
+
+    # Compute metrics
+    total_sales = df['sales_amount'].sum()
+    sales_by_region = df.groupby('region')['sales_amount'].sum().to_dict()
+    top_products = df.groupby('product')['sales_amount'].sum().nlargest(5).to_dict()
+
+    # Generate visualization
+    plt.figure(figsize=(10, 6))
+    sns.barplot(x=list(sales_by_region.values()), y=list(sales_by_region.keys()))
+    plt.title('Sales by Region')
+    plot_path = os.path.join(settings.STATICFILES_DIRS[0], 'visualizations', 'sales_by_region.png')
+    plt.savefig(plot_path)
+    plt.close()
+
+    context = {
+        'total_sales': total_sales,
+        'sales_by_region': sales_by_region,
+        'top_products': top_products,
+        'plot_url': '/static/visualizations/sales_by_region.png'
+    }
+    return render(request, 'dashboard.html', context)
+</code></pre>
+
+            <h3 class="text-xl font-medium text-gray-800 mb-2">URLs (sales_app/urls.py)</h3>
+            <pre><code class="language-python">from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('upload/', views.upload_file, name='upload_file'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+]
+</code></pre>
+
+            <h3 class="text-xl font-medium text-gray-800 mb-2">Tests (sales_app/tests.py)</h3>
+            <pre><code class="language-python">from django.test import TestCase
+from django.contrib.auth.models import User
+from .models import DataFile
+import pandas as pd
+import os
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+
+class SalesAppTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+        self.test_csv_content = b"order_id,product,region,sales_amount,date\n1,Phone,North,1000,2023-01-01\n2,Laptop,South,1500,2023-01-02"
+        self.test_file = SimpleUploadedFile("test.csv", self.test_csv_content)
+
+    def test_upload_file(self):
+        response = self.client.post(reverse('upload_file'), {'file': self.test_file})
+        self.assertEqual(response.status_code, 302)  # Redirect to dashboard
+        self.assertTrue(DataFile.objects.filter(user=self.user, file_name='test.csv').exists())
+
+    def test_dashboard(self):
+        DataFile.objects.create(user=self.user, file_name='test.csv', file_path='sales_app/data_lake/test.csv')
+        with open('sales_app/data_lake/test.csv', 'wb') as f:
+            f.write(self.test_csv_content)
+        response = self.client.get(reverse('dashboard'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Total Sales: 2500")
+</code></pre>
+        </section>
+
+        <section class="bg-white shadow-lg rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Setup Instructions</h2>
+            <ol class="list-decimal pl-6 text-gray-700">
+                <li>Create a virtual environment and install dependencies:
+                    <pre><code class="language-bash">python -m venv venv
+source venv/bin/activate
+pip install django pandas django-pandas matplotlib seaborn
+</code></pre>
+                </li>
+                <li>Create Django project and app:
+                    <pre><code class="language-bash">django-admin startproject sales_dashboard
+cd sales_dashboard
+python manage.py startapp sales_app
+</code></pre>
+                </li>
+                <li>Update <code>sales_dashboard/settings.py</code> to include <code>sales_app</code> and <code>django-pandas</code>.</li>
+                <li>Create a <code>data_lake</code> directory in <code>sales_app/</code>.</li>
+                <li>Run migrations:
+                    <pre><code class="language-bash">python manage.py makemigrations
+python manage.py migrate
+</code></pre>
+                </li>
+                <li>Create a superuser:
+                    <pre><code class="language-bash">python manage.py createsuperuser
+</code></pre>
+                </li>
+                <li>Run the server:
+                    <pre><code class="language-bash">python manage.py runserver
+</code></pre>
+                </li>
+                <li>Access at <code>http://127.0.0.1:8000/</code>.</li>
+                <li>Run tests:
+                    <pre><code class="language-bash">python manage.py test
+</code></pre>
+                </li>
+            </ol>
+        </section>
+
+        <section class="bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Sample CSV File</h2>
+            <pre><code class="language-text">order_id,product,region,sales_amount,date
+1,Phone,North,1000,2023-01-01
+2,Laptop,South,1500,2023-01-02
+3,Tablet,East,800,2023-01-03
+4,Phone,West,1200,2023-01-04
+</code></pre>
+        </section>
+    </div>
+</body>
+</html>

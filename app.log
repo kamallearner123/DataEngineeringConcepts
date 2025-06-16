@@ -2235,3 +2235,105 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'book_detail' with arguments 
 2025-06-11 11:19:29 - django.request - WARNING - Not Found: /apple-touch-icon-precomposed.png
 2025-06-11 11:19:29 - django.request - WARNING - Not Found: /favicon.ico
 2025-06-11 11:19:29 - django.request - WARNING - Not Found: /apple-touch-icon.png
+2025-06-15 09:50:45 - django.utils.autoreload - INFO - Watching for file changes with StatReloader
+2025-06-15 09:50:54 - django.request - WARNING - Not Found: /favicon.ico
+2025-06-15 09:50:59 - django.request - ERROR - Internal Server Error: /tutorials/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 116, in tutorials_dashboard
+    return render(request, 'dashboards/tutorials_dashboard.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'tutorials' not found. 'tutorials' is not a valid view function or pattern name.
+2025-06-15 09:51:18 - django.request - ERROR - Internal Server Error: /tutorials/
+Traceback (most recent call last):
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/1.GitHub/AptTutorials/DataEngineeringConcepts/pages/views.py", line 116, in tutorials_dashboard
+    return render(request, 'dashboards/tutorials_dashboard.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kamalmukiri/Documents/virtualEnvs/dataengineering/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'tutorials' not found. 'tutorials' is not a valid view function or pattern name.
