@@ -1,0 +1,1 @@
+nuitka runserver.py   --standalone   --onefile   --enable-plugin=pylint-warnings   --include-package=DataEngineering   --include-package=DataEngineering   --include-data-dir=templates=templates   --include-data-dir=staticfiles=staticfiles   --output-dir=build
