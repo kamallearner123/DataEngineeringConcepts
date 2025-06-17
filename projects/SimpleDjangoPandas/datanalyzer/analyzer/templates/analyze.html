@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Analyzer</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        select, input[type="file"], button { padding: 8px; font-size: 16px; margin: 10px 0; }
+        img { margin-top: 20px; max-width: 90%; }
+        table { border-collapse: collapse; width: 80%; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h2>Analyze Uploaded CSV</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="category">Select Category:</label><br>
+        <select name="category" required>
+            {% for name in categories %}
+                <option value="{{ name }}" {% if name == selected %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="csvfile">Upload CSV File:</label><br>
+        <input type="file" name="csvfile" accept=".csv" required><br>
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if head %}
+        <h3>CSV Preview:</h3>
+        {{ head|safe }}
+    {% endif %}
+
+    {% if plot_url %}
+        <h3>Plot:</h3>
+        <img src="{{ plot_url }}" alt="Plot">
+    {% endif %}
+</body>
+</html>
