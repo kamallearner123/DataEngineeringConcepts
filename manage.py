@@ -20,5 +20,6 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.config.fileConfig('logging.conf')
+    print(sys.path)
+    #logging.config.fileConfig('logging.conf')
     main()

@@ -25,6 +25,8 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 from .views import login_view, register_view
+from django.contrib.auth.decorators import login_required
+import book
 
 def home_page(request):
     return render(request, "home/home.html")  # ✅ matches your template path
@@ -38,8 +40,10 @@ urlpatterns = [
     # when user open the browser and type localhost:8000, it will redirect to home page with is there in tempaltes/home/home.html
     path("", home_page, name="home"),
     path("tutorials/", include("pages.urls")),  # Include the URLs from the book app
+    path("tutorials/<str:topic>/", include("pages.urls")),  # Include the URLs from the book app with topic
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('course_rpi_python/', course_rpi_python, name='course_rpi_python'),
+    path('book_view', include('book.urls')),  # Include the URLs from the book app
 ]

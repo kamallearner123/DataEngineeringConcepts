@@ -238,10 +238,17 @@
           <h3>Thought for the day</h3>
         </a>  
 
-        <a href="{% url 'tutorials' 'python' %}" class="tile {% if topic == 'topic python' %}active{% endif %}">
+        <!-- <a href="{% url 'tutorials' 'python' %}" class="tile {% if topic == 'topic python' %}active{% endif %}">
+          <img src="{% static 'images/python.png' %}" alt="Python Logo">
+          <h3>Python Programming</h3>
+        </a> -->
+
+
+        <a href="{% url 'tutorials' 'python' %}" class="tile {% if topic == 'python' %}active{% endif %}">
           <img src="{% static 'images/python.png' %}" alt="Python Logo">
           <h3>Python Programming</h3>
         </a>
+        
         <a href="{% url 'tutorials' 'rust_programming' %}" class="tile {% if topic == 'topic rust_programming' %}active{% endif %}">
           <img src="{% static 'images/rust.png' %}" alt="Rust Logo">
           <h3>Rust Programming</h3>

@@ -6,6 +6,7 @@ matplotlib.use('Agg')  # Use non-GUI backend for matplotlib
 import os
 from django.shortcuts import render
 from django.conf import settings
+from django.http import HttpResponse
 
 DATA_CATEGORIES = {
     "Sales": "sales",
@@ -21,6 +22,16 @@ DATA_CATEGORIES = {
 }
 
 def analyze_category(request):
+    print("****** Starting analysis for category ******")
+    print("Request method:", request.method)
+    if request.method == "GET":
+        print("Request GET data:", request.GET)
+    else:
+        print("Request POST data:", request.POST)
+        print("Request FILES data:", request.FILES)
+        print("CSV file:", request.FILES.get("csvfile"))
+    print("****** Analysis function called ******")
+
     selected = None
     plot_url = None
     head = None
@@ -44,7 +55,6 @@ def analyze_category(request):
                 elif selected == "Students":
                     df['Scores'].plot(kind='line', title='Student Scores')
                 elif selected == "Titanic":
-                    print("Plotting Titanic data")
                     df['survived'].value_counts().plot(kind='pie', autopct='%1.1f%%', title='Titanic Survival')
                     plt.ylabel('')  # Hide the y-label for pie chart
                     plt.title('Titanic Survival Distribution')
@@ -102,9 +112,6 @@ def analyze_category(request):
                 print(f"KeyError: {e} - Check if the selected category has the required columns.")
                 plt.text(0.5, 0.5, f"Error: {e}", horizontalalignment='center', verticalalignment='center', fontsize=12)
                 plt.axis('off')  # Hide axes for error message
-            # Save the plot
-            #df.select_dtypes(include='number').hist(figsize=(10, 6))
-
 
 
             plt.tight_layout()
@@ -119,3 +126,23 @@ def analyze_category(request):
         "head": head,
         "plot_url": plot_url,
     })
+
+
+API_KEY = 123
+
+valid_api = []
+def send_api(request):
+    print("****** Starting API data send ******")
+    print("Request method:", request.method)
+    if request.method == "GET":
+        print("Request GET data:", request.GET)
+    else:
+        print("Request POST data:", request.POST)
+        print("Request FILES data:", request.FILES)
+
+    global API_KEY
+    API_KEY = API_KEY+1
+
+    valid_api.append("ABCD"+str(API_KEY))
+
+    return HttpResponse("ABCD"+str(API_KEY), content_type="text/plain")

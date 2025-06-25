@@ -1,37 +1,40 @@
 {% extends "dashboards/topics_dashboard.html" %}
 
 {% block content %}
-<div class="book-container" style="display: flex; gap: 1rem; padding: 1rem;">
-    
-    <!-- Sidebar: Topics and Subtopics -->
-    <aside style="width: 25%; border-right: 1px solid #ccc; padding-right: 1rem;">
-        <h3>Topics</h3>
-        <ul>
-                {% for topic_name, subtopics in structure.items %}
-                    <li>
-                        <strong>{{ topic_name }}</strong>
-                        <ul>
-                            {% for sub in subtopics %}
-                                <li>
-                                    <a href="{% url 'book_detail' topic_name sub %}"
-                                       {% if topic_name == selected_topic and sub == selected_subtopic %}style="font-weight: bold;"{% endif %}>
-                                        {{ sub }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-        </ul>
-    </aside>
+<div class="topics">
+    {% for topic, items in structure.items %}
+        <div style="margin-bottom: 1.5rem;">
+            <h2>{{ topic }}</h2>
 
-    <!-- Main Content -->
-    <main style="width: 75%; padding-left: 1rem;">
-        <h2>{{ selected_topic }} - {{ selected_subtopic }}</h2>
-        <div class="book-content">
-            {{ content|safe }}
+            {# Top-level files directly under topic #}
+            {% if items.root_files %}
+                <ul style="margin-left: 1rem;">
+                    {% for file in items.root_files %}
+                        <li>
+                            <a href="{% url 'tutorials' file_path=topic|add:'/'|add:file %}">
+                                {{ file }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {# Subfolders and their files #}
+            {% for subfolder, files in items.items %}
+                {% if subfolder != "root_files" %}
+                    <h4 style="margin-left: 1rem;">{{ subfolder }}</h4>
+                    <ul style="margin-left: 2rem;">
+                        {% for file in files %}
+                            <li>
+                                <a href="{% url 'tutorials' file_path=topic|add:'/'|add:subfolder|add:'/'|add:file %}">
+                                    {{ file }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
         </div>
-    </main>
-
+    {% endfor %}
 </div>
 {% endblock %}
