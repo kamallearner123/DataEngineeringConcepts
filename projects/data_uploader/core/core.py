@@ -1,3 +1,11 @@
+'''
+Module: core.py
+Description: Cover core flow of stack
+Author: xyz
+Date: 
+Licence:
+'''
+
 import os
 import json
 from app import s3_utils
@@ -6,7 +14,17 @@ from app import rds_utils
 print("Importing core!!!")
 print("Module name is ", __name__)
 
+
+class mathops:
+    def __init__(self):
+        pass
+    def add(self, a,b):
+        pass
+    
 def add(a,b):
+    '''
+    This function returns sum of elements...
+    '''
     return a+b
 
 def main_core():
