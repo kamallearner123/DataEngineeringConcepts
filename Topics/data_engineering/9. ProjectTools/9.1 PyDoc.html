@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pydoc Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background-color: #fff;
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+        }
+        .example {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-left: 5px solid #007bff;
+        }
+        .example h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guide to Pydoc: Python's Documentation Generator</h1>
+    <p>Pydoc is a built-in Python module that generates documentation from Python modules, classes, functions, and methods. It extracts docstrings and other information to create text or HTML documentation. This guide explains Pydoc's usage with practical examples.</p>
+
+    <h2>What is Pydoc?</h2>
+    <p>Pydoc is part of Python's standard library and serves two main purposes:</p>
+    <ul>
+        <li><strong>Command-line tool</strong>: Generate documentation via the terminal.</li>
+        <li><strong>Module</strong>: Import and use Pydoc programmatically in Python scripts.</li>
+    </ul>
+    <p>It automatically extracts docstrings and metadata (e.g., function signatures, class attributes) to produce documentation in plain text, HTML, or serve it via a web server.</p>
+
+    <h2>Using Pydoc from the Command Line</h2>
+    <p>Pydoc can be run from the command line using the <code>python -m pydoc</code> command. Below are common use cases with examples.</p>
+
+    <div class="example">
+        <h3>Example 1: Viewing Documentation for a Module</h3>
+        <p>To view documentation for a built-in module like <code>os</code>, run:</p>
+        <pre><code>python -m pydoc os</code></pre>
+        <p><strong>Output</strong>: Displays the docstring and details of the <code>os</code> module in plain text in the terminal, including functions, classes, and their descriptions.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 2: Generating HTML Documentation</h3>
+        <p>To generate an HTML file for a module, use the <code>-w</code> flag:</p>
+        <pre><code>python -m pydoc -w os</code></pre>
+        <p><strong>Output</strong>: Creates an <code>os.html</code> file in the current directory with formatted documentation.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 3: Starting a Local Web Server</h3>
+        <p>Pydoc can serve documentation via a local web server:</p>
+        <pre><code>python -m pydoc -b</code></pre>
+        <p><strong>Output</strong>: Opens a browser window with a web interface to browse Python module documentation, typically at <code>http://localhost:8000</code>.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 4: Viewing Documentation for a Specific Function</h3>
+        <p>To view documentation for a specific function, use dot notation:</p>
+        <pre><code>python -m pydoc os.path.join</code></pre>
+        <p><strong>Output</strong>: Shows the docstring for the <code>os.path.join</code> function, describing its purpose and parameters.</p>
+    </div>
+
+    <h2>Using Pydoc Programmatically</h2>
+    <p>Pydoc can be imported as a module to generate documentation within Python scripts. Below are examples of programmatic usage.</p>
+
+    <div class="example">
+        <h3>Example 5: Generating Documentation for a Custom Module</h3>
+        <p>Suppose you have a Python file named <code>my_module.py</code>:</p>
+        <pre><code># my_module.py
+"""This is a sample module for Pydoc demonstration."""
+
+def greet(name):
+    """Return a greeting message for the given name."""
+    return f"Hello, {name}!"
+
+class MyClass:
+    """A simple class for demonstration."""
+    def __init__(self, value):
+        """Initialize with a value."""
+        self.value = value
+
+    def display(self):
+        """Display the stored value."""
+        return self.value
+</code></pre>
+        <p>Run the following command to generate documentation:</p>
+        <pre><code>python -m pydoc ./my_module</code></pre>
+        <p><strong>Output</strong>: Displays the module's docstring, function, and class details in the terminal.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 6: Programmatic Documentation with Pydoc</h3>
+        <p>You can use Pydoc in a script to generate documentation programmatically:</p>
+        <pre><code># generate_doc.py
+import pydoc
+import my_module
+
+# Generate plain text documentation
+doc = pydoc.plain(pydoc.render_doc(my_module))
+print(doc)
+</code></pre>
+        <p><strong>Output</strong>: Prints the documentation for <code>my_module</code> in plain text format.</p>
+    </div>
+
+    <div class="example">
+        <h3>Example 7: Generating HTML Documentation Programmatically</h3>
+        <p>To generate HTML documentation in a script:</p>
+        <pre><code># generate_html_doc.py
+import pydoc
+import my_module
+
+# Generate HTML documentation and save to a file
+html_doc = pydoc.HTMLDoc().document(my_module)
+with open("my_module.html", "w") as f:
+    f.write(html_doc)
+</code></pre>
+        <p><strong>Output</strong>: Creates <code>my_module.html</code> with formatted HTML documentation for <code>my_module</code>.</p>
+    </div>
+
+    <h2>Key Features of Pydoc</h2>
+    <ul>
+        <li><strong>Docstring Extraction</strong>: Automatically extracts and formats docstrings from modules, classes, and functions.</li>
+        <li><strong>Multiple Output Formats</strong>: Supports plain text, HTML, and web server output.</li>
+        <li><strong>Search Functionality</strong>: Use <code>python -m pydoc -k <keyword></code> to search for modules containing a keyword.</li>
+        <li><strong>Interactive Help</strong>: Access Pydoc via Python's <code>help()</code> function, e.g., <code>help(os)</code>.</li>
+    </ul>
+
+    <div class="example">
+        <h3>Example 8: Searching for Modules</h3>
+        <p>To search for modules related to "http":</p>
+        <pre><code>python -m pydoc -k http</code></pre>
+        <p><strong>Output</strong>: Lists modules like <code>http.client</code>, <code>http.server</code>, etc.</p>
+    </div>
+
+    <h2>Tips for Effective Pydoc Usage</h2>
+    <ul>
+        <li>Write clear and descriptive docstrings in your code to improve Pydoc output.</li>
+        <li>Use the <code>-w</code> flag to create shareable HTML documentation.</li>
+        <li>Use the web server (<code>-b</code>) for an interactive documentation experience.</li>
+        <li>Combine Pydoc with tools like Sphinx for more advanced documentation needs.</li>
+    </ul>
+
+    <h2>Limitations</h2>
+    <ul>
+        <li>Pydoc relies on docstrings; poorly documented code results in limited output.</li>
+        <li>It lacks advanced formatting options compared to tools like Sphinx.</li>
+        <li>It does not support custom templates for HTML output.</li>
+    </ul>
+
+    <p>This guide covers the core functionality of Pydoc with practical examples. For more details, run <code>python -m pydoc pydoc</code> to explore Pydoc's own documentation!</p>
+</body>
+</html>

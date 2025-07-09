@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF‑8" />
+  <title>Amazon Redshift — Complete Hands‑On Guide</title>
+  <style>
+    :root {
+      --brand:#c10e3f;
+      --accent:#005792;
+      --bg:#f7f9fc;
+      --code:#eef3ff;
+    }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:32px;background:var(--bg);color:#333}
+    h1{color:var(--brand);margin-top:0;font-size:2rem}
+    h2{color:var(--accent);margin-top:2rem;border-bottom:2px solid #cbd5e1;padding-bottom:4px}
+    h3{color:#444;margin-top:1.2rem}
+    pre{background:var(--code);padding:12px;border-radius:6px;overflow-x:auto}
+    code{background:#eef;padding:2px 4px;border-radius:4px}
+    nav ul{padding-left:20px}
+    nav li{margin:6px 0}
+    a{color:var(--accent)}
+    section{margin-bottom:36px}
+    table{border-collapse:collapse;width:100%}
+    th,td{border:1px solid #d9e2ec;padding:6px}
+    th{background:#e0ebff}
+  </style>
+</head>
+<body>
+
+<h1>Amazon Redshift 🛠 — Create, Connect with Python &amp; Operate Like a Pro</h1>
+
+<nav>
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><a href="#create-console">1 · Create a Cluster (AWS Console)</a></li>
+    <li><a href="#create-cli">2 · Create via AWS CLI / CloudFormation / Terraform</a></li>
+    <li><a href="#python-access">3 · Access Redshift with Python</a></li>
+    <li><a href="#operations">4 · Daily Operations &amp; Best Practices</a></li>
+    <li><a href="#sql-cheatsheet">5 · Redshift SQL Cheat‑Sheet</a></li>
+    <li><a href="#security">6 · Security &amp; Governance</a></li>
+    <li><a href="#cost-control">7 · Cost Control &amp; Scaling</a></li>
+    <li><a href="#troubleshoot">8 · Troubleshooting &amp; Monitoring</a></li>
+  </ul>
+</nav>
+
+<section id="create-console">
+  <h2>1 · Creating a Redshift Cluster via AWS Console</h2>
+  <ol>
+    <li><strong>Login</strong> to the AWS Console → <em>Services → Redshift</em> → <em>Create cluster</em>.</li>
+    <li><strong>Cluster identifier</strong>: <code>analytics‑prod</code>.</li>
+    <li><strong>Node type</strong>:
+      <ul>
+        <li><em>RA3</em> (recommended for separation of storage/compute, auto‑scaling).</li>
+        <li><em>dc2.large / dc2.8xlarge</em> for smaller, fixed‑storage workloads.</li>
+      </ul>
+    </li>
+    <li><strong>Number of nodes</strong>: start with 1 for RA3 (it’s still a multi‑AZ managed service under the hood).</li>
+    <li><strong>Admin user &amp; password</strong>: e.g. <code>master</code> / <code>&lt;StrongPW&gt;</code>.</li>
+    <li><strong>Network &amp; security</strong>:
+      <ul>
+        <li>Select an existing <strong>VPC</strong> or let Redshift create one.</li>
+        <li>Create / choose a <strong>Subnet group</strong> covering at least two AZs.</li>
+        <li>Add an inbound rule in the <strong>security group</strong>:
+          <code>TCP 5439</code> from your office / VPN CIDR.</li>
+      </ul>
+    </li>
+    <li>(Optional) Tick <strong>Use default IAM Role</strong> (<code>AmazonRedshiftAllCommandsFullAccess</code>) so COPY/UNLOAD can read/write S3.</li>
+    <li>Click <strong>Create cluster</strong> → in ~5‑10 minutes the cluster is <em>Available</em>.</li>
+    <li>Note the <strong>Endpoint</strong>: <code>analytics‑prod.abc123.us‑east‑1.redshift.amazonaws.com:5439</code>.</li>
+  </ol>
+</section>
+
+<section id="create-cli">
+  <h2>2 · Create Programmatically (CLI / CFN / Terraform)</h2>
+  <h3>AWS CLI</h3>
+<pre><code># create-subnet-group once
+aws redshift create-cluster-subnet-group \
+  --cluster-subnet-group-name prod-sg \
+  --description "Redshift subnets" \
+  --subnet-ids subnet-aaa subnet-bbb
+
+# launch cluster
+aws redshift create-cluster \
+  --cluster-identifier analytics-prod \
+  --node-type ra3.xlplus \
+  --number-of-nodes 2 \
+  --master-username master \
+  --master-user-password &lt;StrongPW&gt; \
+  --cluster-subnet-group-name prod-sg \
+  --iam-roles arn:aws:iam::123456789012:role/MyRedshiftRole
+</code></pre>
+
+  <h3>Terraform (0.15+)</h3>
+<pre><code>resource "aws_redshift_subnet_group" "prod" {
+  name       = "prod-sg"
+  subnet_ids = ["subnet-aaa","subnet-bbb"]
+}
+
+resource "aws_redshift_cluster" "prod" {
+  cluster_identifier = "analytics-prod"
+  node_type          = "ra3.xlplus"
+  number_of_nodes    = 2
+  master_username    = "master"
+  master_password    = var.redshift_password
+  port               = 5439
+  iam_roles          = [aws_iam_role.redshift.arn]
+  subnet_group_name  = aws_redshift_subnet_group.prod.name
+}
+</code></pre>
+</section>
+
+<section id="python-access">
+  <h2>3 · Accessing Redshift with Python 🐍</h2>
+  <h3>3.1 psycopg2 / SQLAlchemy (JDBC‑style)</h3>
+<pre><code>pip install psycopg2-binary sqlalchemy pandas</code></pre>
+
+<pre><code>import pandas as pd, sqlalchemy as sa
+
+conn_str = (
+    "redshift+psycopg2://master:&lt;PW&gt;"
+    "@analytics-prod.abc123.us-east-1.redshift.amazonaws.com:5439/dev"
+)
+
+engine = sa.create_engine(conn_str)
+
+df = pd.read_sql("SELECT first_name, total_spend FROM customers LIMIT 10", engine)
+print(df.head())
+</code></pre>
+
+  <h3>3.2 Redshift Data API (no SQL drivers, works behind NAT)</h3>
+<pre><code>pip install boto3</code></pre>
+<pre><code>import boto3, time, pandas as pd, io
+
+rs = boto3.client("redshift-data")
+
+def run(query, database="dev", cluster="analytics-prod"):
+    resp = rs.execute_statement(Database=database, Sql=query,
+                                ClusterIdentifier=cluster)
+    qid = resp["Id"]
+    # simple poll
+    while (stat := rs.describe_statement(Id=qid))["Status"] in ["SUBMITTED","PICKED","STARTED"]:
+        time.sleep(1)
+    if stat["Status"] != "FINISHED":
+        raise RuntimeError(stat["Error"])
+    return rs.get_statement_result(Id=qid)
+
+rows = run("SELECT count(*) FROM sales")["Records"]
+print(rows[0][0]["longValue"])
+</code></pre>
+  <h3>3.3 Spectrum + Glue catalog example</h3>
+<pre><code>query = """
+SELECT sales_date, sum(amount) AS total
+FROM spectrum.sales_external
+WHERE year = 2025
+GROUP BY sales_date;
+"""
+pd.read_sql(query, engine)
+</code></pre>
+</section>
+
+<section id="operations">
+  <h2>4 · Daily Operations &amp; Best Practices</h2>
+  <table>
+    <thead><tr><th>Operation</th><th>How to</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Load data (S3 → Redshift)</td><td><code>COPY s3://bucket/key ... IAM_ROLE ... FORMAT AS CSV;</code></td><td>Split files into ~100 MB partitions for max parallelism.</td></tr>
+      <tr><td>Unload to S3</td><td><code>UNLOAD ('SELECT…') TO 's3://bucket/prefix' IAM_ROLE … PARQUET;</code></td><td>Use <code>PARQUET</code> for downstream Athena/Spark.</td></tr>
+      <tr><td>Vacuum</td><td><code>VACUUM;</code></td><td>Run after massive deletes/inserts; RA3 uses auto‑vacuum by default.</td></tr>
+      <tr><td>Analyze</td><td><code>ANALYZE;</code></td><td>Updates table statistics for query planner.</td></tr>
+      <tr><td>Resize cluster</td><td>AWS Console → <em>Modify</em> → change node count</td><td>Elastic Resize is near‑zero‑downtime; for RA3 you can add/remove quickly.</td></tr>
+      <tr><td>Pause/Resume</td><td><code>aws redshift pause-cluster</code></td><td>Only for single‑node clusters; billing stops for compute.</td></tr>
+      <tr><td>Snapshots</td><td>Automatic daily or <code>CREATE SNAPSHOT</code></td><td>Supports cross‑region, cross‑account.</td></tr>
+      <tr><td>Data sharing</td><td>CONSOLE → <strong>Data share</strong></td><td>Share live data to other AWS accounts without ETL.</td></tr>
+      <tr><td>Audit</td><td>Enable <code>useractivitylog</code> to S3</td><td>GLUE → Athena for querying logs.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sql-cheatsheet">
+  <h2>5 · Redshift SQL Cheat‑Sheet</h2>
+<pre><code>-- Distribution styles
+CREATE TABLE facts (
+  id BIGINT,
+  amount DECIMAL(12,2)
+)
+DISTSTYLE KEY DISTKEY(id)
+SORTKEY(id);
+
+-- CTAS (faster than INSERT SELECT)
+CREATE TABLE big_sales
+  DISTSTYLE ALL
+AS
+SELECT * FROM sales WHERE total &gt; 1000;
+
+-- Spectrum external table
+CREATE EXTERNAL TABLE spectrum.sales_external(
+  sale_id bigint,
+  sales_date date,
+  amount decimal(10,2))
+PARTITIONED BY (year int)
+STORED AS PARQUET
+LOCATION 's3://my-bucket/sales_parquet/';
+
+-- COPY with JSONPaths
+COPY staging
+FROM 's3://bucket/raw/'
+IAM_ROLE 'arn:aws:iam::123:role/redshift'
+FORMAT AS JSON 'auto';
+
+-- Concurrency scaling
+ALTER SYSTEM SET concurrency_scaling_mode = auto;</code></pre>
+</section>
+
+<section id="security">
+  <h2>6 · Security 🔐</h2>
+  <ul>
+    <li><strong>Encryption</strong>: Enable at cluster creation (KMS or HSM). All snapshots inherit.</li>
+    <li><strong>VPC</strong>: Place cluster in private subnets, access through bastion/VPN or Redshift Query Editor V2.</li>
+    <li><strong>IAM Role</strong>: Grant S3 read/write (<code>AmazonS3ReadOnlyAccess</code>) minimally required.</li>
+    <li><strong>Row‑level &amp; column‑level security</strong> (RLS/CLS) available since 2024 — define <code>CREATE ROW LEVEL SECURITY POLICY</code>.</li>
+    <li><strong>Audit logging</strong>: Enable user / connection / useractivity logs to S3 + CloudTrail.</li>
+  </ul>
+</section>
+
+<section id="cost-control">
+  <h2>7 · Cost Control &amp; Auto‑Scaling</h2>
+  <ul>
+    <li><strong>RA3 Reserved Instances</strong>: up to 55 % savings for 1‑ or 3‑year commitments.</li>
+    <li><strong>Concurrency Scaling</strong>: First 1 hour/day free; good for unpredictable spikes.</li>
+    <li><strong>Short query acceleration (SQA)</strong>: Auto‑isolates quick queries onto dedicated resources.</li>
+    <li><strong>Pausable clusters</strong>: Single‑node clusters can pause compute billing when idle.</li>
+    <li><strong>Use Spectrum</strong>: Keep infrequently accessed data in S3 to avoid storage charges.</li>
+  </ul>
+</section>
+
+<section id="troubleshoot">
+  <h2>8 · Troubleshooting &amp; Monitoring</h2>
+  <h3>CloudWatch Metrics</h3>
+  <ul>
+    <li><code>CPUUtilization</code> &gt; 90 % → consider adding nodes.</li>
+    <li><code>HealthStatus</code> &amp; <code>MaintenanceMode</code> events.</li>
+  </ul>
+  <h3>System Tables</h3>
+<pre><code>-- Top 5 longest queries in last hour
+SELECT pid, start_time, substring, elapsed
+FROM stv_recents
+ORDER BY elapsed DESC
+LIMIT 5;
+
+-- Disk usage per schema
+SELECT schemaname, sum(capacity) / 1024 AS mb
+FROM svv_table_info
+GROUP BY schemaname;</code></pre>
+  <h3>Workload Management (WLM)</h3>
+  <p>Edit parameter group → define user queues, slot counts, memory %.</p>
+</section>
+
+<footer>
+  <p style="text-align:center;color:#666;margin-top:40px">
+    © 2025 – Your Redshift Quick‑Start Guide. Happy querying!
+  </p>
+</footer>
+
+</body>
+</html>
